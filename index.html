@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tedca Corp | Stop Losing $350,400/Year to Voicemail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "@calcom/embed-react": "https://aistudiocdn.com/@calcom/embed-react@^1.5.3"
+  }
+}
+</script>
+
+    <!-- TAILWIND CONFIG -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        alert: '#FF3B30',
+                        success: '#34C759',
+                        offwhite: '#F9F9F9',
+                        subtle: '#F2F2F7'
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'shimmer': 'shimmer 2.5s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        shimmer: {
+                            '0%': { transform: 'translateX(-100%)', opacity: '0' },
+                            '50%': { opacity: '0.5' },
+                            '100%': { transform: 'translateX(100%)', opacity: '0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #0d0d0d;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Animated Voice Wave Background */
+        #voiceWaveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.04;
+            pointer-events: none;
+        }
+
+        /* Range Slider Styling - Minimalist */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            width: 100%;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #000;
+            border: 4px solid #fff;
+            cursor: pointer;
+            margin-top: -9px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            background: #e5e5e5;
+            border-radius: 2px;
+        }
+
+        /* Spotlight Card Effect */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .spotlight-card:hover {
+            border-color: rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.06);
+        }
+
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 0, 0, 0.03), transparent 40%);
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Form Input Styles - Ultra Minimal */
+        .form-input {
+            background: #f9f9f9;
+            border: 1px solid transparent;
+            color: #000;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .form-input:focus {
+            border-color: rgba(0, 0, 0, 0.1);
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-input::placeholder {
+            color: #a3a3a3;
+        }
+
+        select.form-input {
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23000000' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        /* Nav Link Hover */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #000;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Money Counter */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .money-lost {
+            animation: countUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Animations classes */
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- React Root for App.tsx -->
+    <div id="react-root" class="fixed inset-0 z-[9999] pointer-events-none"></div>
+
+    <!-- Animated Voice Wave Background -->
+    <canvas id="voiceWaveCanvas"></canvas>
+
+    <!-- URGENCY BANNER -->
+    <div
+        class="bg-black text-white text-center py-2 text-xs font-mono uppercase tracking-widest fixed top-0 w-full z-[101]">
+        <span class="text-success animate-pulse">●</span> Only <strong class="text-white">3 spots left</strong> this
+        month for North Jersey businesses • <a href="#demoForm"
+            class="underline hover:text-success transition-colors pointer-events-auto">Claim yours →</a>
+    </div>
+    <!-- Navbar -->
+    <nav
+        class="fixed w-full z-[100] bg-white/80 backdrop-blur-md border-b border-black/5 transition-all duration-300 top-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3 cursor-pointer group">
+                    <div
+                        class="w-8 h-8 bg-black flex items-center justify-center transition-transform duration-500 group-hover:rotate-180">
+                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                    </div>
+                    <span
+                        class="font-bold text-lg tracking-tighter font-sans group-hover:text-gray-600 transition-colors">TEDCA.</span>
+                </div>
+                <div class="hidden md:flex gap-10 items-center">
+                    <!-- Live Stats Counter - Animated -->
+                    <div
+                        class="hidden lg:flex items-center gap-2 mr-4 text-[10px] font-mono text-gray-500 border-r border-gray-200 pr-6">
+                        <span class="w-2 h-2 bg-success rounded-full animate-pulse"></span>
+                        <span id="live-calls-today">847</span> calls answered today
+                    </div>
+                    <a href="#how-it-works"
+                        class="nav-link text-xs font-medium uppercase tracking-widest text-gray-500 hover:text-black transition-colors pointer-events-auto">How
+                        It Works</a>
+                    <a href="#pricing"
+                        class="nav-link text-xs font-medium uppercase tracking-widest text-gray-500 hover:text-black transition-colors pointer-events-auto">Pricing</a>
+                    <button id="nav-try-demo"
+                        class="px-5 py-2.5 bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-success transition-all hover:shadow-lg hover:-translate-y-0.5 pointer-events-auto">
+                        Try Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="pt-44 pb-24 lg:pt-56 lg:pb-36 relative overflow-hidden">
+        <div
+            class="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] [mask-image:linear-gradient(to_bottom,white,transparent)]">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+                <!-- Left: The Problem -->
+                <div class="animate-fade-in-up">
+                    <!-- Tag - Live Counter -->
+                    <div
+                        class="inline-flex items-center gap-3 px-3 py-1.5 rounded-full border border-alert/20 bg-alert/5 mb-8">
+                        <span class="w-2 h-2 bg-alert rounded-full animate-pulse"></span>
+                        <span class="text-[10px] font-mono font-bold text-alert uppercase tracking-widest">Money Lost
+                            While Reading: -$<span id="live-loss-counter">0.00</span></span>
+                    </div>
+
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-8 leading-[0.95]">
+                        AI Voice Receptionist<br>
+                        <span class="text-gray-300">That Answers, Books,</span><br>
+                        <span class="relative inline-block">
+                            <span class="relative z-10 text-success">& Never Misses.</span>
+                        </span>
+                    </h1>
+
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed font-light max-w-lg">
+                        <strong class="text-black font-semibold">Your AI receptionist answers incoming calls 24/7, books appointments directly on your calendar, and can schedule, reschedule, or cancel appointments.</strong> Set up in 1 week. Never miss another call.
+                    </p>
+
+                    <!-- The Features - Quick Hits -->
+                    <div class="grid grid-cols-3 gap-4 mb-10">
+                        <div class="text-center p-4 bg-green-50 border border-green-100 rounded-lg">
+                            <div class="text-success font-mono text-xl font-bold">24/7</div>
+                            <div class="text-[9px] text-gray-500 uppercase tracking-widest mt-1">Answers Calls</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 border border-green-100 rounded-lg">
+                            <div class="text-success font-mono text-xl font-bold"><i class="fa-solid fa-calendar-check"></i></div>
+                            <div class="text-[9px] text-gray-500 uppercase tracking-widest mt-1">Books Calendar</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 border border-green-100 rounded-lg">
+                            <div class="text-success font-mono text-xl font-bold">1 Week</div>
+                            <div class="text-[9px] text-gray-500 uppercase tracking-widest mt-1">Setup Time</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button id="hero-try-demo"
+                            class="px-8 py-4 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-gray-900 transition-all hover:shadow-xl hover:-translate-y-1 text-center pointer-events-auto flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-phone-volume"></i> Try The AI Demo
+                        </button>
+                        <a href="#how-it-works"
+                            class="px-8 py-4 border border-gray-200 text-black text-xs font-bold uppercase tracking-widest hover:border-black transition-colors text-center pointer-events-auto">
+                            See How It Works →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Demo Form - The Solution Preview -->
+                <div class="relative animate-fade-in-up delay-200">
+                    <!-- Glow -->
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-green-50 via-transparent to-blue-50 blur-[100px] -z-10 opacity-60">
+                    </div>
+
+                    <!-- Badge -->
+                    <div
+                        class="absolute -top-5 left-1/2 -translate-x-1/2 bg-success text-white px-5 py-2 shadow-xl z-20 flex items-center gap-2">
+                        <div class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
+                        <span class="font-mono text-[10px] font-bold uppercase tracking-widest">Step 1: Test The
+                            AI</span>
+                    </div>
+
+                    <div id="demoForm"
+                        class="bg-white/80 backdrop-blur-xl border border-white/50 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] p-8 relative overflow-hidden group hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.15)] transition-shadow duration-500">
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-bold text-black mb-3 tracking-tight">Try The AI Receptionist
+                            </h2>
+                            <p class="text-sm text-gray-500 leading-relaxed">
+                                Fill this out and talk to the AI instantly. Try booking an appointment, rescheduling, or asking about services.
+                            </p>
+                        </div>
+
+                        <form id="demoFormElement" class="space-y-5">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-1.5 block">First
+                                        Name</label>
+                                    <input type="text" name="firstName" required
+                                        class="form-input w-full p-3 text-sm rounded-none" placeholder="John">
+                                </div>
+                                <div>
+                                    <label
+                                        class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-1.5 block">Last
+                                        Name</label>
+                                    <input type="text" name="lastName" required
+                                        class="form-input w-full p-3 text-sm rounded-none" placeholder="Doe">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-1.5 block">Phone</label>
+                                    <input type="tel" name="phone" required
+                                        class="form-input w-full p-3 text-sm rounded-none"
+                                        placeholder="+1 555 000 0000">
+                                </div>
+                                <div>
+                                    <label
+                                        class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-1.5 block">Email</label>
+                                    <input type="email" name="email" required
+                                        class="form-input w-full p-3 text-sm rounded-none"
+                                        placeholder="john@example.com">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label
+                                    class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-1.5 block">Company
+                                    Type</label>
+                                <select name="industry"
+                                    class="form-input w-full p-3 text-sm appearance-none cursor-pointer rounded-none">
+                                    <option value="">What type of business do you run?</option>
+                                    <option value="Law Firm">Law Firm</option>
+                                    <option value="Dental">Dental Practice</option>
+                                    <option value="HVAC">HVAC / Plumbing / Home Services</option>
+                                    <option value="Medical">Medical Office</option>
+                                    <option value="Real Estate">Real Estate</option>
+                                    <option value="Auto">Auto Repair</option>
+                                    <option value="Other">Other Service Business</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label
+                                    class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-1.5 block">Company
+                                    Name</label>
+                                <input type="text" name="businessName"
+                                    class="form-input w-full p-3 text-sm rounded-none" placeholder="Your Business Name">
+                            </div>
+
+                            <button type="submit"
+                                class="w-full bg-black text-white font-bold py-4 uppercase tracking-widest text-xs hover:bg-success transition-all duration-300 mt-2 group relative overflow-hidden pointer-events-auto">
+                                <span class="relative z-10 flex items-center justify-center gap-3">
+                                    <i class="fa-solid fa-microphone animate-pulse"></i>
+                                    Start Talking To The AI
+                                </span>
+                            </button>
+
+                            <div class="text-center text-[10px] text-gray-400 font-medium mt-1">No signup required.
+                                Instant demo.</div>
+
+                            <!-- What To Test -->
+                            <div class="bg-offwhite p-4 rounded-lg mt-4">
+                                <div class="text-[10px] font-mono uppercase text-gray-400 tracking-widest mb-3">Things
+                                    to try:</div>
+                                <div class="space-y-2 text-xs text-gray-600">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                        <span>"I'd like to book an appointment"</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                        <span>"I need to reschedule my appointment"</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-check text-success text-[10px]"></i>
+                                        <span>"What does this AI actually do?"</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF SECTION -->
+    <section class="py-16 bg-white border-b border-black/5">
+        <div class="max-w-6xl mx-auto px-6 md:px-8">
+            <!-- Stats Bar First -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="text-3xl font-bold mb-1">91%</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Can't Tell It's AI</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold mb-1">94%</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Questions Answered</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold mb-1 text-success">0.8s</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Response Time</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold mb-1">24/7</div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Always On</div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-6 bg-offwhite rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold">
+                            SC</div>
+                        <div>
+                            <div class="font-bold text-sm">Dr. Sarah Chen</div>
+                            <div class="text-xs text-gray-500">Dental Practice</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">"We went from losing 15 calls a week to capturing every single
+                        one. Paid for itself in 4 days."</p>
+                    <div class="text-success font-mono text-xs font-bold">+340% booking rate</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold">
+                            MT</div>
+                        <div>
+                            <div class="font-bold text-sm">Marcus Thompson</div>
+                            <div class="text-xs text-gray-500">HVAC Services</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">"The AI answered 127 calls last month. We didn't pay until it
+                        booked $2,400 worth of jobs."</p>
+                    <div class="text-success font-mono text-xs font-bold">$2,400 first month</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold">
+                            JW</div>
+                        <div>
+                            <div class="font-bold text-sm">Jennifer Wu</div>
+                            <div class="text-xs text-gray-500">Law Firm</div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">"No-show rate dropped from 25% to 4.2%. Plus we capture
+                        after-hours consultations now."</p>
+                    <div class="text-success font-mono text-xs font-bold">25% → 4.2% no-shows</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS - THE FUNNEL -->
+    <section id="how-it-works" class="py-24 bg-black text-white">
+        <div class="max-w-5xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-500 mb-4 block">Simple
+                    3-Step Process</span>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">How Tedca Works</h2>
+                <p class="text-gray-400 text-lg">From zero to 24/7 coverage in 1 week. We do all the work.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-12 h-12 bg-success rounded-full flex items-center justify-center text-black font-bold text-xl">
+                        1</div>
+                    <div class="bg-white/5 border border-white/10 p-8 pt-12 h-full">
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-microphone text-success text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Try The Demo</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Talk to the AI right now. Ask it anything. See for yourself that 91% of people can't tell
+                            it's AI.
+                        </p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Time: 10
+                                seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-12 h-12 bg-success rounded-full flex items-center justify-center text-black font-bold text-xl">
+                        2</div>
+                    <div class="bg-white/5 border border-white/10 p-8 pt-12 h-full">
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-calendar-check text-success text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">We Set You Up</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            We connect your calendar, load your business info (hours, pricing, services, FAQs), and
+                            configure the AI to schedule, reschedule, and cancel appointments.
+                        </p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Time: 1
+                                week</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div
+                        class="absolute -top-4 -left-4 w-12 h-12 bg-success rounded-full flex items-center justify-center text-black font-bold text-xl">
+                        3</div>
+                    <div class="bg-white/5 border border-white/10 p-8 pt-12 h-full">
+                        <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-money-bill-trend-up text-success text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Start Capturing Revenue</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            AI goes live. Answers every call 24/7. Books, reschedules, and cancels appointments directly on your calendar.
+                        </p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <span class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Setup: 1
+                                week</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Key Insight -->
+            <div class="bg-success/10 border border-success/20 p-8 text-center rounded-lg">
+                <h3 class="text-2xl font-bold mb-4 text-success">What You Get</h3>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    An AI receptionist that answers <strong class="text-white">every incoming call 24/7</strong>, books appointments directly on your calendar, and can <strong class="text-white">schedule, reschedule, or cancel</strong> appointments automatically. Setup takes just <strong class="text-white">1 week</strong>.
+                </p>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button id="how-works-try-demo"
+                    class="inline-block px-10 py-5 bg-white text-black font-bold text-sm uppercase tracking-widest hover:bg-success transition-all pointer-events-auto">
+                    <i class="fa-solid fa-phone-volume mr-2"></i> Try The Demo Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDUSTRY-SPECIFIC PAIN POINTS -->
+    <section class="py-20 bg-white border-b border-black/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-400 mb-4 block">Built
+                    For Your Industry</span>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">We Know Your Pain</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Law Firms -->
+                <div
+                    class="group p-8 border border-gray-100 hover:border-black transition-all duration-300 hover:shadow-xl">
+                    <div
+                        class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-black group-hover:text-white transition-all">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4">Law Firms</h3>
+                    <div class="space-y-3 text-sm text-gray-600 mb-6">
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>Client calls at 9pm after car accident</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>Hits voicemail, calls the next attorney</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>You lose a $15,000 case to someone who answered</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="text-success font-mono text-lg font-bold">With Tedca:</div>
+                        <div class="text-sm text-gray-600 mt-2">AI books consultations 24/7, screens clients, handles
+                            intake questions. <span class="font-bold text-black">$500-$2,000 per consultation
+                                captured.</span></div>
+                    </div>
+                </div>
+
+                <!-- Dental -->
+                <div
+                    class="group p-8 border border-gray-100 hover:border-black transition-all duration-300 hover:shadow-xl">
+                    <div
+                        class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-black group-hover:text-white transition-all">
+                        <i class="fa-solid fa-tooth"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4">Dental Practices</h3>
+                    <div class="space-y-3 text-sm text-gray-600 mb-6">
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>25% of your patients no-show every month</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>Empty chairs = $180K/year burned</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>Staff wastes 520 hours/year on phone</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="text-success font-mono text-lg font-bold">With Tedca:</div>
+                        <div class="text-sm text-gray-600 mt-2">Morning reminder calls drop no-shows from 25% to 4.2%.
+                            AI rebooks cancellations instantly. <span class="font-bold text-black">$150-$800 per
+                                appointment.</span></div>
+                    </div>
+                </div>
+
+                <!-- HVAC -->
+                <div
+                    class="group p-8 border border-gray-100 hover:border-black transition-all duration-300 hover:shadow-xl">
+                    <div
+                        class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-black group-hover:text-white transition-all">
+                        <i class="fa-solid fa-temperature-arrow-up"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-4">HVAC / Home Services</h3>
+                    <div class="space-y-3 text-sm text-gray-600 mb-6">
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>AC breaks at 2am in July. They call you first.</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>Voicemail? Already calling your competitor.</span>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="fa-solid fa-xmark text-alert mt-1"></i>
+                            <span>Emergency jobs = 2x-3x revenue. All lost.</span>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="text-success font-mono text-lg font-bold">With Tedca:</div>
+                        <div class="text-sm text-gray-600 mt-2">AI answers emergencies 24/7, provides quotes for common
+                            jobs, books service calls. <span class="font-bold text-black">$300-$2,000 per service
+                                call.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-gray-500 text-sm mb-6">Not in these industries? We work with <strong
+                        class="text-black">any service business</strong> that books appointments.</p>
+                <button id="pain-try-demo"
+                    class="inline-block px-8 py-4 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-gray-800 transition-all pointer-events-auto">
+                    See How It Works For You →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section class="py-16 bg-white border-b border-gray-100">
+        <div class="max-w-5xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-12">
+                <span class="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-400 mb-4 block">Works
+                    With Your Stack</span>
+                <h2 class="text-2xl font-bold tracking-tight">Connects To Everything You Already Use</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Calendar -->
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-brands fa-google text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Google Calendar</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-brands fa-microsoft text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Outlook</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-days text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Cal.com</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-solid fa-calendar-check text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Calendly</div>
+                </div>
+                <!-- CRM -->
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-brands fa-salesforce text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Salesforce</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-brands fa-hubspot text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">HubSpot</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-solid fa-bolt text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Zapier</div>
+                </div>
+                <div class="p-6 bg-offwhite rounded-lg text-center">
+                    <div class="w-10 h-10 mx-auto mb-3 flex items-center justify-center">
+                        <i class="fa-solid fa-phone text-2xl text-gray-600"></i>
+                    </div>
+                    <div class="text-sm font-bold">Any Phone System</div>
+                </div>
+            </div>
+
+            <p class="text-center text-xs text-gray-400 mt-8">Plus: Zoho CRM, Pipedrive, Twilio SMS, Gmail, Make.com,
+                and custom APIs</p>
+        </div>
+    </section>
+
+    <!-- HUMAN VS AI COMPARISON -->
+    <section class="py-20 bg-offwhite">
+        <div class="max-w-5xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <span class="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-gray-400 mb-4 block">The
+                    Real Numbers</span>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Human Receptionist vs. AI</h2>
+                <p class="text-gray-500">The math isn't even close.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Human Column -->
+                <div class="bg-white border border-gray-200 p-8 relative">
+                    <div
+                        class="absolute -top-3 left-6 bg-gray-100 text-gray-500 px-4 py-1 text-[10px] font-mono uppercase tracking-widest">
+                        Human Receptionist</div>
+                    <div class="pt-4 space-y-6">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-gray-600">Annual Salary</span>
+                            <span class="font-mono font-bold text-alert">$35,000+</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-gray-600">Benefits & Taxes</span>
+                            <span class="font-mono font-bold text-alert">+$8,000</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-gray-600">Training Cost</span>
+                            <span class="font-mono font-bold text-alert">+$2,000</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-gray-600">Sick Days / Vacation</span>
+                            <span class="font-mono font-bold text-alert">15+ days off</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-gray-600">After-Hours Coverage</span>
+                            <span class="font-mono font-bold text-alert">None</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="text-gray-600">Weekend Coverage</span>
+                            <span class="font-mono font-bold text-alert">None</span>
+                        </div>
+                        <div class="pt-4 text-center">
+                            <div class="text-3xl font-bold text-alert">$45,000+/year</div>
+                            <div class="text-xs text-gray-400 mt-1">Still misses 30% of calls</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Column -->
+                <div class="bg-black text-white p-8 relative shadow-xl">
+                    <div
+                        class="absolute -top-3 left-6 bg-success text-white px-4 py-1 text-[10px] font-mono uppercase tracking-widest font-bold">
+                        Tedca AI</div>
+                    <div class="pt-4 space-y-6">
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-gray-400">Setup Fee</span>
+                            <span class="font-mono font-bold text-success">$2,000 (one-time)</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-gray-400">Monthly Fee</span>
+                            <span class="font-mono font-bold text-success">$500/mo</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-gray-400">Training Cost</span>
+                            <span class="font-mono font-bold text-success">$0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-gray-400">Sick Days / Vacation</span>
+                            <span class="font-mono font-bold text-success">Never</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-gray-400">After-Hours Coverage</span>
+                            <span class="font-mono font-bold text-success">24/7</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-white/10">
+                            <span class="text-gray-400">Weekend Coverage</span>
+                            <span class="font-mono font-bold text-success">Always On</span>
+                        </div>
+                        <div class="pt-4 text-center">
+                            <div class="text-3xl font-bold text-success">$8,000/year</div>
+                            <div class="text-xs text-gray-400 mt-1">Answers 100% of calls + Books appointments</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-success/10 border border-success/20 p-6 text-center">
+                <div class="text-success font-mono text-4xl font-bold mb-2">Save $37,000+/year</div>
+                <p class="text-gray-600 text-sm">Plus capture $50K-$150K in revenue you're currently losing to voicemail
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="py-24 bg-black text-white border-b border-white/10">
+        <div class="max-w-4xl mx-auto px-6 md:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16">From "Hello" To Live In 1 Week</h2>
+
+            <div class="relative">
+                <div class="absolute left-1/2 -translate-x-1/2 h-full w-px bg-white/20"></div>
+
+                <div class="space-y-16">
+                    <!-- Step 1 -->
+                    <div class="relative z-10">
+                        <div
+                            class="w-16 h-16 bg-black border-4 border-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                            1</div>
+                        <h3 class="text-xl font-bold">You Fill Out The Form</h3>
+                        <p class="text-gray-400 text-sm mt-2">Tell us your business name and connect your calendar.</p>
+                        <div class="mt-2 text-[10px] font-mono text-success uppercase tracking-widest">Day 1
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative z-10">
+                        <div
+                            class="w-16 h-16 bg-black border-4 border-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                            2</div>
+                        <h3 class="text-xl font-bold">We Build Your AI Agent</h3>
+                        <p class="text-gray-400 text-sm mt-2">We train the AI on your business, services, pricing, and calendar to handle scheduling, rescheduling, and cancellations.</p>
+                        <div class="mt-2 text-[10px] font-mono text-success uppercase tracking-widest">Days 2-6
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative z-10">
+                        <div
+                            class="w-16 h-16 bg-success text-black border-4 border-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-success">You Go Live</h3>
+                        <p class="text-gray-400 text-sm mt-2">Forward your calls. Done. You're now open 24/7 with full appointment management.</p>
+                        <div class="mt-2 text-[10px] font-mono text-success uppercase tracking-widest">Day 7
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How Much Are You Losing?</h2>
+                <p class="text-gray-500">Use the sliders to see your potential revenue recovery.</p>
+            </div>
+
+            <div class="bg-offwhite border border-gray-200 p-8 md:p-12 rounded-2xl shadow-xl">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-xs font-bold uppercase tracking-widest">Missed Calls / Week</label>
+                                <span id="calls-val" class="font-mono font-bold">15</span>
+                            </div>
+                            <input type="range" id="calls-slider" min="5" max="100" value="15" step="1">
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-xs font-bold uppercase tracking-widest">Avg. Customer Value</label>
+                                <span id="value-val" class="font-mono font-bold">$500</span>
+                            </div>
+                            <input type="range" id="value-slider" min="100" max="5000" value="500" step="50">
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-xs font-bold uppercase tracking-widest">Close Rate</label>
+                                <span id="rate-val" class="font-mono font-bold">30%</span>
+                            </div>
+                            <input type="range" id="rate-slider" min="10" max="90" value="30" step="5">
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-col justify-center text-center border-t md:border-t-0 md:border-l border-gray-200 pt-8 md:pt-0 md:pl-12">
+                        <div class="text-gray-500 text-sm uppercase tracking-widest mb-2">Annual Revenue Lost</div>
+                        <div id="total-loss" class="text-5xl md:text-6xl font-bold text-alert mb-4">$117,000</div>
+                        <div class="text-xs text-gray-400">That's money going to your competitors.</div>
+
+                        <button id="calc-try-demo"
+                            class="mt-8 px-8 py-4 bg-success text-white font-bold uppercase tracking-widest hover:bg-green-600 transition-all shadow-lg hover:shadow-success/50 pointer-events-auto">
+                            Recover This Revenue
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-24 bg-black text-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+            <div class="text-center mb-16">
+                <span
+                    class="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-success mb-4 block">Simple
+                    Pricing</span>
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Two Plans. Clear Value.</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Choose the plan that fits your business. Both include full AI receptionist capabilities.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Essential Plan -->
+                <div class="border border-white/10 p-8 rounded-2xl relative group hover:border-white/30 transition-all">
+                    <h3 class="text-xl font-bold mb-2">Essential</h3>
+                    <div class="text-gray-400 text-sm mb-6">AI Voice Receptionist</div>
+                    <div class="text-4xl font-bold mb-1">$500<span class="text-sm text-gray-500 font-normal">/mo</span>
+                    </div>
+                    <div class="text-xs text-gray-500 mb-8">+$2,000 one-time setup fee</div>
+
+                    <ul class="space-y-4 text-sm text-gray-300 mb-8">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> 24/7 Call
+                            Answering</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Schedule Appointments on Calendar</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Reschedule Appointments</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Cancel Appointments</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Answer FAQs (Hours, Pricing, Services)</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> 1 Week Setup Time</li>
+                    </ul>
+                    <button id="price-starter-demo"
+                        class="block w-full py-4 border border-white/20 text-center font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all pointer-events-auto">Get
+                        Started</button>
+                </div>
+
+                <!-- Premium Plan (Highlighted) -->
+                <div class="bg-white text-black p-8 rounded-2xl relative transform lg:-translate-y-4 shadow-2xl">
+                    <div
+                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-success text-white px-4 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full">
+                        Recommended</div>
+                    <h3 class="text-xl font-bold mb-2">Premium</h3>
+                    <div class="text-gray-500 text-sm mb-6">AI Receptionist + Daily Reminder Calls</div>
+                    <div class="text-4xl font-bold mb-1">$750<span class="text-sm text-gray-400 font-normal">/mo</span>
+                    </div>
+                    <div class="text-xs text-gray-400 mb-8">+$2,000 one-time setup fee</div>
+
+                    <ul class="space-y-4 text-sm mb-8">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i>
+                            <strong>Everything in Essential</strong>
+                        </li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Daily AI Reminder Calls to Customers</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Confirms Appointments Automatically</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Frees Up Calendar Slots from No-Shows</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Reduces No-Show Rate by 80%+</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-success"></i> Priority Support</li>
+                    </ul>
+                    <button id="price-growth-demo"
+                        class="block w-full py-4 bg-black text-white text-center font-bold uppercase tracking-widest text-xs hover:bg-gray-800 transition-all shadow-lg pointer-events-auto">Get
+                        Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAL.COM EMBED (FOOTER) -->
+    <section class="py-24 bg-gray-50 border-t border-black/5">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Ready to Start? Book a Strategy Call</h2>
+            <div style="width:100%;height:600px;overflow:scroll;border-radius:12px;border:1px solid rgba(0,0,0,0.1);background:#fff;"
+                id="my-cal-inline-30min"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white py-12 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-black flex items-center justify-center">
+                    <div class="w-1 h-1 bg-white rounded-full"></div>
+                </div>
+                <span class="font-bold tracking-tighter">TEDCA.</span>
+            </div>
+            <div class="text-xs text-gray-400">
+                &copy; 2024 Tedca Corp. All rights reserved. <a href="#"
+                    class="underline hover:text-black pointer-events-auto">Privacy</a> • <a href="#"
+                    class="underline hover:text-black pointer-events-auto">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- STICKY CTA BAR (Appears on scroll) -->
+    <div id="sticky-cta"
+        class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 transform translate-y-full transition-transform duration-300 z-50 flex justify-between items-center px-6 md:px-12 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        <div class="hidden md:block">
+            <div class="font-bold text-sm">Stop losing calls.</div>
+            <div class="text-xs text-gray-500">Try the AI demo now.</div>
+        </div>
+        <button id="sticky-try-demo"
+            class="w-full md:w-auto px-6 py-3 bg-black text-white text-xs font-bold uppercase tracking-widest hover:bg-success transition-colors text-center pointer-events-auto">
+            Test The AI
+        </button>
+    </div>
+
+    <!-- CAL.COM SCRIPT -->
+    <script type="text/javascript">
+            (function (C, A, L) {
+                let p = function (a, ar) { a.q.push(ar); };
+                let d = C.document;
+                C.Cal = C.Cal || function () {
+                    let cal = C.Cal;
+                    let ar = arguments;
+                    if (!cal.loaded) {
+                        cal.ns = {};
+                        cal.q = cal.q || [];
+                        d.head.appendChild(d.createElement("script")).src = A;
+                        cal.loaded = true;
+                    }
+                    if (ar[0] === L) {
+                        const api = function () { p(api, arguments); };
+                        const namespace = ar[1];
+                        api.q = api.q || [];
+                        if (typeof namespace === "string") {
+                            cal.ns[namespace] = cal.ns[namespace] || api;
+                            p(cal.ns[namespace], ar);
+                            p(cal, ["initNamespace", namespace]);
+                        } else p(cal, ar);
+                        return;
+                    }
+                    p(cal, ar);
+                };
+            })(window, "https://app.cal.com/embed/embed.js", "init");
+
+        Cal("init", "30min", { origin: "https://app.cal.com" });
+        Cal.ns["30min"]("inline", {
+            elementOrSelector: "#my-cal-inline-30min",
+            config: { "layout": "month_view" },
+            calLink: "ted-charles-enqyjn/30min",
+        });
+        Cal.ns["30min"]("ui", {
+            "styles": { "branding": { "brandColor": "#000000" } },
+            "hideEventTypeDetails": false,
+            "layout": "month_view"
+        });
+    </script>
+
+    <script type="module" src="/index.tsx"></script>
+
+    <!-- Main Logic Script -->
+    <script>
+        // Calculator Logic
+        const callsSlider = document.getElementById('calls-slider');
+        const valueSlider = document.getElementById('value-slider');
+        const rateSlider = document.getElementById('rate-slider');
+
+        const updateCalculator = () => {
+            const calls = parseInt(callsSlider.value);
+            const value = parseInt(valueSlider.value);
+            const rate = parseInt(rateSlider.value) / 100;
+
+            document.getElementById('calls-val').textContent = calls;
+            document.getElementById('value-val').textContent = `$${value}`;
+            document.getElementById('rate-val').textContent = `${Math.round(rate * 100)}%`;
+
+            const weeklyLoss = calls * value * rate;
+            const annualLoss = weeklyLoss * 52;
+
+            document.getElementById('total-loss').textContent = `$${annualLoss.toLocaleString()}`;
+        };
+
+        if (callsSlider) {
+            callsSlider.addEventListener('input', updateCalculator);
+            valueSlider.addEventListener('input', updateCalculator);
+            rateSlider.addEventListener('input', updateCalculator);
+        }
+
+        // Sticky CTA
+        window.addEventListener('scroll', () => {
+            const stickyCta = document.getElementById('sticky-cta');
+            if (window.scrollY > 600) {
+                stickyCta.classList.remove('translate-y-full');
+            } else {
+                stickyCta.classList.add('translate-y-full');
+            }
+        });
+
+        // Live Counter Animation
+        setInterval(() => {
+            const counter = document.getElementById('live-loss-counter');
+            if (counter) {
+                let current = parseFloat(counter.textContent.replace(/,/g, ''));
+                current += 12.50;
+                counter.textContent = current.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+        }, 2000);
+
+        // Voice Wave Background
+        const canvas = document.getElementById('voiceWaveCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            const resizeCanvas = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            let time = 0;
+            const animateWave = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height / 2);
+                for (let i = 0; i < canvas.width; i++) {
+                    const y = canvas.height / 2 + Math.sin(i * 0.01 + time) * 50 * Math.sin(i * 0.005);
+                    ctx.lineTo(i, y);
+                }
+                ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                time += 0.05;
+                requestAnimationFrame(animateWave);
+            };
+            animateWave();
+        }
+
+        // --- REACT APP TRIGGER LOGIC ---
+
+        // Form Submit -> Start Demo with Config
+        const form = document.getElementById('demoFormElement');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const config = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    businessName: formData.get('businessName'),
+                    industry: formData.get('industry'),
+                    avgTicketValue: 300 // Default value, can be expanded in form
+                };
+
+                // Dispatch event to React App
+                window.dispatchEvent(new CustomEvent('start-demo', { detail: config }));
+            });
+        }
+
+        // Quick Start Buttons -> Open Setup Modal
+        const triggerButtons = [
+            'nav-try-demo',
+            'hero-try-demo',
+            'how-works-try-demo',
+            'sticky-try-demo',
+            'pain-try-demo',
+            'calc-try-demo',
+            'price-starter-demo',
+            'price-growth-demo'
+        ];
+
+        triggerButtons.forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    // Start demo with empty detail to indicate "Setup Mode"
+                    window.dispatchEvent(new CustomEvent('start-demo', { detail: null }));
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
