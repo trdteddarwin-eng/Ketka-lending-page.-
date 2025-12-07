@@ -68,14 +68,13 @@ export class GeminiChatService {
             const response = await this.ai.models.generateContent({
                 model: this.model,
                 contents: [{
-                    role: 'user',
                     parts: [{ text: prompt }]
                 }]
             });
 
             return response.text || "";
         } catch (error) {
-            console.error("Chat Error:", error);
+            console.error("Chat Error Details:", error);
             return "I'm having trouble connecting right now. Please try again or call us directly.";
         }
     }

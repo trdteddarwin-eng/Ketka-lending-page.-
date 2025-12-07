@@ -1397,7 +1397,7 @@
             });
         }
 
-        // Quick Start Buttons -> Open Setup Modal
+        // Quick Start Buttons -> Start Demo Immediately (Skip Form)
         const triggerButtons = [
             'nav-try-demo',
             'hero-try-demo',
@@ -1412,9 +1412,21 @@
         triggerButtons.forEach(id => {
             const btn = document.getElementById(id);
             if (btn) {
-                btn.addEventListener('click', () => {
-                    // Start demo with empty detail to indicate "Setup Mode"
-                    window.dispatchEvent(new CustomEvent('start-demo', { detail: null }));
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent anchor jump
+
+                    // Launch immediately with default/guest config
+                    const guestConfig = {
+                        firstName: "Guest",
+                        lastName: "User",
+                        phone: "N/A",
+                        email: "guest@example.com",
+                        businessName: "My Business",
+                        industry: "General Service",
+                        avgTicketValue: 300
+                    };
+
+                    window.dispatchEvent(new CustomEvent('start-demo', { detail: guestConfig }));
                 });
             }
         });
