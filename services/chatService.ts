@@ -40,42 +40,44 @@ A: Sophie is trained to gracefully handle edge cases—she'll capture the caller
 
 export class GeminiChatService {
     private ai: GoogleGenAI;
-    private model: string = 'gemini-1.5-flash'; // Flash is fast and cheap/free
+    private model: string = 'gemini-2.5-flash';
 
     constructor() {
         const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
         if (!apiKey) {
-            console.error("API Key not found");
+            console.error("API Key not found for chat service");
         }
         this.ai = new GoogleGenAI({ apiKey: apiKey || '' });
     }
 
     async sendMessage(history: { role: string; text: string }[], newMessage: string) {
         try {
-            // Convert simple history to Gemini format if needed, 
-            // but for simple single-turn or short-context chat, we can just use generateContent with system instruction.
-            // However, for chat, 'generateContent' with a prompt that includes history is often easiest for state management unless we use startChat.
+            // Build context from history and new message
+            let prompt = `You are Sophie, a helpful AI receptionist for Tedca Corp. Be professional, concise, and friendly.
+            
+Use this knowledge to answer:
+${FAQ_KNOWLEDGE_BASE}
 
-            // Correct usage for @google/genai SDK
-            let prompt = `System: ${FAQ_KNOWLEDGE_BASE}\n\n`;
+Conversation so far:
+`;
 
             history.forEach(msg => {
-                prompt += `${msg.role === 'user' ? 'User' : 'Sophie'}: ${msg.text}\n`;
+                prompt += `${msg.role === 'user' ? 'Customer' : 'Sophie'}: ${msg.text}\n`;
             });
 
-            prompt += `User: ${newMessage}\nSophie:`;
+            prompt += `Customer: ${newMessage}\nSophie:`;
 
+            // Per official @google/genai docs: contents should be a simple string
             const response = await this.ai.models.generateContent({
                 model: this.model,
-                contents: [{
-                    parts: [{ text: prompt }]
-                }]
+                contents: prompt,
             });
 
-            return response.text || "";
+            return response.text || "I'm sorry, I couldn't generate a response.";
         } catch (error) {
             console.error("Chat Error Details:", error);
             return "I'm having trouble connecting right now. Please try again or call us directly.";
         }
     }
 }
+
