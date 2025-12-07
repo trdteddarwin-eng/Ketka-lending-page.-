@@ -68,6 +68,7 @@ export class GeminiChatService {
             const response = await this.ai.models.generateContent({
                 model: this.model,
                 contents: [{
+                    role: 'user',
                     parts: [{ text: prompt }]
                 }]
             });
