@@ -5,6 +5,7 @@ import { SetupForm } from './components/SetupForm';
 import { ActiveCall } from './components/ActiveCall';
 import { TranscriptSummary } from './components/TranscriptSummary';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ChatWidget } from './components/ChatWidget';
 import Cal, { getCalApi } from "@calcom/embed-react";
 
 const App: React.FC = () => {
@@ -88,11 +89,23 @@ const App: React.FC = () => {
     };
   }, []);
 
-  return (
-    <div className={`fixed inset-0 z-[9999] bg-white text-slate-900 selection:bg-green-500/30 overflow-y-auto font-sans ${appState === AppState.IDLE ? 'hidden' : ''}`}>
+  // Determine if we should show the full screen overlay
+  const isOverlayVisible = appState !== AppState.IDLE;
 
-      {/* Header */}
-      <header className="p-6 flex items-center justify-between border-b border-gray-100 backdrop-blur-sm fixed top-0 w-full z-50 bg-white/80">
+  return (
+    // Main Container: 
+    // - Always rendered to host ChatWidget
+    // - Background only present when overlay is active
+    <div className={`fixed inset-0 z-[9999] overflow-y-auto font-sans transition-colors duration-300 ${isOverlayVisible ? 'bg-white pointer-events-auto' : 'bg-transparent pointer-events-none'}`}>
+
+      {/* Chat Widget - Always Visible & Interactive */}
+      {/* We wrap it in a div that ALWAYS has pointer-events-auto so it works even when the app is "Idle" */}
+      <div className="fixed bottom-6 right-6 z-[10000] pointer-events-auto">
+        <ChatWidget />
+      </div>
+
+      {/* Header - Only visible when overlay is active */}
+      <header className={`p-4 md:p-6 flex items-center justify-between border-b border-gray-100 backdrop-blur-sm fixed top-0 w-full z-50 bg-white/80 transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center shadow-lg shadow-black/10">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
@@ -102,7 +115,7 @@ const App: React.FC = () => {
           <span className="font-bold text-lg tracking-tight text-black">Reception<span className="text-green-600">AI</span></span>
         </div>
         <div className="flex items-center gap-4">
-          <div className="text-xs font-medium px-3 py-1 bg-gray-100 rounded-full text-gray-500 border border-gray-200">
+          <div className="text-xs font-medium px-3 py-1 bg-gray-100 rounded-full text-gray-500 border border-gray-200 hidden sm:block">
             Powered by Gemini 2.5
           </div>
           {/* Close button to go back to landing page */}
@@ -126,7 +139,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="pt-24 pb-12 px-4 flex flex-col items-center min-h-screen relative overflow-y-auto">
+      <main className={`pt-20 pb-8 px-4 flex flex-col items-center min-h-screen relative transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
 
         {/* Background Animation */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

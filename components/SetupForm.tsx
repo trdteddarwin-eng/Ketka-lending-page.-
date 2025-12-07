@@ -108,7 +108,7 @@ export const SetupForm: React.FC<SetupFormProps> = ({ onComplete, isLoading }) =
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="max-w-xl mx-auto p-8 bg-white rounded-2xl border border-gray-200 shadow-2xl"
+      className="max-w-xl mx-auto p-5 md:p-8 bg-white rounded-2xl border border-gray-200 shadow-2xl"
     >
       <motion.div variants={itemVariants} className="text-center mb-8">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4 shadow-lg shadow-black/20">

@@ -49,21 +49,21 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({ config, onEndCall, servi
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto gap-6 p-4"
+      className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto gap-4 lg:gap-6 p-2 lg:p-4"
     >
       {/* Left Side: Visualizer and Controls */}
       <div className="flex flex-col items-center justify-center w-full lg:w-1/2">
-        <div className="text-center mb-6 space-y-2">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-semibold tracking-wider animate-pulse">
+        <div className="text-center mb-4 lg:mb-6 space-y-2">
+          <div className="inline-flex items-center px-2 py-0.5 lg:px-3 lg:py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-[10px] lg:text-xs font-semibold tracking-wider animate-pulse">
             LIVE DEMO
           </div>
-          <h2 className="text-xl lg:text-2xl font-semibold text-slate-900">{config.businessName} AI Receptionist</h2>
-          <p className="text-slate-500 text-sm">Speaking with {config.firstName} {config.lastName}</p>
-          <p className="text-slate-400 font-mono text-sm mt-2">{formatTime(duration)}</p>
+          <h2 className="text-lg lg:text-2xl font-semibold text-slate-900">{config.businessName} AI Receptionist</h2>
+          <p className="text-slate-500 text-xs lg:text-sm">Speaking with {config.firstName} {config.lastName}</p>
+          <p className="text-slate-400 font-mono text-xs lg:text-sm mt-1 lg:mt-2">{formatTime(duration)}</p>
         </div>
 
-        {/* Smaller visualizer on mobile */}
-        <div className="relative w-full max-w-[250px] lg:max-w-[350px] aspect-square flex items-center justify-center mb-6">
+        {/* Smaller visualizer on mobile - Optimized for iPhone */}
+        <div className="relative w-full max-w-[180px] lg:max-w-[350px] aspect-square flex items-center justify-center mb-4 lg:mb-6">
           <div className="absolute inset-0 bg-green-500/5 blur-3xl rounded-full"></div>
           <Visualizer isActive={true} volume={volume} />
         </div>
@@ -73,29 +73,29 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({ config, onEndCall, servi
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onEndCall}
-            className="group flex items-center gap-3 px-6 py-3 lg:px-8 lg:py-4 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-full transition-all border-2 border-red-100 hover:border-red-600 shadow-lg shadow-red-500/10"
+            className="group flex items-center gap-2 lg:gap-3 px-5 py-2.5 lg:px-8 lg:py-4 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-full transition-all border-2 border-red-100 hover:border-red-600 shadow-lg shadow-red-500/10"
           >
             <div className="p-1 bg-current rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 lg:h-5 lg:w-5 text-white group-hover:text-red-600" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 lg:h-5 lg:w-5 text-white group-hover:text-red-600" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </div>
-            <span className="font-semibold text-sm lg:text-base">End Call</span>
+            <span className="font-semibold text-xs lg:text-base">End Call</span>
           </motion.button>
         </div>
 
-        <div className="mt-6 p-3 lg:p-4 bg-gray-50 rounded-lg border border-gray-200 max-w-lg text-center shadow-sm">
-          <p className="text-xs lg:text-sm text-slate-600">
+        <div className="mt-4 lg:mt-6 p-3 lg:p-4 bg-gray-50 rounded-lg border border-gray-200 max-w-lg text-center shadow-sm">
+          <p className="text-[10px] lg:text-sm text-slate-600">
             <span className="text-green-600 font-semibold">Tip:</span> Try asking "Do you have any openings tomorrow afternoon?" or "What are your prices?"
           </p>
         </div>
       </div>
 
-      {/* Right Side: Inline Calendar - Better mobile sizing */}
-      <div className="w-full lg:w-1/2 h-[400px] lg:h-[550px] bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-2xl relative flex flex-col">
-        <div className="p-3 lg:p-4 bg-gray-50 border-b border-gray-200 text-center">
-          <h3 className="font-semibold text-slate-900 text-sm lg:text-base">Ready to move forward?</h3>
-          <p className="text-xs text-slate-500">Book a time below to get started.</p>
+      {/* Right Side: Inline Calendar - Compact mobile sizing */}
+      <div className="w-full lg:w-1/2 h-[350px] lg:h-[550px] bg-white rounded-xl lg:rounded-2xl overflow-hidden border border-gray-200 shadow-xl lg:shadow-2xl relative flex flex-col mt-2 lg:mt-0">
+        <div className="p-2 lg:p-4 bg-gray-50 border-b border-gray-200 text-center">
+          <h3 className="font-semibold text-slate-900 text-xs lg:text-base">Ready to move forward?</h3>
+          <p className="text-[10px] lg:text-xs text-slate-500">Book a time below to get started.</p>
         </div>
         <div className="flex-1 overflow-hidden">
           <iframe
