@@ -3,7 +3,6 @@ import { BusinessConfig } from '../types';
 import { Visualizer } from './Visualizer';
 import { GeminiLiveService } from '../services/geminiLive';
 import { motion } from 'framer-motion';
-import Cal, { getCalApi } from "@calcom/embed-react";
 
 interface ActiveCallProps {
   config: BusinessConfig;
@@ -20,7 +19,6 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({ config, onEndCall, servi
       setVolume(vol);
     };
 
-    // Simple timer for call duration
     const interval = setInterval(() => {
       setDuration(prev => prev + 1);
     }, 1000);
@@ -31,13 +29,6 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({ config, onEndCall, servi
     };
   }, [service]);
 
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ "namespace": "30min" });
-      cal("ui", { "styles": { "branding": { "brandColor": "#7d3131" } }, "hideEventTypeDetails": false, "layout": "month_view" });
-    })();
-  }, []);
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -46,64 +37,49 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({ config, onEndCall, servi
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto gap-4 lg:gap-6 p-2 lg:p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col items-center justify-center w-full h-full px-4 py-6"
     >
-      {/* Left Side: Visualizer and Controls */}
-      <div className="flex flex-col items-center justify-center w-full lg:w-1/2">
-        <div className="text-center mb-4 lg:mb-6 space-y-2">
-          <div className="inline-flex items-center px-2 py-0.5 lg:px-3 lg:py-1 rounded-full bg-red-50 border border-red-200 text-red-600 text-[10px] lg:text-xs font-semibold tracking-wider animate-pulse">
-            LIVE DEMO
-          </div>
-          <h2 className="text-lg lg:text-2xl font-semibold text-slate-900">{config.businessName} AI Receptionist</h2>
-          <p className="text-slate-500 text-xs lg:text-sm">Speaking with {config.firstName} {config.lastName}</p>
-          <p className="text-slate-400 font-mono text-xs lg:text-sm mt-1 lg:mt-2">{formatTime(duration)}</p>
+      {/* Minimal Header */}
+      <div className="text-center mb-4">
+        <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-red-500/10 text-red-500 text-[10px] font-bold tracking-wider mb-2">
+          <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+          LIVE
         </div>
-
-        {/* Smaller visualizer on mobile - Optimized for iPhone */}
-        <div className="relative w-full max-w-[180px] lg:max-w-[350px] aspect-square flex items-center justify-center mb-4 lg:mb-6">
-          <div className="absolute inset-0 bg-green-500/5 blur-3xl rounded-full"></div>
-          <Visualizer isActive={true} volume={volume} />
-        </div>
-
-        <div className="flex gap-6">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onEndCall}
-            className="group flex items-center gap-2 lg:gap-3 px-5 py-2.5 lg:px-8 lg:py-4 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-full transition-all border-2 border-red-100 hover:border-red-600 shadow-lg shadow-red-500/10"
-          >
-            <div className="p-1 bg-current rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 lg:h-5 lg:w-5 text-white group-hover:text-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <span className="font-semibold text-xs lg:text-base">End Call</span>
-          </motion.button>
-        </div>
-
-        <div className="mt-4 lg:mt-6 p-3 lg:p-4 bg-gray-50 rounded-lg border border-gray-200 max-w-lg text-center shadow-sm">
-          <p className="text-[10px] lg:text-sm text-slate-600">
-            <span className="text-green-600 font-semibold">Tip:</span> Try asking "Do you have any openings tomorrow afternoon?" or "What are your prices?"
-          </p>
-        </div>
+        <p className="text-slate-500 text-xs">{config.businessName}</p>
       </div>
 
-      {/* Right Side: Inline Calendar - Compact mobile sizing */}
-      <div className="w-full lg:w-1/2 h-[350px] lg:h-[550px] bg-white rounded-xl lg:rounded-2xl overflow-hidden border border-gray-200 shadow-xl lg:shadow-2xl relative flex flex-col mt-2 lg:mt-0">
-        <div className="p-2 lg:p-4 bg-gray-50 border-b border-gray-200 text-center">
-          <h3 className="font-semibold text-slate-900 text-xs lg:text-base">Ready to move forward?</h3>
-          <p className="text-[10px] lg:text-xs text-slate-500">Book a time below to get started.</p>
-        </div>
-        <div className="flex-1 overflow-hidden">
-          <iframe
-            src="https://cal.com/ted-charles-enqyjn/30min"
-            style={{ width: "100%", height: "100%", border: "none" }}
-            title="Book a meeting"
-          />
-        </div>
+      {/* Compact Visualizer */}
+      <div className="relative w-[140px] h-[140px] md:w-[200px] md:h-[200px] flex items-center justify-center mb-4">
+        <Visualizer isActive={true} volume={volume} />
+      </div>
+
+      {/* Timer */}
+      <p className="text-slate-800 font-mono text-2xl md:text-3xl font-light mb-6">{formatTime(duration)}</p>
+
+      {/* Speaking indicator */}
+      <p className="text-xs text-slate-400 mb-6">Speaking with {config.firstName}</p>
+
+      {/* End Call Button - Minimalistic */}
+      <motion.button
+        whileTap={{ scale: 0.95 }}
+        onClick={onEndCall}
+        className="w-14 h-14 md:w-16 md:h-16 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center shadow-lg transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:h-7 md:w-7 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+        </svg>
+      </motion.button>
+
+      <p className="text-[10px] text-slate-400 mt-3">Tap to end call</p>
+
+      {/* Tip - very subtle */}
+      <div className="mt-8 px-4 py-2 bg-slate-50 rounded-lg max-w-xs text-center">
+        <p className="text-[10px] text-slate-500">
+          Try: "Book an appointment" or "What are your prices?"
+        </p>
       </div>
     </motion.div>
   );

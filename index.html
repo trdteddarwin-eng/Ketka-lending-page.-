@@ -1397,7 +1397,7 @@
             });
         }
 
-        // Quick Start Buttons -> Start Demo Immediately (Skip Form)
+        // Quick Start Buttons -> Open Setup Form
         const triggerButtons = [
             'nav-try-demo',
             'hero-try-demo',
@@ -1413,20 +1413,9 @@
             const btn = document.getElementById(id);
             if (btn) {
                 btn.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent anchor jump
-
-                    // Launch immediately with default/guest config
-                    const guestConfig = {
-                        firstName: "Guest",
-                        lastName: "User",
-                        phone: "N/A",
-                        email: "guest@example.com",
-                        businessName: "My Business",
-                        industry: "General Service",
-                        avgTicketValue: 300
-                    };
-
-                    window.dispatchEvent(new CustomEvent('start-demo', { detail: guestConfig }));
+                    e.preventDefault();
+                    // Show setup form first
+                    window.dispatchEvent(new CustomEvent('start-demo', { detail: null }));
                 });
             }
         });
