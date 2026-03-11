@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Tedca Corp | AI Systems That Run Your Business</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="description" content="Tedca Corp builds AI systems that run your business 24/7. AI Automation, Voice AI Receptionist, and Agentic Workflows for North Jersey businesses.">
+    <meta name="keywords" content="AI automation, voice AI receptionist, agentic workflows, business automation, North Jersey">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tedca Corp | AI Systems That Run Your Business">
+    <meta property="og:description" content="Three AI services. One goal: automate what's costing you money. AI Automation, Voice AI Receptionist, and Agentic Workflows — all running 24/7.">
+    <meta property="og:url" content="https://tedca.org">
+    <meta property="og:site_name" content="Tedca Corp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tedca Corp | AI Systems That Run Your Business">
+    <meta name="twitter:description" content="AI Automation, Voice AI Receptionist, and Agentic Workflows for North Jersey businesses. Running 24/7.">
 
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="https://unpkg.com">
@@ -737,6 +748,21 @@
             animation: pulseDown 1.2s ease-in-out infinite;
         }
         .fc-connector.fc-conn-visible::after { background: #E63B2E; }
+
+        /* In-modal video player */
+        #flowchartCanvas video {
+            width: 100%; max-width: 320px;
+            aspect-ratio: 9/16; object-fit: cover;
+            border: 1px solid rgba(17,17,17,0.1);
+            border-radius: 8px;
+            background: #000; margin: 0 auto; display: block;
+        }
+        .fc-video-label {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; color: rgba(17,17,17,0.4);
+            font-family: 'Space Mono', monospace;
+            text-align: center; margin: 24px 0 12px;
+        }
 
         @keyframes pulseDown {
             0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(0.8); }
@@ -3404,7 +3430,7 @@
                 <span class="font-heading font-bold text-paper tracking-tighter text-xl">TEDCA.</span>
             </div>
             <div class="font-sans text-xs text-paper/40">
-                &copy; 2024 Tedca Corp. All rights reserved. <a href="#"
+                &copy; 2026 Tedca Corp. All rights reserved. <a href="#"
                     class="underline hover:text-signal pointer-events-auto transition-colors">Privacy</a> • <a href="#"
                     class="underline hover:text-signal pointer-events-auto transition-colors">Terms</a>
             </div>
@@ -3691,6 +3717,7 @@
             'auto-followup': {
                 title: 'Auto Follow-Up Emails',
                 subtitle: 'Never let a lead go cold again',
+                videoSrc: '/videos/auto-followup.mp4',
                 summary: '80% of sales require 5+ follow-ups, but 44% of reps give up after one. AI sends every follow-up automatically — increasing conversions by 41%.',
                 nodes: [
                     { id: 'n0', label: 'Lead enters CRM', icon: 'fa-solid fa-user-plus', type: 'trigger', desc: 'New contact added via form, call, or manual entry' },
@@ -3709,6 +3736,7 @@
             'ai-lead-scoring': {
                 title: 'AI Lead Scoring',
                 subtitle: 'Focus on leads most likely to close',
+                videoSrc: '/videos/ai-lead-scoring.mp4',
                 summary: 'Sales teams waste 67% of their time on unqualified leads. AI scoring boosts productivity by 52% and close rates by 38%.',
                 nodes: [
                     { id: 'n0', label: 'New lead arrives', icon: 'fa-solid fa-user-plus', type: 'trigger', desc: 'Lead captured from any channel — web form, ad, referral, or import' },
@@ -3727,6 +3755,7 @@
             'ai-chatbot': {
                 title: '24/7 AI Chatbot',
                 subtitle: 'Instant answers, around the clock',
+                videoSrc: '/videos/ai-chatbot.mp4',
                 summary: '98% of website visitors leave without taking action. An AI chatbot increases lead conversion by 47% by engaging every visitor instantly, 24/7.',
                 nodes: [
                     { id: 'n0', label: 'Customer visits site', icon: 'fa-solid fa-globe', type: 'trigger', desc: 'Visitor lands on any page of your website or app' },
@@ -3745,6 +3774,7 @@
             'ai-lead-gen': {
                 title: 'AI Lead Generation',
                 subtitle: 'Find your next customer on autopilot',
+                videoSrc: '/videos/ai-lead-gen.mp4',
                 summary: 'AI scans multiple channels, identifies ideal prospects, and delivers qualified leads straight to your pipeline — no manual prospecting.',
                 nodes: [
                     { id: 'n0', label: 'Define ideal customer profile', icon: 'fa-solid fa-crosshairs', type: 'trigger', desc: 'Set industry, size, location, and budget criteria for your perfect lead' },
@@ -3767,6 +3797,7 @@
             'auto-email-reply': {
                 title: 'Automatic Email Reply',
                 subtitle: 'AI reads and replies in your voice',
+                videoSrc: '/videos/auto-email-reply.mp4',
                 summary: 'Your AI email assistant reads every incoming message, understands context, drafts on-brand replies, and sends them — cutting response time from hours to seconds.',
                 nodes: [
                     { id: 'n0', label: 'Email arrives in inbox', icon: 'fa-solid fa-envelope', type: 'trigger', desc: 'New email detected in your connected Gmail or Outlook account' },
@@ -3789,6 +3820,7 @@
             'whatsapp-ai': {
                 title: 'WhatsApp AI Agent',
                 subtitle: 'Customer support that never sleeps',
+                videoSrc: '/videos/whatsapp-ai.mp4',
                 summary: 'Your AI WhatsApp agent handles customer questions, books appointments, sends quotes, and escalates complex issues — all in real time, 24/7.',
                 nodes: [
                     { id: 'n0', label: 'Customer messages WhatsApp', icon: 'fa-brands fa-whatsapp', type: 'trigger', desc: 'Incoming message detected on your WhatsApp Business number' },
@@ -4007,6 +4039,15 @@
                     canvas.appendChild(conn);
                 }
             });
+
+            // Append video if available
+            if (data.videoSrc) {
+                var videoSection = document.createElement('div');
+                videoSection.innerHTML =
+                    '<div class="fc-video-label">See it in action</div>' +
+                    '<video src="' + data.videoSrc + '" controls playsinline preload="none"></video>';
+                canvas.appendChild(videoSection);
+            }
 
             // Trigger animation after DOM paint
             requestAnimationFrame(function() {
