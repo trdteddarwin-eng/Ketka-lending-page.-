@@ -4481,104 +4481,126 @@
     }
     </script>
 
-    <!-- Hero Background: Neural Network Particle Animation (Gemini 2.5 Pro) -->
+    <!-- Hero Background: Neural Network Particle Animation (Gemini 3.1 Pro) -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const heroSection = document.querySelector('section.pt-44');
         if (!heroSection) return;
 
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        if (window.getComputedStyle(heroSection).position === 'static') {
+            heroSection.style.position = 'relative';
+        }
 
+        const canvas = document.createElement('canvas');
         canvas.style.position = 'absolute';
         canvas.style.inset = '0';
         canvas.style.width = '100%';
         canvas.style.height = '100%';
         canvas.style.zIndex = '0';
         canvas.style.pointerEvents = 'none';
-
         heroSection.insertBefore(canvas, heroSection.firstChild);
 
-        const PARTICLE_COUNT = 50;
-        const PARTICLE_COLOR = 'rgba(230,59,46,0.15)';
-        const LINE_COLOR_BASE = '17,17,17';
-        const MAX_LINE_OPACITY = 0.06;
-        const CONNECTION_DISTANCE = 150;
-        const GLOW_COLOR = 'rgba(230,59,46,0.03)';
-
+        const ctx = canvas.getContext('2d');
+        let width, height;
         let particles = [];
-        let animationFrameId;
+        const numParticles = 50;
+        const maxDistance = 150;
+        const mouseRadius = 100;
+        let mouse = { x: -1000, y: -1000 };
+
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = -1000;
+            mouse.y = -1000;
+        });
+
+        function resizeCanvas() {
+            const rect = heroSection.getBoundingClientRect();
+            width = rect.width;
+            height = rect.height;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+        }
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeCanvas, 200);
+        });
 
         class Particle {
-            constructor(w, h) {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.radius = Math.random() * 1 + 2;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.baseRadius = 2 + Math.random();
+                this.angle = Math.random() * Math.PI * 2;
+                this.pulseSpeed = 0.02 + Math.random() * 0.03;
             }
-            update(w, h) {
+            update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                if (this.x > w + this.radius) this.x = -this.radius;
-                else if (this.x < -this.radius) this.x = w + this.radius;
-                if (this.y > h + this.radius) this.y = -this.radius;
-                else if (this.y < -this.radius) this.y = h + this.radius;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < mouseRadius) {
+                    const force = (mouseRadius - dist) / mouseRadius;
+                    this.x -= (dx / dist) * force * 1.5;
+                    this.y -= (dy / dist) * force * 1.5;
+                }
+                this.angle += this.pulseSpeed;
             }
-            draw(context) {
-                context.beginPath();
-                context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                context.fillStyle = PARTICLE_COLOR;
-                context.fill();
+            draw() {
+                const currentRadius = this.baseRadius + Math.sin(this.angle) * 0.5;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(230,59,46,0.15)';
+                ctx.fill();
             }
         }
 
-        const setupCanvas = () => {
-            const w = heroSection.offsetWidth;
-            const h = heroSection.offsetHeight;
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = w * dpr;
-            canvas.height = h * dpr;
-            canvas.style.width = `${w}px`;
-            canvas.style.height = `${h}px`;
-            ctx.scale(dpr, dpr);
-        };
-
-        const createParticles = () => {
+        function init() {
+            resizeCanvas();
             particles = [];
-            const w = heroSection.offsetWidth;
-            const h = heroSection.offsetHeight;
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                particles.push(new Particle(w, h));
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
             }
-        };
+            animate();
+        }
 
-        const animate = () => {
-            animationFrameId = requestAnimationFrame(animate);
-            const w = heroSection.offsetWidth;
-            const h = heroSection.offsetHeight;
-            ctx.clearRect(0, 0, w, h);
-
-            const centerX = w / 2;
-            const centerY = h / 2;
-            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(w, h) * 0.7);
-            gradient.addColorStop(0, GLOW_COLOR);
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            const cx = width / 2;
+            const cy = height / 2;
+            const gradientRadius = Math.max(width, height) / 1.5;
+            const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, gradientRadius);
+            gradient.addColorStop(0, 'rgba(230,59,46,0.03)');
             gradient.addColorStop(1, 'rgba(230,59,46,0)');
             ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, w, h);
+            ctx.fillRect(0, 0, width, height);
 
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
-                    const distSq = dx * dx + dy * dy;
-                    if (distSq < CONNECTION_DISTANCE * CONNECTION_DISTANCE) {
-                        const distance = Math.sqrt(distSq);
-                        const opacity = 1 - (distance / CONNECTION_DISTANCE);
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < maxDistance) {
+                        const opacity = 1 - (dist / maxDistance);
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(${LINE_COLOR_BASE},${(MAX_LINE_OPACITY * opacity).toFixed(4)})`;
+                        ctx.strokeStyle = `rgba(17,17,17,${(0.06 * opacity).toFixed(4)})`;
                         ctx.lineWidth = 1;
                         ctx.stroke();
                     }
@@ -4586,25 +4608,13 @@
             }
 
             particles.forEach(p => {
-                p.update(w, h);
-                p.draw(ctx);
+                p.update();
+                p.draw();
             });
-        };
+            requestAnimationFrame(animate);
+        }
 
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                cancelAnimationFrame(animationFrameId);
-                setupCanvas();
-                createParticles();
-                animate();
-            }, 150);
-        });
-
-        setupCanvas();
-        createParticles();
-        animate();
+        init();
     });
     </script>
 </body>
