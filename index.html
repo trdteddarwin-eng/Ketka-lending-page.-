@@ -4480,6 +4480,133 @@
         }, 400);
     }
     </script>
+
+    <!-- Hero Background: Neural Network Particle Animation (Gemini 2.5 Pro) -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const heroSection = document.querySelector('section.pt-44');
+        if (!heroSection) return;
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.style.position = 'absolute';
+        canvas.style.inset = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.zIndex = '0';
+        canvas.style.pointerEvents = 'none';
+
+        heroSection.insertBefore(canvas, heroSection.firstChild);
+
+        const PARTICLE_COUNT = 50;
+        const PARTICLE_COLOR = 'rgba(230,59,46,0.15)';
+        const LINE_COLOR_BASE = '17,17,17';
+        const MAX_LINE_OPACITY = 0.06;
+        const CONNECTION_DISTANCE = 150;
+        const GLOW_COLOR = 'rgba(230,59,46,0.03)';
+
+        let particles = [];
+        let animationFrameId;
+
+        class Particle {
+            constructor(w, h) {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.radius = Math.random() * 1 + 2;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+            }
+            update(w, h) {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x > w + this.radius) this.x = -this.radius;
+                else if (this.x < -this.radius) this.x = w + this.radius;
+                if (this.y > h + this.radius) this.y = -this.radius;
+                else if (this.y < -this.radius) this.y = h + this.radius;
+            }
+            draw(context) {
+                context.beginPath();
+                context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                context.fillStyle = PARTICLE_COLOR;
+                context.fill();
+            }
+        }
+
+        const setupCanvas = () => {
+            const w = heroSection.offsetWidth;
+            const h = heroSection.offsetHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = `${w}px`;
+            canvas.style.height = `${h}px`;
+            ctx.scale(dpr, dpr);
+        };
+
+        const createParticles = () => {
+            particles = [];
+            const w = heroSection.offsetWidth;
+            const h = heroSection.offsetHeight;
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle(w, h));
+            }
+        };
+
+        const animate = () => {
+            animationFrameId = requestAnimationFrame(animate);
+            const w = heroSection.offsetWidth;
+            const h = heroSection.offsetHeight;
+            ctx.clearRect(0, 0, w, h);
+
+            const centerX = w / 2;
+            const centerY = h / 2;
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(w, h) * 0.7);
+            gradient.addColorStop(0, GLOW_COLOR);
+            gradient.addColorStop(1, 'rgba(230,59,46,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, w, h);
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distSq = dx * dx + dy * dy;
+                    if (distSq < CONNECTION_DISTANCE * CONNECTION_DISTANCE) {
+                        const distance = Math.sqrt(distSq);
+                        const opacity = 1 - (distance / CONNECTION_DISTANCE);
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(${LINE_COLOR_BASE},${(MAX_LINE_OPACITY * opacity).toFixed(4)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update(w, h);
+                p.draw(ctx);
+            });
+        };
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                cancelAnimationFrame(animationFrameId);
+                setupCanvas();
+                createParticles();
+                animate();
+            }, 150);
+        });
+
+        setupCanvas();
+        createParticles();
+        animate();
+    });
+    </script>
 </body>
 
 </html>
