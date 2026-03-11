@@ -4503,17 +4503,17 @@
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
-        const numParticles = 50;
-        const maxDistance = 150;
-        const mouseRadius = 100;
+        const numParticles = 80;
+        const maxDistance = 200;
+        const mouseRadius = 180;
         let mouse = { x: -1000, y: -1000 };
 
-        window.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = heroSection.getBoundingClientRect();
             mouse.x = e.clientX - rect.left;
             mouse.y = e.clientY - rect.top;
         });
-        window.addEventListener('mouseout', () => {
+        heroSection.addEventListener('mouseleave', () => {
             mouse.x = -1000;
             mouse.y = -1000;
         });
@@ -4540,9 +4540,10 @@
                 this.y = Math.random() * height;
                 this.vx = (Math.random() - 0.5) * 0.6;
                 this.vy = (Math.random() - 0.5) * 0.6;
-                this.baseRadius = 2 + Math.random();
+                this.baseRadius = 2.5 + Math.random() * 2;
                 this.angle = Math.random() * Math.PI * 2;
                 this.pulseSpeed = 0.02 + Math.random() * 0.03;
+                this.opacity = 0.25 + Math.random() * 0.25;
             }
             update() {
                 this.x += this.vx;
@@ -4554,18 +4555,18 @@
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const dist = Math.hypot(dx, dy);
-                if (dist < mouseRadius) {
+                if (dist < mouseRadius && dist > 0) {
                     const force = (mouseRadius - dist) / mouseRadius;
-                    this.x -= (dx / dist) * force * 1.5;
-                    this.y -= (dy / dist) * force * 1.5;
+                    this.x -= (dx / dist) * force * 3;
+                    this.y -= (dy / dist) * force * 3;
                 }
                 this.angle += this.pulseSpeed;
             }
             draw() {
-                const currentRadius = this.baseRadius + Math.sin(this.angle) * 0.5;
+                const currentRadius = this.baseRadius + Math.sin(this.angle) * 0.8;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, currentRadius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(230,59,46,0.15)';
+                ctx.fillStyle = `rgba(230,59,46,${this.opacity.toFixed(2)})`;
                 ctx.fill();
             }
         }
@@ -4585,7 +4586,7 @@
             const cy = height / 2;
             const gradientRadius = Math.max(width, height) / 1.5;
             const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, gradientRadius);
-            gradient.addColorStop(0, 'rgba(230,59,46,0.03)');
+            gradient.addColorStop(0, 'rgba(230,59,46,0.06)');
             gradient.addColorStop(1, 'rgba(230,59,46,0)');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, width, height);
@@ -4600,7 +4601,7 @@
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(17,17,17,${(0.06 * opacity).toFixed(4)})`;
+                        ctx.strokeStyle = `rgba(230,59,46,${(0.12 * opacity).toFixed(4)})`;
                         ctx.lineWidth = 1;
                         ctx.stroke();
                     }
