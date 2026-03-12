@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Purchase Complete | Tedca Corp</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --dark: #1a1a1a;
+            --paper: #FAF9F6;
+            --signal: #FF6B2B;
+            --offwhite: #f5f4f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-container {
+            text-align: center;
+            max-width: 560px;
+            padding: 3rem 2rem;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--signal);
+            color: var(--paper);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .success-text {
+            font-size: 0.95rem;
+            color: rgba(26, 26, 26, 0.7);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .success-text strong {
+            color: var(--dark);
+        }
+
+        .next-steps {
+            background: var(--offwhite);
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            padding: 1.5rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .next-steps h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+            margin-bottom: 1rem;
+        }
+
+        .next-steps ol {
+            list-style: none;
+            counter-reset: steps;
+        }
+
+        .next-steps li {
+            counter-increment: steps;
+            font-size: 0.85rem;
+            color: rgba(26, 26, 26, 0.7);
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .next-steps li::before {
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background: rgba(26, 26, 26, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: rgba(26, 26, 26, 0.4);
+            top: 0.55rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: var(--dark);
+            color: var(--paper);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: var(--signal);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <h1 class="success-heading">Purchase Complete</h1>
+        <p class="success-text">
+            Your Claude Code Skill has been purchased successfully.
+            You'll receive a <strong>confirmation email</strong> with your receipt shortly.
+        </p>
+        <div class="next-steps">
+            <h3>What happens next</h3>
+            <ol>
+                <li>Check your email for the purchase confirmation</li>
+                <li>We'll send your skill directive file within 24 hours</li>
+                <li>Drop it into your Claude Code project and start using it</li>
+            </ol>
+        </div>
+        <a href="/" class="back-link">Back to Tedca.org</a>
+    </div>
+</body>
+
+</html>
