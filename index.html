@@ -20,6 +20,13 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tedca Corp | AI Agents & Automation That Run Your Business">
     <meta name="twitter:description" content="AI Automation, Voice AI Receptionist, Claude Code Skills, AI chatbots, and lead generation for North Jersey businesses. Running 24/7.">
+    <meta property="og:image" content="https://tedca.org/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:image" content="https://tedca.org/og-image.svg">
+
+    <!-- Google Search Console verification — replace content value with actual GSC code -->
+    <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
 
     <!-- Structured Data: Organization -->
     <script type="application/ld+json">
@@ -263,6 +270,9 @@
         }
         @media (max-width: 640px) {
             #spline-hero-wrap { height: 320px !important; }
+            #spline-hero-wrap::after { width: 80px; height: 30px; }
+            #my-cal-inline-30min { height: 420px !important; }
+            #lwt-left-line, #lwt-right-line, .lwt-side-line { display: none !important; }
         }
 
         /* Animated Voice Wave Background */
@@ -534,7 +544,7 @@
             justify-content: space-between;
         }
         .sim-badge {
-            font-size: 9px;
+            font-size: 11px;
             padding: 2px 8px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -796,7 +806,7 @@
         .fc-modal-header h3 { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; color: #111; margin: 0; }
         .fc-modal-header p { font-size: 11px; color: rgba(17,17,17,0.5); margin: 4px 0 0; font-family: sans-serif; }
         .fc-close-btn {
-            width: 32px; height: 32px; border: 1px solid rgba(17,17,17,0.15);
+            width: 44px; height: 44px; border: 1px solid rgba(17,17,17,0.15);
             background: transparent; cursor: pointer; display: flex; align-items: center;
             justify-content: center; font-size: 18px; color: #111; transition: border-color 0.2s;
             flex-shrink: 0;
@@ -905,13 +915,13 @@
         .auto-sold-badge {
             position: absolute; top: 6px; right: 6px;
             background: #34C759; color: #fff;
-            font-size: 9px; font-family: 'Space Mono', monospace;
+            font-size: 11px; font-family: 'Space Mono', monospace;
             font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
             padding: 2px 7px; border-radius: 999px;
             display: flex; align-items: center; gap: 3px;
             line-height: 1; white-space: nowrap; z-index: 2;
         }
-        .auto-sold-badge i { font-size: 8px; }
+        .auto-sold-badge i { font-size: 10px; }
 
         /* ── Agentic Expand Panel ── */
         .agentic-expand-panel {
@@ -994,7 +1004,7 @@
 
         /* Card hint */
         .auto-card-hint {
-            margin-top: 8px; font-size: 9px; font-family: 'DM Mono', monospace;
+            margin-top: 8px; font-size: 11px; font-family: 'DM Mono', monospace;
             color: rgba(17,17,17,0.35); text-transform: uppercase; letter-spacing: 0.08em;
             display: flex; align-items: center; justify-content: center; gap: 4px;
             opacity: 0.5; transition: opacity 0.3s ease;
@@ -1013,7 +1023,7 @@
         @media (max-width: 640px) {
             .fc-modal { width: 96vw; max-height: 95vh; }
             .fc-node { max-width: 100%; }
-            .fc-step-badge { width: 20px; height: 20px; font-size: 9px; top: -8px; left: -8px; }
+            .fc-step-badge { width: 20px; height: 20px; font-size: 11px; top: -8px; left: -8px; }
             .fc-node-icon { width: 30px; height: 30px; font-size: 13px; }
             .fc-node-label { font-size: 11px; }
             .fc-node-desc { font-size: 10px; }
@@ -1330,12 +1340,13 @@
 
 <body>
     <!-- Global Noise Overlay -->
-    <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <svg class="noise-overlay" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
         <filter id="noiseFilter">
             <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
         </filter>
         <rect width="100%" height="100%" filter="url(#noiseFilter)" />
     </svg>
+    <a href="#services-overview" class="sr-only focus:not-sr-only focus:absolute focus:top-12 focus:left-4 focus:z-[200] focus:bg-dark focus:text-paper focus:px-4 focus:py-2 focus:text-sm focus:font-mono">Skip to content</a>
 
     <!-- React Root for App.tsx -->
     <div id="react-root" class="fixed inset-0 z-[9999] pointer-events-none"></div>
@@ -1433,7 +1444,7 @@
 
                 <!-- Right: Spline 3D Scene -->
                 <div class="relative animate-fade-in-up delay-200" id="spline-hero-wrap" style="height:600px;">
-                    <spline-viewer url="https://prod.spline.design/pR4jr0vesEcOOm-r/scene.splinecode" style="width:100%;height:100%;display:block;background:transparent;"></spline-viewer>
+                    <spline-viewer url="https://prod.spline.design/pR4jr0vesEcOOm-r/scene.splinecode" aria-label="3D AI visualization" style="width:100%;height:100%;display:block;background:transparent;"></spline-viewer>
                 </div>
             </div>
         </div>
@@ -1630,10 +1641,10 @@
                         <header class="mb-10">
                             <p class="text-[10px] font-mono tracking-[0.3em] text-paper/50 uppercase mb-4 hiw-subtitle">How Your AI
                                 Works</p>
-                            <h1 class="font-heading text-4xl md:text-5xl font-bold tracking-tighter leading-[1.1] mb-4 uppercase">
+                            <h2 class="font-heading text-4xl md:text-5xl font-bold tracking-tighter leading-[1.1] mb-4 uppercase">
                                 <span class="hiw-title-line">Every Call,</span>
                                 <span class="hiw-title-line text-signal">Handled Perfectly</span>
-                            </h1>
+                            </h2>
                             <p class="font-sans text-paper/60 text-sm hiw-subtitle">See exactly what happens when a customer calls
                                 your business.</p>
                             <div
@@ -2713,7 +2724,7 @@
                 </div>
 
                 <!-- Expand Button -->
-                <button id="tl-expand-btn" onclick="toggleTlSteps()"
+                <button id="tl-expand-btn" onclick="toggleTlSteps()" aria-label="Expand timeline details"
                     class="relative pl-14 py-4 w-full text-left group mb-2">
                     <div
                         class="absolute left-0 w-10 h-10 rounded-none border border-dashed border-paper/20 bg-dark flex items-center justify-center transition-all group-hover:border-signal">
@@ -3094,7 +3105,7 @@
                     <div class="space-y-8">
                         <div>
                             <div class="flex justify-between mb-2">
-                                <label class="font-mono text-xs font-bold uppercase tracking-widest text-dark/70">Missed
+                                <label for="calls-slider" class="font-mono text-xs font-bold uppercase tracking-widest text-dark/70">Missed
                                     Calls / Week</label>
                                 <span id="calls-val" class="font-mono font-bold text-signal">15</span>
                             </div>
@@ -3102,7 +3113,7 @@
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <label class="font-mono text-xs font-bold uppercase tracking-widest text-dark/70">Avg.
+                                <label for="value-slider" class="font-mono text-xs font-bold uppercase tracking-widest text-dark/70">Avg.
                                     Customer Value</label>
                                 <span id="value-val" class="font-mono font-bold text-signal">$500</span>
                             </div>
@@ -3110,7 +3121,7 @@
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
-                                <label class="font-mono text-xs font-bold uppercase tracking-widest text-dark/70">Close
+                                <label for="rate-slider" class="font-mono text-xs font-bold uppercase tracking-widest text-dark/70">Close
                                     Rate</label>
                                 <span id="rate-val" class="font-mono font-bold text-signal">30%</span>
                             </div>
@@ -3287,7 +3298,7 @@
                         <h3 id="lwt-letstalk" class="text-3xl sm:text-4xl font-light tracking-tight" style="transform:translateY(10px);opacity:0;transition:all 0.5s ease 200ms;color:#fff;">Let's talk</h3>
                     </div>
 
-                    <button id="lwt-book-btn" onclick="lwtRevealCal()" class="group relative flex items-center gap-4 cursor-pointer" style="transform:translateY(15px);opacity:0;transition:all 0.5s ease 150ms;background:none;border:none;padding:0;">
+                    <button id="lwt-book-btn" onclick="lwtRevealCal()" aria-label="Book a strategy call" class="group relative flex items-center gap-4 cursor-pointer" style="transform:translateY(15px);opacity:0;transition:all 0.5s ease 150ms;background:none;border:none;padding:0;">
                         <div class="lwt-side-line h-px w-8 sm:w-12" style="background:rgba(255,255,255,0.15);transition:all 0.5s;opacity:0.5;"></div>
                         <div id="lwt-book-inner" class="relative flex items-center gap-3 overflow-hidden rounded-full border px-6 py-3 sm:px-8 sm:py-4" style="border-color:rgba(255,255,255,0.15);color:#fff;transition:all 0.5s;">
                             <!-- Calendar icon -->
@@ -3684,7 +3695,7 @@
         });
 
         // Live Counter Animation
-        setInterval(() => {
+        const lossCounterInterval = setInterval(() => {
             const counter = document.getElementById('live-loss-counter');
             if (counter) {
                 let current = parseFloat(counter.textContent.replace(/,/g, ''));
@@ -3692,6 +3703,9 @@
                 counter.textContent = current.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
         }, 2000);
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) clearInterval(lossCounterInterval);
+        });
 
         // Voice Wave Background
         const canvas = document.getElementById('voiceWaveCanvas');
