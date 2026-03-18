@@ -1007,7 +1007,18 @@
             50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
         }
 
-        /* Scroll reveal cards */
+        /* Scroll pop — general reveal on scroll */
+        .scroll-pop {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .scroll-pop.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll reveal cards — staggered */
         .scroll-reveal-cards > * {
             opacity: 0;
             transform: translateY(40px);
@@ -2450,12 +2461,17 @@
 
             <!-- Tab 3: Agentic Workflows -->
             <div id="svc-agentic" class="tab-panel" style="display:none;">
-                <!-- Heading -->
-                <h2 class="font-heading text-3xl md:text-4xl font-bold text-dark text-center uppercase tracking-tight mb-2">Claude Code &amp; Open Claw Skills</h2>
-                <p class="font-sans text-sm text-dark/60 text-center max-w-xl mx-auto mb-6">Custom AI automations that run on repeat — so you build once and never do the work again.</p>
-                <!-- Lamp Light Bar -->
-                <div id="claude-hero-mount" style="width:100vw; margin-left:calc(-50vw + 50%);"></div>
-                <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto scroll-reveal-cards">
+                <!-- Heading — scroll reveal -->
+                <div class="scroll-pop" style="padding-top:4rem; padding-bottom:2rem;">
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-dark text-center uppercase tracking-tight mb-2">Claude Code &amp; Open Claw Skills</h2>
+                    <p class="font-sans text-sm text-dark/60 text-center max-w-xl mx-auto">Developer-built Claude Code skills that plug in and play — for Claude Code users and Open Claw users.</p>
+                </div>
+                <!-- Lamp Light Bar — scroll reveal -->
+                <div class="scroll-pop" style="margin-bottom:4rem;">
+                    <div id="claude-hero-mount" style="width:100vw; margin-left:calc(-50vw + 50%);"></div>
+                </div>
+                <!-- Product Cards — scroll reveal staggered -->
+                <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto scroll-reveal-cards" style="padding-bottom:2rem;">
                     <!-- Motion Graphic Video Creation Card -->
                     <div class="agentic-card bg-paper border border-dark/10 p-6 group hover:border-signal transition-all cursor-pointer" data-agentic="tiktok">
                         <div class="w-12 h-12 mb-4 bg-signal text-paper flex items-center justify-center rounded-lg">
@@ -4011,18 +4027,28 @@
             observer.observe(autoGrid);
         }
 
-        // Scroll reveal for Claude Code Skills cards
-        const revealCards = document.querySelectorAll('.scroll-reveal-cards > *');
-        if (revealCards.length) {
-            const revealObs = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        revealObs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.2 });
-            revealCards.forEach(card => revealObs.observe(card));
+        // Scroll reveal for all scroll-pop and scroll-reveal-cards elements
+        const scrollRevealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    scrollRevealObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.scroll-pop, .scroll-reveal-cards > *').forEach(el => scrollRevealObs.observe(el));
+
+        // Re-observe when agentic tab becomes visible (elements start hidden)
+        const agenticTab = document.getElementById('svc-tab-agentic');
+        if (agenticTab) {
+            agenticTab.addEventListener('click', () => {
+                setTimeout(() => {
+                    document.querySelectorAll('#svc-agentic .scroll-pop, #svc-agentic .scroll-reveal-cards > *').forEach(el => {
+                        el.classList.remove('revealed');
+                        scrollRevealObs.observe(el);
+                    });
+                }, 50);
+            });
         }
 
         // ── Flowchart Modal System ──
