@@ -50,6 +50,28 @@
 
     <!-- Spline viewer loaded lazily via Intersection Observer (see bottom of body) -->
     <style>
+        /* shadcn CSS variables */
+        :root {
+            --background: 0 0% 4%;
+            --foreground: 0 0% 98%;
+            --primary: 3 83% 54%;
+            --primary-foreground: 0 0% 98%;
+            --muted-foreground: 0 0% 60%;
+            --accent: 3 83% 54%;
+            --accent-foreground: 0 0% 98%;
+            --destructive: 0 84% 60%;
+            --destructive-foreground: 0 0% 98%;
+            --input: 0 0% 20%;
+            --ring: 3 83% 54%;
+            --radius: 0.5rem;
+        }
+        .bg-background { background: hsl(var(--background)); }
+        .text-primary-foreground { color: hsl(var(--primary-foreground)); }
+        .bg-primary { background: hsl(var(--primary)); }
+        .bg-primary\/60 { background: hsla(var(--primary), 0.6); }
+        .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+        .ring-offset-background { --tw-ring-offset-color: hsl(var(--background)); }
+
         html {
             scroll-behavior: smooth;
             touch-action: manipulation;
@@ -133,7 +155,7 @@
             #spline-hero-wrap { height: 320px !important; }
         }
 
-        /* === ANIMATED HERO BACKGROUND — AI Command Center === */
+        /* === ANIMATED HERO BACKGROUND === */
         :root {
             --ai-red: #E63B2E;
             --ai-red-rgb: 230, 59, 46;
@@ -146,8 +168,8 @@
             z-index: 0;
             overflow: hidden;
             pointer-events: none;
-            mask-image: linear-gradient(to bottom, transparent, black 10%, black 95%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 95%, transparent);
+            width: 100%;
+            height: 100%;
         }
         .ai-grid {
             position: absolute;
@@ -165,8 +187,8 @@
         }
         .ai-scan-lines {
             position: absolute;
-            inset: -20%;
-            width: 140%; height: 140%;
+            inset: 0;
+            width: 100%; height: 100%;
             background: repeating-linear-gradient(45deg, transparent, transparent 15px, rgba(var(--ai-red-rgb), 0.08) 16px, rgba(var(--ai-red-rgb), 0.08) 18px);
             opacity: 0.8;
             animation: ai-scan-sweep 15s linear infinite;
@@ -274,7 +296,7 @@
             0% { transform: rotate(360deg); }
             100% { transform: rotate(0deg); }
         }
-        .ai-circuit-group { position: absolute; inset: 0; }
+        .ai-circuit-group { position: absolute; inset: 0; width: 100%; height: 100%; }
         .ai-circuit-node {
             position: absolute;
             width: 8px; height: 8px;
@@ -1423,6 +1445,7 @@
 
     <!-- React Root for App.tsx -->
     <div id="react-root" class="fixed inset-0 z-[9999] pointer-events-none"></div>
+    <div id="claude-skills-root"></div>
 
     <!-- Animated Voice Wave Background -->
     <canvas id="voiceWaveCanvas"></canvas>
@@ -1550,7 +1573,7 @@
                         </a>
                         <a href="#services-overview" onclick="event.preventDefault();showServicesTab('agentic');document.getElementById('services-overview').scrollIntoView({behavior:'smooth'})"
                             class="px-6 py-3.5 border border-dark/20 text-dark text-xs font-mono font-bold uppercase tracking-widest hover:border-signal hover:text-signal transition-colors text-center pointer-events-auto flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> Agentic
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Claude Code Skills
                         </a>
                     </div>
                 </div>
@@ -1579,7 +1602,7 @@
             <div class="flex flex-wrap justify-center gap-2 mb-10">
                 <button onclick="showServicesTab('automation')" id="svc-tab-automation" class="px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border border-dark bg-dark text-paper transition-all pointer-events-auto">AI Automation</button>
                 <button onclick="showServicesTab('voice')" id="svc-tab-voice" class="px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border border-dark/20 text-dark hover:border-dark transition-all pointer-events-auto">AI Voice Receptionist</button>
-                <button onclick="showServicesTab('agentic')" id="svc-tab-agentic" class="px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border border-dark/20 text-dark hover:border-dark transition-all pointer-events-auto">Agentic Workflows</button>
+                <button onclick="showServicesTab('agentic')" id="svc-tab-agentic" class="px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-widest border border-dark/20 text-dark hover:border-dark transition-all pointer-events-auto">Claude Code Skills</button>
             </div>
 
             <!-- Tab 1: AI Automation -->
@@ -2414,7 +2437,8 @@
 
             <!-- Tab 3: Agentic Workflows -->
             <div id="svc-agentic" class="tab-panel" style="display:none;">
-                <p class="font-sans text-sm text-dark/70 text-center max-w-2xl mx-auto mb-10">Complex jobs that normally take hours — handled start to finish by AI agents working together. Unlike simple automation, agentic workflows make decisions, adapt, and deliver complete results.</p>
+                <!-- Lamp Light Bar -->
+                <div id="claude-hero-mount" style="width:100vw; margin-left:calc(-50vw + 50%);"></div>
                 <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                     <!-- Motion Graphic Video Creation Card -->
                     <div class="agentic-card bg-paper border border-dark/10 p-6 group hover:border-signal transition-all cursor-pointer" data-agentic="tiktok">
@@ -2497,7 +2521,8 @@
                 </div>
 
                 <div class="text-center mt-8">
-                    <a href="#book-call" class="inline-block px-8 py-4 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors pointer-events-auto">Book a Call →</a>
+                    <p class="font-sans text-sm text-dark/50 mb-3">Need something custom built for your business?</p>
+                    <a href="#book-call" class="inline-block px-8 py-4 bg-dark text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-signal transition-colors pointer-events-auto">Request a Custom Workflow →</a>
                 </div>
 
             </div>
