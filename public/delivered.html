@@ -8,125 +8,207 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, 'Inter', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
-        .container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+        .container { max-width: 640px; margin: 0 auto; padding: 60px 24px; }
         .logo { color: #E63B2E; font-size: 24px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 48px; }
         .loading { text-align: center; padding: 120px 0; }
         .loading .spinner { width: 40px; height: 40px; border: 3px solid #333; border-top-color: #E63B2E; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .error { background: #1a0000; border: 1px solid #E63B2E; padding: 24px; border-radius: 8px; text-align: center; }
         .error h2 { color: #E63B2E; margin-bottom: 8px; }
+
+        /* Email form */
+        .email-form { text-align: center; padding: 80px 0; }
+        .email-form h1 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+        .email-form p { color: #888; margin-bottom: 32px; font-size: 15px; }
+        .email-input { width: 100%; padding: 16px; background: #111; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 16px; margin-bottom: 12px; outline: none; }
+        .email-input:focus { border-color: #E63B2E; }
+        .email-submit { width: 100%; padding: 16px; background: #E63B2E; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .email-submit:hover { background: #c42f24; }
+        .email-submit:disabled { background: #333; cursor: wait; }
+        .form-error { color: #E63B2E; font-size: 14px; margin-top: 12px; }
+
+        /* Success */
         .success h1 { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
-        .success .subtitle { color: #666; font-size: 16px; margin-bottom: 40px; }
-        .step { background: #111; border: 1px solid #222; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
-        .step-number { display: inline-block; width: 28px; height: 28px; background: #E63B2E; color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: 700; margin-right: 12px; }
-        .step-title { font-weight: 700; font-size: 16px; margin-bottom: 12px; }
-        .code-block { background: #000; border: 1px solid #333; border-radius: 6px; padding: 16px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; color: #0f0; overflow-x: auto; position: relative; margin-top: 8px; word-break: break-all; white-space: pre-wrap; }
-        .copy-btn { position: absolute; top: 8px; right: 8px; background: #E63B2E; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .copy-btn:hover { background: #c42f24; }
-        .copy-btn.copied { background: #22c55e; }
-        .skill-content { margin-top: 40px; }
-        .skill-content summary { cursor: pointer; color: #E63B2E; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-        .skill-content pre { background: #000; border: 1px solid #222; border-radius: 6px; padding: 16px; margin-top: 12px; font-size: 11px; color: #999; overflow-x: auto; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
-        .note { background: #111; border-left: 3px solid #E63B2E; padding: 16px; margin-top: 32px; font-size: 14px; color: #888; border-radius: 0 6px 6px 0; }
+        .success .subtitle { color: #888; font-size: 16px; margin-bottom: 40px; line-height: 1.5; }
+        .success .subtitle strong { color: #fff; }
+        .download-btn { display: block; width: 100%; padding: 20px; background: #E63B2E; color: #fff; border: none; border-radius: 8px; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; text-align: center; margin-bottom: 32px; transition: background 0.2s; }
+        .download-btn:hover { background: #c42f24; }
+        .download-btn.downloaded { background: #22c55e; }
+        .step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+        .step-number { flex-shrink: 0; width: 32px; height: 32px; background: #222; color: #E63B2E; border-radius: 50%; text-align: center; line-height: 32px; font-size: 14px; font-weight: 700; }
+        .step-text { font-size: 15px; color: #ccc; line-height: 1.5; }
+        .step-text strong { color: #fff; }
+        .step-text code { background: #1a1a1a; border: 1px solid #333; padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', monospace; font-size: 13px; color: #0f0; }
+        .divider { border: none; border-top: 1px solid #222; margin: 32px 0; }
+        .note { background: #111; border-left: 3px solid #E63B2E; padding: 16px 20px; font-size: 14px; color: #888; border-radius: 0 6px 6px 0; line-height: 1.6; }
         .note strong { color: #fff; }
+        .note a { color: #E63B2E; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">TEDCA.</div>
 
-        <div id="loading" class="loading">
+        <!-- Loading state (only shows when session_id is in URL) -->
+        <div id="loading" style="display:none;" class="loading">
             <div class="spinner"></div>
             <p style="color: #666;">Verifying your purchase...</p>
         </div>
 
+        <!-- Email form (shows when no session_id) -->
+        <div id="email-form" style="display:none;" class="email-form">
+            <h1>Download Your Skill</h1>
+            <p>Enter the email you used to purchase.</p>
+            <input type="email" id="email-input" class="email-input" placeholder="your@email.com" autocomplete="email">
+            <button class="email-submit" id="email-submit" onclick="verifyEmail()">Get My Skill</button>
+            <p id="form-error" class="form-error" style="display:none;"></p>
+        </div>
+
+        <!-- Error state -->
         <div id="error" style="display:none;" class="error">
             <h2>Something went wrong</h2>
             <p id="error-msg" style="color:#999;"></p>
         </div>
 
+        <!-- Success state -->
         <div id="success" style="display:none;" class="success">
-            <h1>You're in. 🎉</h1>
-            <p class="subtitle">Your <strong id="skill-name"></strong> skill is ready. Follow these steps to start using it.</p>
+            <h1>You're in.</h1>
+            <p class="subtitle">Your <strong id="skill-name"></strong> skill is ready.</p>
+
+            <button class="download-btn" id="download-btn" onclick="downloadSkill()">
+                Download Skill File
+            </button>
+
+            <hr class="divider">
+
+            <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #666; margin-bottom: 20px;">How to install</h3>
 
             <div class="step">
-                <div class="step-title"><span class="step-number">1</span>Open your terminal and run this:</div>
-                <div class="code-block" id="step1-code">mkdir -p .claude/agents</div>
-                <button class="copy-btn" onclick="copyCode('step1-code', this)">Copy</button>
+                <div class="step-number">1</div>
+                <div class="step-text">
+                    <strong>Move the downloaded file</strong> into your project's Claude agents folder:<br>
+                    <code>.claude/agents/</code><br>
+                    <span style="color:#666; font-size:13px;">Create the folder if it doesn't exist.</span>
+                </div>
             </div>
 
             <div class="step">
-                <div class="step-title"><span class="step-number">2</span>Create the skill file:</div>
-                <div class="code-block" id="step2-code"></div>
-                <button class="copy-btn" onclick="copyCode('step2-code', this)">Copy</button>
+                <div class="step-number">2</div>
+                <div class="step-text">
+                    <strong>Open Claude Code</strong> in your terminal and type:<br>
+                    <code id="slash-command"></code>
+                </div>
             </div>
 
             <div class="step">
-                <div class="step-title"><span class="step-number">3</span>Open Claude Code and type:</div>
-                <div class="code-block" id="step3-code"></div>
-                <button class="copy-btn" onclick="copyCode('step3-code', this)">Copy</button>
+                <div class="step-number">3</div>
+                <div class="step-text">
+                    <strong>That's it.</strong> Claude Code will install everything, ask for your API keys, and walk you through the rest.
+                </div>
             </div>
+
+            <hr class="divider">
 
             <div class="note">
-                <strong>That's it.</strong> Claude Code will install everything, ask for your API keys, and walk you through creating your first video. Your Mac doesn't need anything pre-installed — the skill handles it all.
-            </div>
-
-            <div class="skill-content">
-                <details>
-                    <summary>View full skill file (for manual copy/paste)</summary>
-                    <pre id="skill-raw"></pre>
-                    <button class="copy-btn" style="position:relative; margin-top:8px;" onclick="copyCode('skill-raw', this)">Copy Full File</button>
-                </details>
+                <strong>Don't have Claude Code?</strong> Get it at <a href="https://claude.ai/claude-code">claude.ai/claude-code</a><br><br>
+                <strong>Lost this page?</strong> Come back to <a href="/delivered">tedca.org/delivered</a> and enter your email to download again anytime.
             </div>
         </div>
     </div>
 
     <script>
-        function copyCode(id, btn) {
-            const text = document.getElementById(id).textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                btn.textContent = 'Copied!';
-                btn.classList.add('copied');
-                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
-            });
+        let skillData = null;
+
+        function downloadSkill() {
+            if (!skillData) return;
+            const blob = new Blob([skillData.skill_content], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = skillData.install_filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            const btn = document.getElementById('download-btn');
+            btn.textContent = 'Downloaded!';
+            btn.classList.add('downloaded');
+            setTimeout(() => { btn.textContent = 'Download Again'; btn.classList.remove('downloaded'); }, 3000);
         }
 
-        async function loadSkill() {
-            const params = new URLSearchParams(window.location.search);
-            const sessionId = params.get('session_id');
+        function showSuccess(data) {
+            skillData = data;
+            document.getElementById('skill-name').textContent = data.skill_name;
+            document.getElementById('slash-command').textContent = `/${data.install_filename.replace('.md', '')}`;
+            document.querySelectorAll('#loading, #email-form, #error').forEach(el => el.style.display = 'none');
+            document.getElementById('success').style.display = 'block';
+        }
 
-            if (!sessionId) {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('error-msg').textContent = 'No purchase session found. Please buy a skill from tedca.org first.';
-                return;
-            }
+        function showError(msg) {
+            document.querySelectorAll('#loading, #email-form').forEach(el => el.style.display = 'none');
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error-msg').textContent = msg;
+        }
+
+        async function verifyEmail() {
+            const email = document.getElementById('email-input').value.trim();
+            if (!email) return;
+
+            const btn = document.getElementById('email-submit');
+            const errEl = document.getElementById('form-error');
+            btn.disabled = true;
+            btn.textContent = 'Checking...';
+            errEl.style.display = 'none';
 
             try {
-                const res = await fetch(`/.netlify/functions/deliver-skill?session_id=${sessionId}`);
+                const res = await fetch(`/.netlify/functions/deliver-skill?email=${encodeURIComponent(email)}`);
                 const data = await res.json();
 
                 if (!res.ok) {
-                    throw new Error(data.error || 'Verification failed');
+                    errEl.textContent = data.error || 'No purchase found for this email.';
+                    errEl.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = 'Get My Skill';
+                    return;
                 }
 
-                // Populate the page
-                document.getElementById('skill-name').textContent = data.skill_name;
-                document.getElementById('step2-code').textContent = `cat << 'SKILL_EOF' > .claude/agents/${data.install_filename}\n${data.skill_content}\nSKILL_EOF`;
-                document.getElementById('step3-code').textContent = `/${data.install_filename.replace('.md', '')}`;
-                document.getElementById('skill-raw').textContent = data.skill_content;
-
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('success').style.display = 'block';
-
+                showSuccess(data);
             } catch (err) {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('error-msg').textContent = err.message;
+                errEl.textContent = 'Something went wrong. Try again.';
+                errEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Get My Skill';
             }
         }
 
-        loadSkill();
+        // Allow Enter key on email input
+        document.getElementById('email-input')?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') verifyEmail();
+        });
+
+        // On page load: check for session_id (redirect from Stripe) or show email form
+        (async function init() {
+            const params = new URLSearchParams(window.location.search);
+            const sessionId = params.get('session_id');
+
+            if (sessionId) {
+                // Coming from Stripe redirect — auto verify
+                document.getElementById('loading').style.display = 'block';
+
+                try {
+                    const res = await fetch(`/.netlify/functions/deliver-skill?session_id=${sessionId}`);
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error);
+                    showSuccess(data);
+                } catch (err) {
+                    showError(err.message);
+                }
+            } else {
+                // No session_id — show email form (returning customer)
+                document.getElementById('email-form').style.display = 'block';
+            }
+        })();
     </script>
 </body>
 </html>
