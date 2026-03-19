@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Skill is Ready — Tedca</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Inter', sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
+        .container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+        .logo { color: #E63B2E; font-size: 24px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 48px; }
+        .loading { text-align: center; padding: 120px 0; }
+        .loading .spinner { width: 40px; height: 40px; border: 3px solid #333; border-top-color: #E63B2E; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error { background: #1a0000; border: 1px solid #E63B2E; padding: 24px; border-radius: 8px; text-align: center; }
+        .error h2 { color: #E63B2E; margin-bottom: 8px; }
+        .success h1 { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+        .success .subtitle { color: #666; font-size: 16px; margin-bottom: 40px; }
+        .step { background: #111; border: 1px solid #222; border-radius: 8px; padding: 24px; margin-bottom: 16px; }
+        .step-number { display: inline-block; width: 28px; height: 28px; background: #E63B2E; color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-size: 14px; font-weight: 700; margin-right: 12px; }
+        .step-title { font-weight: 700; font-size: 16px; margin-bottom: 12px; }
+        .code-block { background: #000; border: 1px solid #333; border-radius: 6px; padding: 16px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; color: #0f0; overflow-x: auto; position: relative; margin-top: 8px; word-break: break-all; white-space: pre-wrap; }
+        .copy-btn { position: absolute; top: 8px; right: 8px; background: #E63B2E; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .copy-btn:hover { background: #c42f24; }
+        .copy-btn.copied { background: #22c55e; }
+        .skill-content { margin-top: 40px; }
+        .skill-content summary { cursor: pointer; color: #E63B2E; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .skill-content pre { background: #000; border: 1px solid #222; border-radius: 6px; padding: 16px; margin-top: 12px; font-size: 11px; color: #999; overflow-x: auto; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
+        .note { background: #111; border-left: 3px solid #E63B2E; padding: 16px; margin-top: 32px; font-size: 14px; color: #888; border-radius: 0 6px 6px 0; }
+        .note strong { color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">TEDCA.</div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p style="color: #666;">Verifying your purchase...</p>
+        </div>
+
+        <div id="error" style="display:none;" class="error">
+            <h2>Something went wrong</h2>
+            <p id="error-msg" style="color:#999;"></p>
+        </div>
+
+        <div id="success" style="display:none;" class="success">
+            <h1>You're in. 🎉</h1>
+            <p class="subtitle">Your <strong id="skill-name"></strong> skill is ready. Follow these steps to start using it.</p>
+
+            <div class="step">
+                <div class="step-title"><span class="step-number">1</span>Open your terminal and run this:</div>
+                <div class="code-block" id="step1-code">mkdir -p .claude/agents</div>
+                <button class="copy-btn" onclick="copyCode('step1-code', this)">Copy</button>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="step-number">2</span>Create the skill file:</div>
+                <div class="code-block" id="step2-code"></div>
+                <button class="copy-btn" onclick="copyCode('step2-code', this)">Copy</button>
+            </div>
+
+            <div class="step">
+                <div class="step-title"><span class="step-number">3</span>Open Claude Code and type:</div>
+                <div class="code-block" id="step3-code"></div>
+                <button class="copy-btn" onclick="copyCode('step3-code', this)">Copy</button>
+            </div>
+
+            <div class="note">
+                <strong>That's it.</strong> Claude Code will install everything, ask for your API keys, and walk you through creating your first video. Your Mac doesn't need anything pre-installed — the skill handles it all.
+            </div>
+
+            <div class="skill-content">
+                <details>
+                    <summary>View full skill file (for manual copy/paste)</summary>
+                    <pre id="skill-raw"></pre>
+                    <button class="copy-btn" style="position:relative; margin-top:8px;" onclick="copyCode('skill-raw', this)">Copy Full File</button>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(id, btn) {
+            const text = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+
+        async function loadSkill() {
+            const params = new URLSearchParams(window.location.search);
+            const sessionId = params.get('session_id');
+
+            if (!sessionId) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error-msg').textContent = 'No purchase session found. Please buy a skill from tedca.org first.';
+                return;
+            }
+
+            try {
+                const res = await fetch(`/.netlify/functions/deliver-skill?session_id=${sessionId}`);
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Verification failed');
+                }
+
+                // Populate the page
+                document.getElementById('skill-name').textContent = data.skill_name;
+                document.getElementById('step2-code').textContent = `cat << 'SKILL_EOF' > .claude/agents/${data.install_filename}\n${data.skill_content}\nSKILL_EOF`;
+                document.getElementById('step3-code').textContent = `/${data.install_filename.replace('.md', '')}`;
+                document.getElementById('skill-raw').textContent = data.skill_content;
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+
+            } catch (err) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error-msg').textContent = err.message;
+            }
+        }
+
+        loadSkill();
+    </script>
+</body>
+</html>
