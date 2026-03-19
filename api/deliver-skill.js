@@ -5,20 +5,25 @@ const https = require('https');
 
 function httpsRequest(urlStr, headers = {}) {
   return new Promise((resolve, reject) => {
-    const url = new URL(urlStr);
-    const options = {
-      hostname: url.hostname,
-      path: url.pathname + url.search,
-      method: 'GET',
-      headers,
-    };
-    const req = https.request(options, (res) => {
-      let data = '';
-      res.on('data', (chunk) => data += chunk);
-      res.on('end', () => resolve({ status: res.statusCode, body: data }));
-    });
-    req.on('error', reject);
-    req.end();
+    try {
+      const url = new URL(urlStr);
+      const options = {
+        hostname: url.hostname,
+        port: 443,
+        path: url.pathname + url.search,
+        method: 'GET',
+        headers: { ...headers },
+      };
+      const req = https.request(options, (response) => {
+        let data = '';
+        response.on('data', (chunk) => data += chunk);
+        response.on('end', () => resolve({ status: response.statusCode, body: data }));
+      });
+      req.on('error', (err) => reject(err));
+      req.end();
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 
@@ -82,38 +87,39 @@ async function verifyBySessionId(stripeKey, sessionId) {
   return null;
 }
 
-module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Content-Type', 'application/json');
+module.exports = async (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.setHeader('Content-Type', 'application/json');
 
-  const { email, session_id } = req.query || {};
+  const email = request.query?.email;
+  const sessionId = request.query?.session_id;
 
-  if (!email && !session_id) {
-    return res.status(400).json({ error: 'Provide email or session_id' });
+  if (!email && !sessionId) {
+    return response.status(400).json({ error: 'Provide email or session_id' });
   }
 
   const STRIPE_KEY = process.env.STRIPE_SECRET_KEY;
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   if (!STRIPE_KEY || !GITHUB_TOKEN) {
-    return res.status(500).json({ error: 'Server misconfigured — missing env vars' });
+    return response.status(500).json({ error: 'Server misconfigured — missing env vars' });
   }
 
   try {
     let result = null;
-    if (session_id) {
-      result = await verifyBySessionId(STRIPE_KEY, session_id);
+    if (sessionId) {
+      result = await verifyBySessionId(STRIPE_KEY, sessionId);
     } else if (email) {
       result = await findPaidSession(STRIPE_KEY, email);
     }
 
     if (!result) {
-      return res.status(403).json({ error: 'No paid purchase found. Make sure you used the same email you paid with.' });
+      return response.status(403).json({ error: 'No paid purchase found. Make sure you used the same email you paid with.' });
     }
 
     const { skillInfo } = result;
 
-    const githubRes = await httpsRequest(
+    const githubData = await httpsRequest(
       `https://api.github.com/repos/trdteddarwin-eng/Stripe-Tedca-website-/contents/${skillInfo.githubPath}?ref=main`,
       {
         'Authorization': `Bearer ${GITHUB_TOKEN}`,
@@ -122,17 +128,17 @@ module.exports = async (req, res) => {
       }
     );
 
-    if (githubRes.status !== 200) {
-      return res.status(500).json({ error: 'Failed to fetch skill file from GitHub' });
+    if (githubData.status !== 200) {
+      return response.status(500).json({ error: 'Failed to fetch skill file from GitHub' });
     }
 
-    return res.status(200).json({
+    return response.status(200).json({
       skill_name: skillInfo.name,
       install_filename: skillInfo.installFilename,
-      skill_content: githubRes.body,
+      skill_content: githubData.body,
     });
 
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return response.status(500).json({ error: err.message || 'Unknown error' });
   }
 };
