@@ -3231,6 +3231,67 @@
         .tl-expanded #tl-expand-icon {
             transform: rotate(180deg);
         }
+
+        /* === Scrolling Testimonials === */
+        @keyframes scroll-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .testimonial-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            animation: scroll-up linear infinite;
+        }
+        .testimonial-col-1 { animation-duration: 25s; }
+        .testimonial-col-2 { animation-duration: 30s; }
+        .testimonial-col-3 { animation-duration: 20s; }
+        .testimonial-track:hover .testimonial-col {
+            animation-play-state: paused;
+        }
+        .testimonial-card {
+            background: #fff;
+            border: 1px solid rgba(17,17,17,0.1);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            flex-shrink: 0;
+        }
+        .testimonial-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .testimonial-track {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            max-height: 520px;
+            overflow: hidden;
+        }
+        @media (max-width: 1023px) {
+            .testimonial-track {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .testimonial-track > div:nth-child(3) {
+                display: none;
+            }
+        }
+        @media (max-width: 639px) {
+            .testimonial-track {
+                grid-template-columns: 1fr;
+                max-height: 480px;
+            }
+            .testimonial-track > div:nth-child(2) {
+                display: none;
+            }
+        }
     </style>
 
     <script>
@@ -3673,6 +3734,278 @@
                     <p class="font-sans text-dark/70 text-sm leading-relaxed">
                         Absolutely. Many clients pair AI Automation (to handle everyday tasks like follow-ups and data entry) with Agentic Workflows (for complex projects like outreach campaigns and content creation). Together, they cover both the simple and the sophisticated.
                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20 bg-paper overflow-hidden" style="background:#E8E4DD;">
+        <div class="max-w-6xl mx-auto px-6 md:px-8 mb-12 text-center">
+            <span class="text-[10px] font-mono font-bold text-signal uppercase tracking-widest">What Our Clients Say</span>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-dark uppercase tracking-tight mt-2">Results That Speak</h2>
+        </div>
+        <div class="max-w-6xl mx-auto px-6 md:px-8">
+            <div class="testimonial-track">
+                <!-- Column 1 — AI Automation + mixed -->
+                <div>
+                    <div class="testimonial-col testimonial-col-1">
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"We used to lose half our inbound leads because nobody followed up fast enough. Tedca set up automated follow-ups and a lead scoring system — we booked 40% more appointments in the first month alone."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">MR</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Marcus Rivera</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Rivera HVAC Solutions</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"The Voice AI picks up every single call — nights, weekends, holidays. Our patients can book appointments at 2 AM and it sounds completely natural. We stopped losing after-hours callers overnight."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">DP</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Dr. Priya Nair</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Bright Smile Dental</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"The motion graphic video skill is insane. I described what I wanted, and it generated a full explainer video with narration and sound effects in under 10 minutes. My clients thought I hired a production studio."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">JT</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Jake Torres</div>
+                                    <div class="font-sans text-xs text-dark/50">Founder, Torque Digital Agency</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Our chatbot handles 70% of customer questions without a human touching it. Response time went from hours to seconds. Tedca's automation literally pays for itself every week."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">KW</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Karen Walsh</div>
+                                    <div class="font-sans text-xs text-dark/50">Manager, Walsh &amp; Partners Law</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"We used to lose half our inbound leads because nobody followed up fast enough. Tedca set up automated follow-ups and a lead scoring system — we booked 40% more appointments in the first month alone."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">MR</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Marcus Rivera</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Rivera HVAC Solutions</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"The Voice AI picks up every single call — nights, weekends, holidays. Our patients can book appointments at 2 AM and it sounds completely natural. We stopped losing after-hours callers overnight."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">DP</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Dr. Priya Nair</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Bright Smile Dental</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"The motion graphic video skill is insane. I described what I wanted, and it generated a full explainer video with narration and sound effects in under 10 minutes. My clients thought I hired a production studio."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">JT</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Jake Torres</div>
+                                    <div class="font-sans text-xs text-dark/50">Founder, Torque Digital Agency</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Our chatbot handles 70% of customer questions without a human touching it. Response time went from hours to seconds. Tedca's automation literally pays for itself every week."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">KW</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Karen Walsh</div>
+                                    <div class="font-sans text-xs text-dark/50">Manager, Walsh &amp; Partners Law</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2 — Voice AI + mixed -->
+                <div>
+                    <div class="testimonial-col testimonial-col-2">
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"I was skeptical about an AI answering my phones, but the Voice AI receptionist sounds so human that clients don't even realize it. It booked 23 appointments in the first week without me lifting a finger."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">RD</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Robert Dawson</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Dawson Plumbing Co.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Tedca's lead scoring AI flagged our hottest prospects so sales only called people ready to buy. Conversion rate jumped from 8% to 19% in six weeks. The ROI is unreal."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">SL</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Sandra Liu</div>
+                                    <div class="font-sans text-xs text-dark/50">VP Sales, Apex Roofing Group</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"I used the Claude Code website redesign skill to rebuild a client's entire site. It analyzed their old layout, generated a modern Tailwind design, and deployed it — all from a single prompt. Saved me two days of work."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">AN</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Amir Naseri</div>
+                                    <div class="font-sans text-xs text-dark/50">Freelance Developer</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Before Voice AI we missed about 35% of calls during peak hours. Now every call gets answered instantly, and the AI transfers urgent ones to my cell. Haven't missed a lead since."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">TG</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Tony Greco</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Greco Auto Repair</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"I was skeptical about an AI answering my phones, but the Voice AI receptionist sounds so human that clients don't even realize it. It booked 23 appointments in the first week without me lifting a finger."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">RD</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Robert Dawson</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Dawson Plumbing Co.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Tedca's lead scoring AI flagged our hottest prospects so sales only called people ready to buy. Conversion rate jumped from 8% to 19% in six weeks. The ROI is unreal."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">SL</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Sandra Liu</div>
+                                    <div class="font-sans text-xs text-dark/50">VP Sales, Apex Roofing Group</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"I used the Claude Code website redesign skill to rebuild a client's entire site. It analyzed their old layout, generated a modern Tailwind design, and deployed it — all from a single prompt. Saved me two days of work."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">AN</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Amir Naseri</div>
+                                    <div class="font-sans text-xs text-dark/50">Freelance Developer</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Before Voice AI we missed about 35% of calls during peak hours. Now every call gets answered instantly, and the AI transfers urgent ones to my cell. Haven't missed a lead since."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">TG</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Tony Greco</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Greco Auto Repair</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3 — Claude Code Skills + mixed -->
+                <div>
+                    <div class="testimonial-col testimonial-col-3">
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"The Claude Code video skill replaced our entire freelance video pipeline. We generate explainer videos for clients in minutes — with custom narration, sound design, the whole thing. Game changer for our agency."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">LP</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Lisa Park</div>
+                                    <div class="font-sans text-xs text-dark/50">Co-founder, Nimbus Creative</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Automated follow-ups alone recovered $12K in revenue last quarter from leads that would have gone cold. The system sends the right message at the right time — better than any human could."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">DH</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Derek Holloway</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Holloway Electrical</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Our Voice AI handles Spanish and English callers seamlessly. For a law firm in North Jersey, that's a massive competitive advantage. We went from 3 missed calls a day to zero."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">CM</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Carmen Mendez</div>
+                                    <div class="font-sans text-xs text-dark/50">Partner, Mendez Legal Group</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"I used to spend 4 hours per client on website mockups. With the redesign skill, I generate a production-ready landing page in 15 minutes, tweak it, and ship. My output tripled."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">EK</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Ethan Kim</div>
+                                    <div class="font-sans text-xs text-dark/50">Web Developer, Solo Practice</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"The Claude Code video skill replaced our entire freelance video pipeline. We generate explainer videos for clients in minutes — with custom narration, sound design, the whole thing. Game changer for our agency."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">LP</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Lisa Park</div>
+                                    <div class="font-sans text-xs text-dark/50">Co-founder, Nimbus Creative</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Automated follow-ups alone recovered $12K in revenue last quarter from leads that would have gone cold. The system sends the right message at the right time — better than any human could."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#E63B2E;">DH</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Derek Holloway</div>
+                                    <div class="font-sans text-xs text-dark/50">Owner, Holloway Electrical</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"Our Voice AI handles Spanish and English callers seamlessly. For a law firm in North Jersey, that's a massive competitive advantage. We went from 3 missed calls a day to zero."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#111;">CM</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Carmen Mendez</div>
+                                    <div class="font-sans text-xs text-dark/50">Partner, Mendez Legal Group</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="font-sans text-dark/80 text-sm leading-relaxed mb-4">"I used to spend 4 hours per client on website mockups. With the redesign skill, I generate a production-ready landing page in 15 minutes, tweak it, and ship. My output tripled."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="testimonial-avatar" style="background:#2563eb;">EK</div>
+                                <div>
+                                    <div class="font-heading font-bold text-sm text-dark">Ethan Kim</div>
+                                    <div class="font-sans text-xs text-dark/50">Web Developer, Solo Practice</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
