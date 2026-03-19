@@ -3,14 +3,22 @@
 
 const https = require('https');
 
-function httpsRequest(url, headers = {}) {
+function httpsRequest(urlStr, headers = {}) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, { headers }, (res) => {
+    const url = new URL(urlStr);
+    const options = {
+      hostname: url.hostname,
+      path: url.pathname + url.search,
+      method: 'GET',
+      headers,
+    };
+    const req = https.request(options, (res) => {
       let data = '';
       res.on('data', (chunk) => data += chunk);
       res.on('end', () => resolve({ status: res.statusCode, body: data }));
     });
     req.on('error', reject);
+    req.end();
   });
 }
 
@@ -28,7 +36,7 @@ const SKILL_MAP = {
 };
 
 async function findPaidSession(stripeKey, email) {
-  const url = `https://api.stripe.com/v1/checkout/sessions?customer_details[email]=${encodeURIComponent(email)}&status=complete&limit=10`;
+  const url = `https://api.stripe.com/v1/checkout/sessions?customer_details%5Bemail%5D=${encodeURIComponent(email)}&status=complete&limit=10`;
   const res = await httpsRequest(url, { 'Authorization': `Bearer ${stripeKey}` });
   if (res.status !== 200) return null;
 
@@ -78,7 +86,7 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
 
-  const { email, session_id } = req.query;
+  const { email, session_id } = req.query || {};
 
   if (!email && !session_id) {
     return res.status(400).json({ error: 'Provide email or session_id' });
@@ -88,7 +96,7 @@ module.exports = async (req, res) => {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   if (!STRIPE_KEY || !GITHUB_TOKEN) {
-    return res.status(500).json({ error: 'Server misconfigured' });
+    return res.status(500).json({ error: 'Server misconfigured — missing env vars' });
   }
 
   try {
@@ -115,7 +123,7 @@ module.exports = async (req, res) => {
     );
 
     if (githubRes.status !== 200) {
-      return res.status(500).json({ error: 'Failed to fetch skill file' });
+      return res.status(500).json({ error: 'Failed to fetch skill file from GitHub' });
     }
 
     return res.status(200).json({
