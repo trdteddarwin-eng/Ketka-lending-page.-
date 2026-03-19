@@ -162,7 +162,7 @@
             errEl.style.display = 'none';
 
             try {
-                const res = await fetch(`/.netlify/functions/deliver-skill?email=${encodeURIComponent(email)}`);
+                const res = await fetch(`/api/deliver-skill?email=${encodeURIComponent(email)}`);
                 const data = await res.json();
 
                 if (!res.ok) {
@@ -197,7 +197,7 @@
                 document.getElementById('loading').style.display = 'block';
 
                 try {
-                    const res = await fetch(`/.netlify/functions/deliver-skill?session_id=${sessionId}`);
+                    const res = await fetch(`/api/deliver-skill?session_id=${sessionId}`);
                     const data = await res.json();
                     if (!res.ok) throw new Error(data.error);
                     showSuccess(data);
