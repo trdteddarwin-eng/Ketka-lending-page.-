@@ -38,9 +38,6 @@ export class GeminiLiveService {
   private audioGapCounts: number[] = []; // timestamps of large gaps
   private currentQuality: ConnectionQuality = 'good';
 
-  // Visibility handling
-  private visibilityHandler: (() => void) | null = null;
-
   // Session limits (ms)
   private static readonly SESSION_MAX_MS = 5 * 60 * 1000; // 5 min
   private static readonly SESSION_WARNING_MS = 4 * 60 * 1000; // 4 min
@@ -135,25 +132,6 @@ export class GeminiLiveService {
 
       this.isConnected = true;
       this.connectStartTime = Date.now();
-
-      // Handle visibility changes (app switch, incoming call, tab switch)
-      this.removeVisibilityHandler();
-      this.visibilityHandler = () => {
-        if (document.hidden) {
-          // Tab/app went to background — iOS suspends AudioContext
-          console.log('App backgrounded during call');
-        } else {
-          // Returning to foreground — resume audio contexts
-          console.log('App foregrounded, resuming audio');
-          if (this.inputAudioContext?.state === 'suspended') {
-            this.inputAudioContext.resume().catch(() => {});
-          }
-          if (this.outputAudioContext?.state === 'suspended') {
-            this.outputAudioContext.resume().catch(() => {});
-          }
-        }
-      };
-      document.addEventListener('visibilitychange', this.visibilityHandler);
     } catch (error) {
       console.error('Failed to connect:', error);
       this.cleanup();
@@ -456,17 +434,9 @@ export class GeminiLiveService {
     this.outputAudioContext = null;
   }
 
-  private removeVisibilityHandler() {
-    if (this.visibilityHandler) {
-      document.removeEventListener('visibilitychange', this.visibilityHandler);
-      this.visibilityHandler = null;
-    }
-  }
-
   private cleanup() {
     this.isConnected = false;
     this.clearSessionTimers();
-    this.removeVisibilityHandler();
     this.cleanupAudio();
     this.sessionPromise = null;
 

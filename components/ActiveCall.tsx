@@ -100,7 +100,7 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col items-center justify-center w-full min-h-[calc(100dvh-80px)] px-4 py-6 relative"
+      className="flex flex-col items-center justify-center w-full h-full px-4 py-6 relative"
     >
       {/* Reconnecting Overlay */}
       <AnimatePresence>
@@ -205,7 +205,7 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
       </div>
 
       {/* Compact Visualizer */}
-      <div className="relative w-[min(35vw,200px)] h-[min(35vw,200px)] md:w-[200px] md:h-[200px] flex items-center justify-center mb-4">
+      <div className="relative w-[140px] h-[140px] md:w-[200px] md:h-[200px] flex items-center justify-center mb-4">
         <Visualizer isActive={true} volume={volume} />
       </div>
 
@@ -225,14 +225,14 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
         </svg>
       </button>
 
-      <p className="font-mono text-[10px] text-dark/40 uppercase tracking-widest mt-4 relative z-10 safe-bottom">Tap to end call</p>
+      <p className="font-mono text-[10px] text-dark/40 uppercase tracking-widest mt-4 relative z-10">Tap to end call</p>
 
       {/* Live Transcript Panel */}
       <div className="mt-8 w-full max-w-lg relative z-10">
         {/* Toggle button (always visible, especially useful on mobile) */}
         <button
           onClick={() => setTranscriptExpanded(!transcriptExpanded)}
-          className="w-full flex items-center justify-between px-4 py-3 min-h-[44px] bg-paper border border-dark/20 font-mono text-[10px] text-dark/60 uppercase tracking-widest hover:bg-offwhite transition-colors"
+          className="w-full flex items-center justify-between px-4 py-2 bg-paper border border-dark/20 font-mono text-[10px] text-dark/60 uppercase tracking-widest hover:bg-offwhite transition-colors"
         >
           <span>Live Transcript ({transcript.length})</span>
           <svg
@@ -262,7 +262,7 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
                   </p>
                 ) : (
                   transcript.map((item, index) => (
-                    <div key={index} className="flex items-start gap-2" style={{ contain: 'layout style paint' }}>
+                    <div key={index} className="flex items-start gap-2">
                       <span
                         className={`shrink-0 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest ${
                           item.role === 'user'

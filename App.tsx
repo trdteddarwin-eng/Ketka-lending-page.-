@@ -163,7 +163,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Header */}
-      <header className={`p-4 md:p-6 flex items-center justify-between border-b border-dark/20 bg-offwhite/90 backdrop-blur-sm fixed top-0 w-full z-50 transition-opacity duration-300 safe-top ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      <header className={`p-4 md:p-6 flex items-center justify-between border-b border-dark/20 bg-offwhite/90 backdrop-blur-sm fixed top-0 w-full z-50 transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-dark rounded-none flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-paper" viewBox="0 0 20 20" fill="currentColor">
@@ -296,7 +296,7 @@ const App: React.FC = () => {
                     Book a call to get started
                   </p>
                 </div>
-                <div className="h-[400px] md:h-[600px] bg-paper overflow-hidden border border-dark shadow-[2px_2px_0px_#111111] md:shadow-[4px_4px_0px_#111111] p-2">
+                <div className="h-[400px] md:h-[600px] bg-paper overflow-hidden border border-dark shadow-[4px_4px_0px_#111111] p-2">
                   <Cal
                     namespace="30min"
                     calLink="ted-charles-enqyjn/30min"

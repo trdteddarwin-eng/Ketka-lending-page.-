@@ -43,7 +43,7 @@ export const TranscriptSummary: React.FC<TranscriptSummaryProps> = ({ transcript
 
   return (
     <div className="w-full max-w-3xl mx-auto animate-fade-in p-4 z-50">
-      <div className="bg-offwhite border border-dark rounded-none shadow-[4px_4px_0px_#111111] md:shadow-[8px_8px_0px_#111111] flex flex-col max-h-[80dvh] relative">
+      <div className="bg-offwhite border border-dark rounded-none shadow-[8px_8px_0px_#111111] flex flex-col max-h-[80vh] relative">
         <div className="hiw-noise opacity-30 pointer-events-none absolute inset-0 z-0"></div>
 
         {/* Header */}
@@ -95,12 +95,11 @@ export const TranscriptSummary: React.FC<TranscriptSummaryProps> = ({ transcript
               <div
                 key={index}
                 className={`flex ${item.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                style={{ contentVisibility: 'auto', containIntrinsicSize: '0 80px' }}
               >
                 <div
                   className={`max-w-[80%] rounded-none px-5 py-4 border ${item.role === 'user'
-                    ? 'bg-dark text-paper border-dark shadow-[2px_2px_0px_#E63B2E] md:shadow-[4px_4px_0px_#E63B2E]'
-                    : 'bg-paper text-dark border-dark/20 shadow-[1px_1px_0px_#111111] md:shadow-[2px_2px_0px_#111111]'
+                    ? 'bg-dark text-paper border-dark shadow-[4px_4px_0px_#E63B2E]'
+                    : 'bg-paper text-dark border-dark/20 shadow-[2px_2px_0px_#111111]'
                     }`}
                 >
                   <div className="font-mono text-[9px] text-current/50 uppercase tracking-widest mb-2 font-bold">

@@ -97,9 +97,7 @@ export const SetupForm: React.FC<SetupFormProps> = ({ onComplete, isLoading }) =
             <input
               type="text"
               required
-              autoComplete="given-name"
-              enterKeyHint="next"
-              className="w-full px-4 py-3.5 bg-paper border border-dark/20 rounded-none focus:border-dark focus:ring-1 focus:ring-dark text-dark placeholder-dark/30 transition-all outline-none font-sans text-base"
+              className="w-full px-4 py-3 bg-paper border border-dark/20 rounded-none focus:border-dark focus:ring-1 focus:ring-dark text-dark placeholder-dark/30 transition-all outline-none font-sans text-sm"
               placeholder="Alex"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -110,9 +108,7 @@ export const SetupForm: React.FC<SetupFormProps> = ({ onComplete, isLoading }) =
             <input
               type="text"
               required
-              autoComplete="family-name"
-              enterKeyHint="next"
-              className="w-full px-4 py-3.5 bg-paper border border-dark/20 rounded-none focus:border-dark focus:ring-1 focus:ring-dark text-dark placeholder-dark/30 transition-all outline-none font-sans text-base"
+              className="w-full px-4 py-3 bg-paper border border-dark/20 rounded-none focus:border-dark focus:ring-1 focus:ring-dark text-dark placeholder-dark/30 transition-all outline-none font-sans text-sm"
               placeholder="Smith"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
@@ -125,10 +121,7 @@ export const SetupForm: React.FC<SetupFormProps> = ({ onComplete, isLoading }) =
           <input
             type="email"
             required
-            inputMode="email"
-            autoComplete="email"
-            enterKeyHint="done"
-            className="w-full px-4 py-3.5 bg-paper border border-dark/20 rounded-none focus:border-dark focus:ring-1 focus:ring-dark text-dark placeholder-dark/30 transition-all outline-none font-sans text-base"
+            className="w-full px-4 py-3 bg-paper border border-dark/20 rounded-none focus:border-dark focus:ring-1 focus:ring-dark text-dark placeholder-dark/30 transition-all outline-none font-sans text-sm"
             placeholder="alex@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

@@ -70,7 +70,7 @@ export const ChatWidget: React.FC = () => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="fixed bottom-24 right-6 w-[90vw] max-w-[350px] md:max-w-[380px] h-[min(500px,calc(100dvh-120px))] bg-offwhite border border-dark shadow-[4px_4px_0px_#111111] md:shadow-[8px_8px_0px_#111111] flex flex-col z-[10000] pointer-events-auto font-sans"
+                        className="fixed bottom-24 right-6 w-[90vw] max-w-[350px] md:max-w-[380px] h-[500px] bg-offwhite border border-dark shadow-[8px_8px_0px_#111111] flex flex-col z-[10000] pointer-events-auto font-sans"
                     >
                         {/* Header */}
                         <div className="bg-dark p-4 flex items-center justify-between text-paper shrink-0 border-b border-dark">
@@ -125,7 +125,7 @@ export const ChatWidget: React.FC = () => {
                         </div>
 
                         {/* Input */}
-                        <form onSubmit={handleSendMessage} className="p-4 bg-paper border-t border-dark shrink-0 relative z-10 safe-bottom">
+                        <form onSubmit={handleSendMessage} className="p-4 bg-paper border-t border-dark shrink-0 relative z-10">
                             <div className="relative flex items-center">
                                 <input
                                     type="text"
