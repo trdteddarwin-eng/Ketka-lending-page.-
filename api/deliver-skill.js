@@ -21,6 +21,7 @@ export default async function handler(req, res) {
   const SKILL_MAP = {
     'prod_UAnq0IMPBItsO3': { name: 'Motion Graphic Video', githubPath: 'motion-graphic/motion-graphic.md', installFilename: 'motion-graphic.md' },
     'prod_UAnqybIz9QuOhF': { name: 'Website Redesign Pipeline', githubPath: 'website-redesign/website-redesign.md', installFilename: 'website-redesign.md' },
+    'prod_UBCCmXS9PUSKuP': { name: 'Lead Generation Pipeline', githubPath: 'lead-gen/lead-gen.md', installFilename: 'lead-gen.md' },
   };
 
   try {

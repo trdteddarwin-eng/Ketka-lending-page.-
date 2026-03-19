@@ -2536,14 +2536,37 @@
                         </div>
                         <a href="https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08" target="_blank" class="mt-4 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $50</a>
                     </div>
-                    <!-- Coming Soon Card 2 -->
-                    <div class="coming-soon-card bg-dark border border-dark/50 p-6 relative overflow-hidden">
-                        <div class="w-12 h-12 mb-4 bg-paper/10 text-paper/40 flex items-center justify-center rounded-lg">
-                            <i class="fa-solid fa-gears text-xl"></i>
+                    <div class="agentic-card bg-paper border border-dark/10 p-6 group hover:border-signal transition-all cursor-pointer" data-agentic="lead-gen">
+                        <div class="w-12 h-12 mb-4 bg-signal text-paper flex items-center justify-center rounded-lg">
+                            <i class="fa-solid fa-magnifying-glass-location text-xl"></i>
                         </div>
-                        <h3 class="font-heading text-lg font-bold text-paper/60 mb-2 uppercase tracking-tight">Custom Workflows</h3>
-                        <p class="font-sans text-xs text-paper/30 leading-relaxed">Have a unique process that eats up hours? We can build a custom agentic workflow for your business.</p>
-                        <div class="mt-4 inline-block px-3 py-1 border border-signal/30 text-signal text-[9px] font-mono font-bold uppercase tracking-widest">Coming Soon</div>
+                        <h3 class="font-heading text-lg font-bold text-dark mb-2 uppercase tracking-tight">Lead Generation Pipeline</h3>
+                        <p class="font-sans text-xs text-dark/60 mb-4 leading-relaxed">Give it an industry and location. It scrapes every matching business — name, phone, website, reviews — finds the owner's real email, and delivers a clean Google Sheet ready for outreach.</p>
+                        <!-- Workflow Steps -->
+                        <div class="workflow-steps relative">
+                            <div class="flex items-center justify-between relative z-10">
+                                <div class="workflow-dot w-6 h-6 rounded-full bg-dark/10 flex items-center justify-center text-[8px] font-mono font-bold text-dark/40 transition-all" data-step="0">1</div>
+                                <div class="workflow-dot w-6 h-6 rounded-full bg-dark/10 flex items-center justify-center text-[8px] font-mono font-bold text-dark/40 transition-all" data-step="1">2</div>
+                                <div class="workflow-dot w-6 h-6 rounded-full bg-dark/10 flex items-center justify-center text-[8px] font-mono font-bold text-dark/40 transition-all" data-step="2">3</div>
+                                <div class="workflow-dot w-6 h-6 rounded-full bg-dark/10 flex items-center justify-center text-[8px] font-mono font-bold text-dark/40 transition-all" data-step="3">4</div>
+                            </div>
+                            <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-dark/10 -translate-y-1/2 z-0">
+                                <div class="workflow-progress h-full bg-signal" style="width:0%;transition:width 2s ease;"></div>
+                            </div>
+                            <div class="flex justify-between mt-2">
+                                <span class="text-[7px] font-mono text-dark/40 uppercase">Search</span>
+                                <span class="text-[7px] font-mono text-dark/40 uppercase">Scrape</span>
+                                <span class="text-[7px] font-mono text-dark/40 uppercase">Enrich</span>
+                                <span class="text-[7px] font-mono text-dark/40 uppercase">Deliver</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Maps Scraping</span>
+                            <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Email Discovery</span>
+                            <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Auto Dedupe</span>
+                            <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Google Sheets</span>
+                        </div>
+                        <a href="https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09" target="_blank" class="mt-4 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $50</a>
                     </div>
                 </div>
 
@@ -4574,6 +4597,15 @@
                     { label: 'Gmail Draft with Before/After', icon: 'fa-solid fa-envelope', type: 'outcome', desc: 'Creates a Gmail draft with before/after screenshots attached, ready for you to review and send.' }
                 ],
                 showPipeline: true
+            },
+            'lead-gen': {
+                title: 'Lead Generation Pipeline',
+                steps: [
+                    { label: 'Search', icon: 'fa-solid fa-magnifying-glass-location', type: 'trigger', desc: 'Searches Google Maps across all your target locations in one pass. Pulls every matching business \u2014 name, phone, website, address, star rating, and review count.' },
+                    { label: 'Scrape', icon: 'fa-solid fa-download', type: 'trigger', desc: 'Extracts business details from each listing. Captures owner information, service categories, and online presence.' },
+                    { label: 'Enrich', icon: 'fa-solid fa-envelope-circle-check', type: 'ai', desc: 'Finds the actual business owner\u2019s email from their website domain. Verifies and scores each email by confidence level.' },
+                    { label: 'Deliver', icon: 'fa-solid fa-table', type: 'outcome', desc: 'Pushes everything to a clean, deduplicated Google Sheet sorted by review count. Ready for outreach \u2014 no cleanup needed.' }
+                ]
             }
         };
 
