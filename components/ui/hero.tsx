@@ -9,64 +9,86 @@ export function LampBar() {
       style={{
         position: "relative",
         width: "100%",
-        height: "6rem",
+        height: "14rem",
         overflow: "visible",
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        marginBottom: "2rem",
+        marginBottom: "-4rem",
+        pointerEvents: "none",
       }}
     >
-      {/* Main glow */}
-      <div style={{ position: "absolute", zIndex: 10, height: "5rem", width: "28rem", top: "0", borderRadius: "9999px", background: PRIMARY, opacity: 0.25, filter: "blur(40px)" }} />
-
-      {/* Lamp pulse */}
+      {/* Thin bright line at top — the "lamp" source */}
       <motion.div
-        initial={{ width: "8rem" }}
+        initial={{ width: "10rem", opacity: 0 }}
         viewport={{ once: true }}
-        transition={{ ease: "easeInOut", delay: 0.3, duration: 0.8 }}
-        whileInView={{ width: "16rem" }}
-        style={{ position: "absolute", top: "-1rem", zIndex: 20, height: "5rem", borderRadius: "9999px", background: PRIMARY, opacity: 0.3, filter: "blur(24px)" }}
+        transition={{ ease: "easeInOut", delay: 0.2, duration: 0.8 }}
+        whileInView={{ width: "24rem", opacity: 0.7 }}
+        style={{
+          position: "absolute",
+          zIndex: 50,
+          height: "2px",
+          top: "0",
+          background: PRIMARY,
+        }}
       />
 
-      {/* Top line */}
+      {/* Small concentrated glow right behind the line */}
       <motion.div
-        initial={{ width: "15rem" }}
+        initial={{ width: "6rem", opacity: 0 }}
         viewport={{ once: true }}
         transition={{ ease: "easeInOut", delay: 0.3, duration: 0.8 }}
-        whileInView={{ width: "30rem" }}
-        style={{ position: "absolute", zIndex: 50, height: "2px", top: "0", background: PRIMARY, opacity: 0.6 }}
+        whileInView={{ width: "12rem", opacity: 0.35 }}
+        style={{
+          position: "absolute",
+          top: "-0.5rem",
+          zIndex: 20,
+          height: "3rem",
+          borderRadius: "9999px",
+          background: PRIMARY,
+          filter: "blur(16px)",
+        }}
       />
 
-      {/* Left cone */}
+      {/* Left light cone — shining DOWN onto the cards */}
       <motion.div
-        initial={{ opacity: 0.3, width: "15rem" }}
-        whileInView={{ opacity: 0.7, width: "30rem" }}
-        transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+        initial={{ opacity: 0, width: "12rem" }}
+        whileInView={{ opacity: 1, width: "28rem" }}
+        transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
         style={{
           position: "absolute",
           right: "50%",
           top: 0,
-          height: "6rem",
-          overflow: "visible",
-          backgroundImage: `conic-gradient(from 70deg at center top, ${PRIMARY}66, transparent, transparent)`,
+          height: "14rem",
+          backgroundImage: `conic-gradient(from 70deg at center top, ${PRIMARY}22, transparent 40%, transparent)`,
           zIndex: 5,
         }}
       />
 
-      {/* Right cone */}
+      {/* Right light cone — shining DOWN onto the cards */}
       <motion.div
-        initial={{ opacity: 0.3, width: "15rem" }}
-        whileInView={{ opacity: 0.7, width: "30rem" }}
-        transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+        initial={{ opacity: 0, width: "12rem" }}
+        whileInView={{ opacity: 1, width: "28rem" }}
+        transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
         style={{
           position: "absolute",
           left: "50%",
           top: 0,
-          height: "6rem",
-          overflow: "visible",
-          backgroundImage: `conic-gradient(from 290deg at center top, transparent, transparent, ${PRIMARY}66)`,
+          height: "14rem",
+          backgroundImage: `conic-gradient(from 290deg at center top, transparent, transparent 60%, ${PRIMARY}22)`,
           zIndex: 5,
+        }}
+      />
+
+      {/* Soft downward gradient wash — the "reflected light" on the cards area */}
+      <div
+        style={{
+          position: "absolute",
+          top: "1rem",
+          width: "70%",
+          height: "12rem",
+          background: `radial-gradient(ellipse at center top, ${PRIMARY}12 0%, ${PRIMARY}08 30%, transparent 70%)`,
+          zIndex: 3,
         }}
       />
     </div>
