@@ -9,79 +9,64 @@ export function LampBar() {
       style={{
         position: "relative",
         width: "100%",
-        height: "10rem",
+        height: "6rem",
         overflow: "visible",
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        marginBottom: "-2rem",
-        pointerEvents: "none",
+        marginBottom: "2rem",
       }}
     >
-      {/* The bright line — light source */}
+      {/* Main glow */}
+      <div style={{ position: "absolute", zIndex: 10, height: "5rem", width: "28rem", top: "0", borderRadius: "9999px", background: PRIMARY, opacity: 0.25, filter: "blur(40px)" }} />
+
+      {/* Lamp pulse */}
       <motion.div
-        initial={{ width: "0rem", opacity: 0 }}
-        whileInView={{ width: "20rem", opacity: 1 }}
-        viewport={{ once: false }}
-        transition={{ ease: "easeOut", delay: 0.2, duration: 0.8 }}
-        style={{
-          position: "absolute",
-          zIndex: 50,
-          height: "1px",
-          top: "0",
-          background: `linear-gradient(90deg, transparent, ${PRIMARY}, transparent)`,
-        }}
+        initial={{ width: "8rem" }}
+        viewport={{ once: true }}
+        transition={{ ease: "easeInOut", delay: 0.3, duration: 0.8 }}
+        whileInView={{ width: "16rem" }}
+        style={{ position: "absolute", top: "-1rem", zIndex: 20, height: "5rem", borderRadius: "9999px", background: PRIMARY, opacity: 0.3, filter: "blur(24px)" }}
       />
 
-      {/* Sharp light beam — left side */}
+      {/* Top line */}
       <motion.div
-        initial={{ opacity: 0, width: "0rem" }}
-        whileInView={{ opacity: 1, width: "40rem" }}
-        viewport={{ once: false }}
-        transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
+        initial={{ width: "15rem" }}
+        viewport={{ once: true }}
+        transition={{ ease: "easeInOut", delay: 0.3, duration: 0.8 }}
+        whileInView={{ width: "30rem" }}
+        style={{ position: "absolute", zIndex: 50, height: "2px", top: "0", background: PRIMARY, opacity: 0.6 }}
+      />
+
+      {/* Left cone */}
+      <motion.div
+        initial={{ opacity: 0.3, width: "15rem" }}
+        whileInView={{ opacity: 0.7, width: "30rem" }}
+        transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
         style={{
           position: "absolute",
           right: "50%",
-          top: "1px",
-          height: "10rem",
-          background: `linear-gradient(to bottom right, ${PRIMARY}18, transparent 60%)`,
-          transformOrigin: "top right",
+          top: 0,
+          height: "6rem",
+          overflow: "visible",
+          backgroundImage: `conic-gradient(from 70deg at center top, ${PRIMARY}66, transparent, transparent)`,
           zIndex: 5,
         }}
       />
 
-      {/* Sharp light beam — right side */}
+      {/* Right cone */}
       <motion.div
-        initial={{ opacity: 0, width: "0rem" }}
-        whileInView={{ opacity: 1, width: "40rem" }}
-        viewport={{ once: false }}
-        transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
+        initial={{ opacity: 0.3, width: "15rem" }}
+        whileInView={{ opacity: 0.7, width: "30rem" }}
+        transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
         style={{
           position: "absolute",
           left: "50%",
-          top: "1px",
-          height: "10rem",
-          background: `linear-gradient(to bottom left, ${PRIMARY}18, transparent 60%)`,
-          transformOrigin: "top left",
+          top: 0,
+          height: "6rem",
+          overflow: "visible",
+          backgroundImage: `conic-gradient(from 290deg at center top, transparent, transparent, ${PRIMARY}66)`,
           zIndex: 5,
-        }}
-      />
-
-      {/* Tiny glow dot at center of line */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.6, scale: 1 }}
-        viewport={{ once: false }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-        style={{
-          position: "absolute",
-          top: "-4px",
-          width: "8px",
-          height: "8px",
-          borderRadius: "50%",
-          background: PRIMARY,
-          boxShadow: `0 0 12px 4px ${PRIMARY}60`,
-          zIndex: 60,
         }}
       />
     </div>
