@@ -9,86 +9,79 @@ export function LampBar() {
       style={{
         position: "relative",
         width: "100%",
-        height: "14rem",
+        height: "10rem",
         overflow: "visible",
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        marginBottom: "-4rem",
+        marginBottom: "-2rem",
         pointerEvents: "none",
       }}
     >
-      {/* Thin bright line at top — the "lamp" source */}
+      {/* The bright line — light source */}
       <motion.div
-        initial={{ width: "10rem", opacity: 0 }}
-        viewport={{ once: true }}
-        transition={{ ease: "easeInOut", delay: 0.2, duration: 0.8 }}
-        whileInView={{ width: "24rem", opacity: 0.7 }}
+        initial={{ width: "0rem", opacity: 0 }}
+        whileInView={{ width: "20rem", opacity: 1 }}
+        viewport={{ once: false }}
+        transition={{ ease: "easeOut", delay: 0.2, duration: 0.8 }}
         style={{
           position: "absolute",
           zIndex: 50,
-          height: "2px",
+          height: "1px",
           top: "0",
-          background: PRIMARY,
+          background: `linear-gradient(90deg, transparent, ${PRIMARY}, transparent)`,
         }}
       />
 
-      {/* Small concentrated glow right behind the line */}
+      {/* Sharp light beam — left side */}
       <motion.div
-        initial={{ width: "6rem", opacity: 0 }}
-        viewport={{ once: true }}
-        transition={{ ease: "easeInOut", delay: 0.3, duration: 0.8 }}
-        whileInView={{ width: "12rem", opacity: 0.35 }}
-        style={{
-          position: "absolute",
-          top: "-0.5rem",
-          zIndex: 20,
-          height: "3rem",
-          borderRadius: "9999px",
-          background: PRIMARY,
-          filter: "blur(16px)",
-        }}
-      />
-
-      {/* Left light cone — shining DOWN onto the cards */}
-      <motion.div
-        initial={{ opacity: 0, width: "12rem" }}
-        whileInView={{ opacity: 1, width: "28rem" }}
-        transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
+        initial={{ opacity: 0, width: "0rem" }}
+        whileInView={{ opacity: 1, width: "40rem" }}
+        viewport={{ once: false }}
+        transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
         style={{
           position: "absolute",
           right: "50%",
-          top: 0,
-          height: "14rem",
-          backgroundImage: `conic-gradient(from 70deg at center top, ${PRIMARY}22, transparent 40%, transparent)`,
+          top: "1px",
+          height: "10rem",
+          background: `linear-gradient(to bottom right, ${PRIMARY}18, transparent 60%)`,
+          transformOrigin: "top right",
           zIndex: 5,
         }}
       />
 
-      {/* Right light cone — shining DOWN onto the cards */}
+      {/* Sharp light beam — right side */}
       <motion.div
-        initial={{ opacity: 0, width: "12rem" }}
-        whileInView={{ opacity: 1, width: "28rem" }}
-        transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
+        initial={{ opacity: 0, width: "0rem" }}
+        whileInView={{ opacity: 1, width: "40rem" }}
+        viewport={{ once: false }}
+        transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
         style={{
           position: "absolute",
           left: "50%",
-          top: 0,
-          height: "14rem",
-          backgroundImage: `conic-gradient(from 290deg at center top, transparent, transparent 60%, ${PRIMARY}22)`,
+          top: "1px",
+          height: "10rem",
+          background: `linear-gradient(to bottom left, ${PRIMARY}18, transparent 60%)`,
+          transformOrigin: "top left",
           zIndex: 5,
         }}
       />
 
-      {/* Soft downward gradient wash — the "reflected light" on the cards area */}
-      <div
+      {/* Tiny glow dot at center of line */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 0.6, scale: 1 }}
+        viewport={{ once: false }}
+        transition={{ delay: 0.3, duration: 0.6 }}
         style={{
           position: "absolute",
-          top: "1rem",
-          width: "70%",
-          height: "12rem",
-          background: `radial-gradient(ellipse at center top, ${PRIMARY}12 0%, ${PRIMARY}08 30%, transparent 70%)`,
-          zIndex: 3,
+          top: "-4px",
+          width: "8px",
+          height: "8px",
+          borderRadius: "50%",
+          background: PRIMARY,
+          boxShadow: `0 0 12px 4px ${PRIMARY}60`,
+          zIndex: 60,
         }}
       />
     </div>
