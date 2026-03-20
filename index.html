@@ -1297,6 +1297,53 @@
         #lwt-book-btn:hover #lwt-book-inner svg { color: #fff !important; }
         #lwt-book-btn:hover #lwt-arrow-sm { transform: translate(3px, -3px) scale(1.1); }
         #lwt-book-btn:hover .lwt-side-line { transform: scaleX(0); opacity: 0 !important; }
+
+        /* Aurora Background */
+        .aurora-bg {
+            position: absolute;
+            inset: -10px;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .aurora-bg .aurora-inner {
+            position: absolute;
+            inset: -10px;
+            background-image:
+                repeating-linear-gradient(100deg, #E8E4DD 0%, #E8E4DD 7%, transparent 10%, transparent 12%, #E8E4DD 16%),
+                repeating-linear-gradient(100deg, #E63B2E 10%, #ff8a65 15%, #E63B2E 20%, #ffab91 25%, #d32f2f 30%);
+            background-size: 300% 200%;
+            background-position: 50% 50%;
+            filter: blur(10px);
+            opacity: 0.35;
+            will-change: transform;
+        }
+
+        .aurora-bg .aurora-inner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(100deg, #E8E4DD 0%, #E8E4DD 7%, transparent 10%, transparent 12%, #E8E4DD 16%),
+                repeating-linear-gradient(100deg, #E63B2E 10%, #ff8a65 15%, #E63B2E 20%, #ffab91 25%, #d32f2f 30%);
+            background-size: 200% 100%;
+            background-attachment: fixed;
+            mix-blend-mode: difference;
+            animation: aurora-shift 12s ease infinite;
+        }
+
+        /* Mask so aurora is strongest at top-right, fades elsewhere */
+        .aurora-bg .aurora-inner {
+            mask-image: radial-gradient(ellipse at 80% 20%, black 10%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at 80% 20%, black 10%, transparent 70%);
+        }
+
+        @keyframes aurora-shift {
+            0% { background-position: 50% 50%; }
+            50% { background-position: 80% 50%; }
+            100% { background-position: 50% 50%; }
+        }
     </style>
 </head>
 
@@ -1362,6 +1409,11 @@
 
     <!-- COMPANY HERO -->
     <section class="pt-44 pb-20 lg:pt-56 lg:pb-28 relative overflow-hidden bg-paper">
+        <!-- Aurora Background -->
+        <div class="aurora-bg">
+            <div class="aurora-inner"></div>
+        </div>
+
         <!-- Floating Business App Icons -->
         <div class="floating-icon icon-anim-1" style="top: 20%; left: 5%;"><i class="fa-brands fa-slack"></i></div>
         <div class="floating-icon icon-anim-3" style="top: 38%; left: 12%;"><i class="fa-brands fa-google"></i></div>
