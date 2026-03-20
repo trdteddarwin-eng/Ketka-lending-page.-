@@ -23,8 +23,7 @@
     <link rel="dns-prefetch" href="https://aistudiocdn.com">
 
     <!-- Font Awesome — deferred (non-render-blocking) -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!-- Google Fonts — preload critical, defer full load -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1317,13 +1316,6 @@
                         <span class="w-2 h-2 bg-signal rounded-full animate-pulse"></span>
                         <span id="live-calls-today" class="text-dark font-bold">847</span> calls answered today
                     </div>
-                    <a href="#services-overview"
-                        class="nav-link text-xs font-mono font-medium uppercase tracking-widest text-dark/60 hover:text-signal transition-colors pointer-events-auto">Services</a>
-                    <a href="#how-it-works" onclick="event.preventDefault();showServicesTab('voice');setTimeout(()=>document.getElementById('how-it-works')?.scrollIntoView({behavior:'smooth'}),100)"
-                        class="nav-link text-xs font-mono font-medium uppercase tracking-widest text-dark/60 hover:text-signal transition-colors pointer-events-auto">How
-                        It Works</a>
-                    <a href="#pricing"
-                        class="nav-link text-xs font-mono font-medium uppercase tracking-widest text-dark/60 hover:text-signal transition-colors pointer-events-auto">Pricing</a>
                     <a href="#book-call"
                         class="magnetic-button px-5 py-2.5 bg-dark text-paper text-xs font-mono font-bold uppercase tracking-wider hover:bg-signal transition-colors pointer-events-auto">
                         Book a Call
