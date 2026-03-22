@@ -1270,67 +1270,94 @@
 
         /* Hero boxes mount inherits pointer-events:none from inline style */
 
-        /* Animated buy button */
-        .btn-handdrawn {
-            text-align: center;
-            transition: 0.3s ease-in-out;
+        /* Star buy button */
+        .btn-star {
+            --btn-bg: #E63B2E;
+            --btn-dark: #111111;
+            --btn-light: #E8E4DD;
+            font-family: 'Space Mono', 'Courier New', monospace;
             cursor: pointer;
-            background-color: #111;
-            color: #E8E4DD;
+            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            user-select: none;
-            font-family: 'Space Mono', 'Courier New', monospace;
-            font-size: 0.75rem;
             font-weight: bold;
+            line-height: 1;
+            font-size: 0.75rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 1em 2em;
+            border-radius: 1rem;
+            outline: 2px solid transparent;
+            outline-offset: 6px;
+            color: var(--btn-light);
+            background: transparent;
             border: none;
-            border-radius: 0;
-            box-shadow: #33333666 4px 4px 0 0;
-            animation: btn-idle 2s infinite ease-in-out;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
-        .btn-handdrawn .highlight {
+        .btn-star:active { outline-color: var(--btn-bg); }
+        .btn-star:focus-visible { outline-color: var(--btn-bg); outline-style: dashed; }
+        .btn-star::before {
+            content: "";
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            stroke: rgba(230, 59, 46, 0.5);
-            stroke-width: 8;
-            stroke-linecap: round;
-            fill: none;
+            z-index: 0;
+            height: 200%;
+            max-height: 100px;
+            aspect-ratio: 1;
+            margin: auto;
+            background: var(--btn-bg);
+            clip-path: polygon(100% 50%,91.48% 56.57%,97.55% 65.45%,87.42% 69.07%,90.45% 79.39%,79.7% 79.7%,79.39% 90.45%,69.07% 87.42%,65.45% 97.55%,56.57% 91.48%,50% 100%,43.43% 91.48%,34.55% 97.55%,30.93% 87.42%,20.61% 90.45%,20.3% 79.7%,9.55% 79.39%,12.58% 69.07%,2.45% 65.45%,8.52% 56.57%,0% 50%,8.52% 43.43%,2.45% 34.55%,12.58% 30.93%,9.55% 20.61%,20.3% 20.3%,20.61% 9.55%,30.93% 12.58%,34.55% 2.45%,43.43% 8.52%,50% 0%,56.57% 8.52%,65.45% 2.45%,69.07% 12.58%,79.39% 9.55%,79.7% 20.3%,90.45% 20.61%,87.42% 30.93%,97.55% 34.55%,91.48% 43.43%);
+            animation: star-rotate 4s linear infinite;
+            opacity: 0.1;
+        }
+        .btn-star:hover::before { opacity: 1; }
+        .btn-star-inner {
+            padding: 2px;
+            border-radius: 1rem;
+            background-color: var(--btn-bg);
+            transform: translate(-4px, -4px);
+            transition: all 150ms ease;
+            box-shadow:
+                0.5px 0.5px 0 0 var(--btn-bg),1px 1px 0 0 var(--btn-bg),1.5px 1.5px 0 0 var(--btn-bg),2px 2px 0 0 var(--btn-bg),2.5px 2.5px 0 0 var(--btn-bg),3px 3px 0 0 var(--btn-bg),
+                0 0 0 2px var(--btn-dark),0.5px 0.5px 0 2px var(--btn-dark),1px 1px 0 2px var(--btn-dark),1.5px 1.5px 0 2px var(--btn-dark),2px 2px 0 2px var(--btn-dark),2.5px 2.5px 0 2px var(--btn-dark),3px 3px 0 2px var(--btn-dark),3.5px 3.5px 0 2px var(--btn-dark),4px 4px 0 2px var(--btn-dark),
+                0 0 0 4px var(--btn-light),0.5px 0.5px 0 4px var(--btn-light),1px 1px 0 4px var(--btn-light),1.5px 1.5px 0 4px var(--btn-light),2px 2px 0 4px var(--btn-light),2.5px 2.5px 0 4px var(--btn-light),3px 3px 0 4px var(--btn-light),3.5px 3.5px 0 4px var(--btn-light),4px 4px 0 4px var(--btn-light);
+        }
+        .btn-star:hover .btn-star-inner {
+            transform: translate(0, 0);
+            box-shadow:
+                0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),
+                0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),
+                0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light);
+        }
+        .btn-star-content {
+            position: relative;
             pointer-events: none;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            transition: stroke-dashoffset 0.5s ease-in-out;
+            border-radius: calc(1rem - 2px);
+            background-color: var(--btn-dark);
         }
-        @keyframes btn-idle {
-            0%, 100% { transform: rotate(0deg) translateY(0); }
-            50% { transform: rotate(1.5deg) translateY(-1px); }
+        .btn-star-content::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            opacity: 0.1;
+            background-image: radial-gradient(rgb(255 255 255 / 80%) 20%, transparent 20%), radial-gradient(rgb(255 255 255 / 100%) 20%, transparent 20%);
+            background-position: 0 0, 4px 4px;
+            background-size: 8px 8px;
+            mix-blend-mode: hard-light;
+            box-shadow: inset 0 0 0 1px var(--btn-dark);
+            animation: btn-dots 0.4s infinite linear;
         }
-        .btn-handdrawn:hover {
-            background-color: #E63B2E;
-            animation: btn-hover 2s infinite ease-in-out;
-            box-shadow: #E63B2E44 4px 4px 0 0;
+        .btn-star-text {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            gap: 0.25rem;
+            filter: drop-shadow(0 -1px 0 var(--btn-dark));
         }
-        .btn-handdrawn:hover .highlight {
-            stroke-dashoffset: 0;
-        }
-        .btn-handdrawn:active {
-            box-shadow: inset #00000044 2px 2px 0 0;
-            transform: translateY(2px);
-            animation: none;
-        }
-        @keyframes btn-hover {
-            0%, 100% { transform: rotate(0deg) translateY(0); }
-            25% { transform: rotate(-1deg) translateY(-2px); }
-            50% { transform: rotate(0deg) translateY(1px); }
-            75% { transform: rotate(-1deg) translateY(-1px); }
-        }
+        .btn-star-text:active { transform: translateY(2px); }
+        @keyframes star-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes btn-dots { 0% { background-position: 0 0, 4px 4px; } 100% { background-position: 8px 0, 12px 4px; } }
     </style>
 </head>
 
@@ -4528,10 +4555,10 @@
 
             // Buy button at bottom of expand panel
             if (data.buyLink) {
-                html += '<div style="margin-top:20px; text-align:center;">';
-                html += '<a href="' + data.buyLink + '" target="_blank" class="btn-handdrawn pointer-events-auto">';
-                html += '<svg class="highlight" viewBox="0 0 300 60" preserveAspectRatio="none"><rect x="5" y="5" width="290" height="50" rx="25" fill="none"/></svg>';
-                html += 'Buy This Skill — $50</a>';
+                html += '<div style="margin-top:24px; text-align:center;">';
+                html += '<a href="' + data.buyLink + '" target="_blank" class="btn-star pointer-events-auto">';
+                html += '<div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill — $50</div></div></div>';
+                html += '</a>';
                 html += '</div>';
             }
 
