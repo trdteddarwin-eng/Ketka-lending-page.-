@@ -1270,14 +1270,13 @@
 
         /* Hero boxes mount inherits pointer-events:none from inline style */
 
-        /* Hand-drawn buy button animation */
+        /* Animated buy button */
         .btn-handdrawn {
             text-align: center;
             transition: 0.3s ease-in-out;
             cursor: pointer;
             background-color: #111;
             color: #E8E4DD;
-            filter: url(#handDrawnNoise);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -1288,76 +1287,55 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             padding: 1em 2em;
-            border-width: 0px;
-            border-radius: 2rem;
-            box-shadow: #33333366 4px 4px 0 1px;
-            animation: btn-idle 1s infinite ease-in-out;
+            border: none;
+            border-radius: 0;
+            box-shadow: #33333666 4px 4px 0 0;
+            animation: btn-idle 2s infinite ease-in-out;
             text-decoration: none;
             position: relative;
+            overflow: hidden;
         }
         .btn-handdrawn .highlight {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            fill: rgba(230, 59, 46, 0.3);
-            stroke: rgba(230, 59, 46, 0.4);
-            stroke-width: 10;
+            stroke: rgba(230, 59, 46, 0.5);
+            stroke-width: 8;
             stroke-linecap: round;
+            fill: none;
             pointer-events: none;
             stroke-dasharray: 1000;
             stroke-dashoffset: 1000;
             transition: stroke-dashoffset 0.5s ease-in-out;
         }
         @keyframes btn-idle {
-            0% { filter: url(#handDrawnNoise); }
-            50% { rotate: 2.5deg; filter: url(#handDrawnNoise2); }
-            100% { filter: url(#handDrawnNoise); }
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            50% { transform: rotate(1.5deg) translateY(-1px); }
         }
         .btn-handdrawn:hover {
-            border-width: 0px;
-            border-radius: 2rem;
-            rotate: -2.5deg;
-            animation: btn-hover 2.5s infinite ease-in-out;
             background-color: #E63B2E;
+            animation: btn-hover 2s infinite ease-in-out;
+            box-shadow: #E63B2E44 4px 4px 0 0;
         }
         .btn-handdrawn:hover .highlight {
             stroke-dashoffset: 0;
         }
         .btn-handdrawn:active {
-            box-shadow: inset #333333f1 4px 4px 0 1px;
-            rotate: -2.5deg;
-            animation: btn-active 1s infinite ease-in-out;
-        }
-        .btn-handdrawn:active .highlight {
-            stroke-dashoffset: 1000;
-            stroke: #E63B2E66;
+            box-shadow: inset #00000044 2px 2px 0 0;
+            transform: translateY(2px);
+            animation: none;
         }
         @keyframes btn-hover {
-            0% { rotate: 0deg; filter: url(#handDrawnNoise); translate: 0 0px; }
-            25% { rotate: -1deg; filter: url(#handDrawnNoise2); translate: 0 -2px; }
-            50% { rotate: 0deg; filter: url(#handDrawnNoise); translate: 0 2px; }
-            75% { rotate: -1deg; filter: url(#handDrawnNoise2); translate: 0 -2px; }
-            100% { rotate: 0deg; filter: url(#handDrawnNoise); translate: 0 0px; }
-        }
-        @keyframes btn-active {
-            0% { filter: url(#handDrawnNoise); translate: 0 -1px; }
-            25% { rotate: -3deg; }
-            50% { filter: url(#handDrawnNoise2); translate: 0 1px; }
-            66% { rotate: 1.5deg; }
-            100% { filter: url(#handDrawnNoise); translate: 0 -1px; }
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(-1deg) translateY(-2px); }
+            50% { transform: rotate(0deg) translateY(1px); }
+            75% { transform: rotate(-1deg) translateY(-1px); }
         }
     </style>
 </head>
 
 <body>
     <script>if (!window.location.hash) window.scrollTo(0, 0); history.scrollRestoration = 'manual';</script>
-    <!-- SVG Filters for hand-drawn button -->
-    <svg style="position:absolute;width:0;height:0;">
-        <defs>
-            <filter id="handDrawnNoise"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" seed="1"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
-            <filter id="handDrawnNoise2"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
-        </defs>
-    </svg>
     <!-- Global Noise Overlay -->
     <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
         <filter id="noiseFilter">
