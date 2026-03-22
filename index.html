@@ -2351,22 +2351,7 @@
                     </div>
                 </div>
 
-                <!-- Buy buttons for all 3 skills -->
-                <div class="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mt-10 mb-6">
-                    <a href="https://buy.stripe.com/test_5kQfZagzH2wc8wM3956oo06" target="_blank" class="block px-6 py-4 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center pointer-events-auto">
-                        <span class="block text-[10px] text-paper/60 mb-1">Motion Graphic Video</span>
-                        Buy — $50
-                    </a>
-                    <a href="https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08" target="_blank" class="block px-6 py-4 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center pointer-events-auto">
-                        <span class="block text-[10px] text-paper/60 mb-1">Website Redesign</span>
-                        Buy — $50
-                    </a>
-                    <a href="https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09" target="_blank" class="block px-6 py-4 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center pointer-events-auto">
-                        <span class="block text-[10px] text-paper/60 mb-1">Lead Generation</span>
-                        Buy — $50
-                    </a>
-                </div>
-                <div class="text-center">
+                <div class="text-center mt-8">
                     <p class="font-sans text-sm text-dark/50 mb-3">Need something custom built for your business?</p>
                     <a href="#book-call" class="inline-block px-8 py-4 bg-dark text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-signal transition-colors pointer-events-auto">Request a Custom Workflow →</a>
                 </div>
@@ -4374,7 +4359,8 @@
                 videos: [
                     { src: '/videos/ChatbotExplained.mp4', label: 'Chatbot Explained' },
                     { src: '/videos/SEOExplained.mp4', label: 'SEO Explained' }
-                ]
+                ],
+                buyLink: 'https://buy.stripe.com/test_5kQfZagzH2wc8wM3956oo06'
             },
             'website-pipeline': {
                 title: 'Website Redesign Pipeline',
@@ -4385,7 +4371,8 @@
                     { label: 'Build Modern Redesign', icon: 'fa-solid fa-paintbrush', type: 'ai', desc: 'Generates a fully coded modern redesign with responsive layout, improved CTAs, and their branding — previews it on localhost.' },
                     { label: 'Gmail Draft with Before/After', icon: 'fa-solid fa-envelope', type: 'outcome', desc: 'Creates a Gmail draft with before/after screenshots attached, ready for you to review and send.' }
                 ],
-                showPipeline: true
+                showPipeline: true,
+                buyLink: 'https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08'
             },
             'lead-gen': {
                 title: 'Lead Generation Pipeline',
@@ -4399,7 +4386,8 @@
                     { src: '/videos/LeadGenPipeline.mp4', label: 'Lead Gen Pipeline Explainer' }
                 ],
                 videoHeading: 'See How It Works',
-                videoSubheading: 'A quick look at how this skill finds real CEOs and delivers verified leads — ready for outreach.'
+                videoSubheading: 'A quick look at how this skill finds real CEOs and delivers verified leads — ready for outreach.',
+                buyLink: 'https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09'
             }
         };
 
@@ -4474,6 +4462,13 @@
                 html += '</div><div class="sim-activity-log" id="sim-log"><div class="log-title">Activity Log</div></div></div>';
                 html += '<div class="sim-output-bar" id="sim-output-bar"><span class="output-label">OUTPUT</span><span class="output-item"><i class="fa-solid fa-globe"></i> acme-plumbing.netlify.app deployed</span><span class="output-item"><i class="fa-solid fa-envelope"></i> Outreach email sent</span><span class="output-item"><i class="fa-solid fa-clock"></i> Follow-ups scheduled</span></div>';
                 html += '</div></div>';
+            }
+
+            // Buy button at bottom of expand panel
+            if (data.buyLink) {
+                html += '<div style="margin-top:20px; text-align:center;">';
+                html += '<a href="' + data.buyLink + '" target="_blank" class="inline-block px-8 py-4 bg-dark text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-signal transition-colors pointer-events-auto">Buy This Skill — $50</a>';
+                html += '</div>';
             }
 
             content.innerHTML = html;
