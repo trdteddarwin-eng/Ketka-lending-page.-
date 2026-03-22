@@ -4382,7 +4382,9 @@
                 ],
                 videos: [
                     { src: '/videos/LeadGenPipeline.mp4', label: 'Lead Gen Pipeline Explainer' }
-                ]
+                ],
+                videoHeading: 'See How It Works',
+                videoSubheading: 'A quick look at how this skill finds real CEOs and delivers verified leads — ready for outreach.'
             }
         };
 
@@ -4426,7 +4428,11 @@
 
             // Videos section
             if (data.videos && data.videos.length) {
-                html += '<div style="margin-top:20px;"><span class="font-heading text-xs font-bold text-dark uppercase tracking-tight">Videos Created by This Pipeline</span></div>';
+                var vHeading = data.videoHeading || 'Videos Created by This Pipeline';
+                var vSub = data.videoSubheading || '';
+                html += '<div style="margin-top:20px;"><span class="font-heading text-xs font-bold text-dark uppercase tracking-tight">' + vHeading + '</span>';
+                if (vSub) html += '<p class="font-sans text-xs text-dark/50 mt-1">' + vSub + '</p>';
+                html += '</div>';
                 html += '<div class="agentic-video-row">';
                 data.videos.forEach(function(v) {
                     html += '<div class="agentic-video-cell">';
