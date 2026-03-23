@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Claude Code Skills | TEDCA. — Developer-Built AI Pipelines</title>
+    <meta name="description" content="Developer-built Claude Code skills that plug in and play. Motion graphic videos, website redesign pipelines, and lead generation — all from a single slash command.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Claude Code Skills | TEDCA.">
+    <meta property="og:description" content="Developer-built Claude Code skills that plug in and play. One download. One command. Claude handles the rest.">
+    <meta property="og:url" content="https://tedca.org/skills">
+    <meta property="og:site_name" content="Tedca Corp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Claude Code Skills | TEDCA.">
+    <meta name="twitter:description" content="3 production-ready Claude Code skills. Motion graphics, website redesigns, lead generation — all automated.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --paper: #E8E4DD;
+            --signal: #E63B2E;
+            --dark: #111111;
+            --offwhite: #F5F3EE;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        html, body { overscroll-behavior: none; }
+
+        body {
+            background-color: var(--paper);
+            color: var(--dark);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        button, a, [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        img, video { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--paper); }
+        ::-webkit-scrollbar-thumb { background: var(--dark); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--signal); }
+
+        /* ========== TYPOGRAPHY ========== */
+        .font-heading { font-family: var(--font-heading); }
+        .font-mono { font-family: var(--font-mono); }
+
+        /* ========== LAYOUT ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        @media (min-width: 768px) {
+            .container { padding: 0 48px; }
+        }
+
+        /* ========== NOISE OVERLAY ========== */
+        .noise-overlay {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            opacity: 0.03;
+            mix-blend-mode: multiply;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            top: 0;
+            background: transparent;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo:hover .logo-mark { transform: rotate(180deg); }
+        .nav-logo:hover .logo-text { color: var(--signal); }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--signal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease;
+        }
+
+        .logo-mark-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--paper);
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.125rem;
+            letter-spacing: -0.05em;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+
+        .nav-back {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dark);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-back:hover {
+            opacity: 1;
+            color: var(--signal);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            background: var(--dark);
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(230, 59, 46, 0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 30%, rgba(230, 59, 46, 0.04) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--signal);
+            margin-bottom: 32px;
+            padding: 8px 20px;
+            border: 1px solid rgba(230, 59, 46, 0.3);
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--signal);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            color: var(--paper);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 .accent { color: var(--signal); }
+
+        .hero-sub {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            color: rgba(232, 228, 221, 0.6);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        /* Stat Counters */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--paper);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(232, 228, 221, 0.4);
+        }
+
+        /* ========== HOW IT WORKS ========== */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--paper);
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--dark);
+            opacity: 0.4;
+            margin-bottom: 16px;
+            display: block;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 64px;
+            line-height: 1;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-number {
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--signal);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+        }
+
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--paper);
+            border-radius: 16px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .step-card:hover .step-icon {
+            transform: scale(1.1) rotate(-5deg);
+            background: var(--signal);
+        }
+
+        .step-title {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--dark);
+            opacity: 0.5;
+            line-height: 1.6;
+        }
+
+        /* Connector arrows (desktop) */
+        @media (min-width: 768px) {
+            .step-connector {
+                position: absolute;
+                top: 72px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--dark);
+                opacity: 0.15;
+                font-size: 1.2rem;
+            }
+            .step-connector-1 { left: calc(33.33% - 20px); }
+            .step-connector-2 { left: calc(66.66% - 20px); }
+        }
+
+        @media (max-width: 767px) {
+            .step-connector { display: none; }
+        }
+
+        /* ========== SKILLS CARDS ========== */
+        .skills-section {
+            padding: 80px 0 100px;
+            background: var(--offwhite);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 900px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid rgba(17, 17, 17, 0.08);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .skill-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-card:hover {
+            border-color: rgba(17, 17, 17, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .skill-card-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .skill-card-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .skill-card-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .skill-card-content { padding: 48px; }
+        }
+
+        .skill-card-media {
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .skill-card-media .media-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            color: rgba(232, 228, 221, 0.2);
+        }
+
+        .skill-card-media .media-placeholder i {
+            font-size: 48px;
+        }
+
+        .skill-card-media .media-placeholder span {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--signal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .skill-title-group {
+            flex: 1;
+        }
+
+        .skill-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--dark);
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .skill-price {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--signal);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .skill-desc {
+            font-size: 0.95rem;
+            color: var(--dark);
+            opacity: 0.65;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        /* Pipeline visual */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-step {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 6px 12px;
+            background: var(--dark);
+            color: var(--paper);
+        }
+
+        .pipeline-arrow {
+            color: var(--dark);
+            opacity: 0.2;
+            font-size: 0.7rem;
+        }
+
+        /* Tags */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .skill-tag {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 4px 10px;
+            border: 1px solid rgba(17, 17, 17, 0.12);
+            color: var(--dark);
+            opacity: 0.5;
+        }
+
+        /* Requirements & Cost */
+        .skill-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: var(--offwhite);
+        }
+
+        .meta-block-label {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--dark);
+            opacity: 0.4;
+            margin-bottom: 6px;
+        }
+
+        .meta-block-value {
+            font-size: 0.8rem;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .meta-block-value strong {
+            color: var(--signal);
+            font-weight: 600;
+        }
+
+        /* ========== STAR BUY BUTTON (from main site) ========== */
+        .btn-star {
+            --btn-bg: #E63B2E;
+            --btn-dark: #111111;
+            --btn-light: #E8E4DD;
+            font-family: 'Space Mono', 'Courier New', monospace;
+            cursor: pointer;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            line-height: 1;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 1rem;
+            outline: 2px solid transparent;
+            outline-offset: 6px;
+            color: var(--btn-light);
+            background: transparent;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-star:active { outline-color: var(--btn-bg); }
+        .btn-star:focus-visible { outline-color: var(--btn-bg); outline-style: dashed; }
+        .btn-star::before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            height: 200%;
+            max-height: 100px;
+            aspect-ratio: 1;
+            margin: auto;
+            background: var(--btn-bg);
+            clip-path: polygon(100% 50%,91.48% 56.57%,97.55% 65.45%,87.42% 69.07%,90.45% 79.39%,79.7% 79.7%,79.39% 90.45%,69.07% 87.42%,65.45% 97.55%,56.57% 91.48%,50% 100%,43.43% 91.48%,34.55% 97.55%,30.93% 87.42%,20.61% 90.45%,20.3% 79.7%,9.55% 79.39%,12.58% 69.07%,2.45% 65.45%,8.52% 56.57%,0% 50%,8.52% 43.43%,2.45% 34.55%,12.58% 30.93%,9.55% 20.61%,20.3% 20.3%,20.61% 9.55%,30.93% 12.58%,34.55% 2.45%,43.43% 8.52%,50% 0%,56.57% 8.52%,65.45% 2.45%,69.07% 12.58%,79.39% 9.55%,79.7% 20.3%,90.45% 20.61%,87.42% 30.93%,97.55% 34.55%,91.48% 43.43%);
+            animation: star-rotate 4s linear infinite;
+            opacity: 0.1;
+        }
+        .btn-star:hover::before { opacity: 1; }
+        .btn-star-inner {
+            padding: 2px;
+            border-radius: 1rem;
+            background-color: var(--btn-bg);
+            transform: translate(-4px, -4px);
+            transition: all 150ms ease;
+            box-shadow:
+                0.5px 0.5px 0 0 var(--btn-bg),1px 1px 0 0 var(--btn-bg),1.5px 1.5px 0 0 var(--btn-bg),2px 2px 0 0 var(--btn-bg),2.5px 2.5px 0 0 var(--btn-bg),3px 3px 0 0 var(--btn-bg),
+                0 0 0 2px var(--btn-dark),0.5px 0.5px 0 2px var(--btn-dark),1px 1px 0 2px var(--btn-dark),1.5px 1.5px 0 2px var(--btn-dark),2px 2px 0 2px var(--btn-dark),2.5px 2.5px 0 2px var(--btn-dark),3px 3px 0 2px var(--btn-dark),3.5px 3.5px 0 2px var(--btn-dark),4px 4px 0 2px var(--btn-dark),
+                0 0 0 4px var(--btn-light),0.5px 0.5px 0 4px var(--btn-light),1px 1px 0 4px var(--btn-light),1.5px 1.5px 0 4px var(--btn-light),2px 2px 0 4px var(--btn-light),2.5px 2.5px 0 4px var(--btn-light),3px 3px 0 4px var(--btn-light),3.5px 3.5px 0 4px var(--btn-light),4px 4px 0 4px var(--btn-light);
+        }
+        .btn-star:hover .btn-star-inner {
+            transform: translate(0, 0);
+            box-shadow:
+                0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),0 0 0 0 var(--btn-bg),
+                0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),0 0 0 2px var(--btn-dark),
+                0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light),0 0 0 4px var(--btn-light);
+        }
+        .btn-star-content {
+            position: relative;
+            pointer-events: none;
+            border-radius: calc(1rem - 2px);
+            background-color: var(--btn-dark);
+        }
+        .btn-star-content::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            opacity: 0.1;
+            background-image: radial-gradient(rgb(255 255 255 / 80%) 20%, transparent 20%), radial-gradient(rgb(255 255 255 / 100%) 20%, transparent 20%);
+            background-position: 0 0, 4px 4px;
+            background-size: 8px 8px;
+            mix-blend-mode: hard-light;
+            box-shadow: inset 0 0 0 1px var(--btn-dark);
+            animation: btn-dots 0.4s infinite linear;
+        }
+        .btn-star-text {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            gap: 0.25rem;
+            filter: drop-shadow(0 -1px 0 var(--btn-dark));
+        }
+        .btn-star-text:active { transform: translateY(2px); }
+        @keyframes star-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes btn-dots { 0% { background-position: 0 0, 4px 4px; } 100% { background-position: 8px 0, 12px 4px; } }
+
+        /* Button on dark bg variant */
+        .btn-star-on-dark {
+            --btn-light: #E8E4DD;
+        }
+
+        /* ========== FAQ SECTION ========== */
+        .faq-section {
+            padding: 100px 0;
+            background: var(--paper);
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .faq-question h3 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+            padding-right: 16px;
+        }
+
+        .faq-toggle {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--dark);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(45deg);
+            opacity: 1;
+            color: var(--signal);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding-bottom: 24px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.55;
+            line-height: 1.7;
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -50%;
+            width: 200%;
+            height: 300%;
+            background: radial-gradient(ellipse at 50% 50%, rgba(230, 59, 46, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            color: var(--paper);
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .cta-subtitle {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: rgba(232, 228, 221, 0.4);
+            margin-bottom: 48px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .cta-custom {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(232, 228, 221, 0.35);
+        }
+
+        .cta-custom a {
+            color: var(--signal);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.3s ease;
+        }
+
+        .cta-custom a:hover {
+            color: var(--paper);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 40px 0;
+            background: var(--dark);
+            border-top: 1px solid rgba(232, 228, 221, 0.06);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-mark {
+            width: 24px;
+            height: 24px;
+            background: var(--signal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-mark-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--paper);
+            border-radius: 50%;
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.05em;
+            color: var(--paper);
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-copy {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: rgba(232, 228, 221, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-link {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(232, 228, 221, 0.4);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover { color: var(--signal); }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 767px) {
+            .hero { padding: 120px 0 60px; }
+            .hero-stats { gap: 24px; }
+            .stat-number { font-size: 1.5rem; }
+            .skill-card-content { padding: 28px; }
+            .skill-name { font-size: 1.25rem; }
+            .skill-meta { grid-template-columns: 1fr; }
+            .cta-buttons { gap: 16px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-right { flex-direction: column; gap: 12px; }
+        }
+
+        /* Video play button overlay */
+        .video-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(17, 17, 17, 0.4);
+            transition: background 0.3s ease;
+            z-index: 2;
+        }
+
+        .video-container:hover .video-play-overlay {
+            background: rgba(17, 17, 17, 0.2);
+        }
+
+        .video-play-overlay.hidden {
+            display: none;
+        }
+
+        .play-btn-circle {
+            width: 64px;
+            height: 64px;
+            background: var(--signal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 32px rgba(230, 59, 46, 0.4);
+        }
+
+        .video-container:hover .play-btn-circle {
+            transform: scale(1.1);
+        }
+
+        /* Terminal code block */
+        .terminal-block {
+            background: var(--dark);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--paper);
+            opacity: 0.8;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .terminal-block::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--signal);
+            box-shadow: 14px 0 0 #F5A623, 28px 0 0 #34C759;
+        }
+
+        .terminal-block code {
+            display: block;
+            margin-top: 16px;
+        }
+
+        .terminal-prompt { color: var(--signal); }
+        .terminal-cmd { color: var(--paper); }
+    </style>
+</head>
+<body>
+    <!-- Noise Overlay -->
+    <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+    </svg>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="https://tedca.org" class="nav-logo">
+                    <div class="logo-mark">
+                        <div class="logo-mark-dot"></div>
+                    </div>
+                    <span class="logo-text">TEDCA.</span>
+                </a>
+                <a href="https://tedca.org" class="nav-back">
+                    <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>Back to main site
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Claude Code & Open Claw Compatible
+                </div>
+                <h1>Claude Code<br><span class="accent">Skills</span></h1>
+                <p class="hero-sub">
+                    Developer-built Claude Code skills that plug in and play. One download. One command. Claude handles the rest.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="3">0</div>
+                        <div class="stat-label">Skills Available</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-prefix="$" data-count-decimal="0.01">$0</div>
+                        <div class="stat-label">Min Cost Per Run</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-suffix=" min" data-count="0">0</div>
+                        <div class="stat-label">Setup Time</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== HOW IT WORKS ==================== -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <span class="section-label">How It Works</span>
+            <h2 class="section-title">Three steps. That's it.</h2>
+            <div class="steps-grid">
+                <div class="step-card stagger-1">
+                    <div class="step-number">Step 01</div>
+                    <div class="step-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <div class="step-title">Buy a skill</div>
+                    <div class="step-desc">Pick a skill below. You get a single .md file delivered instantly after purchase.</div>
+                </div>
+                <div class="step-connector step-connector-1"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="step-card stagger-2">
+                    <div class="step-number">Step 02</div>
+                    <div class="step-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    <div class="step-title">Drop it in</div>
+                    <div class="step-desc">Move the file into your <span class="font-mono" style="font-size:0.8em; background:var(--offwhite); padding:2px 6px;">.claude/agents/</span> folder. Done.</div>
+                </div>
+                <div class="step-connector step-connector-2"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="step-card stagger-3">
+                    <div class="step-number">Step 03</div>
+                    <div class="step-icon"><i class="fa-solid fa-terminal"></i></div>
+                    <div class="step-title">Type the slash command</div>
+                    <div class="step-desc">Claude reads the skill, runs every step in the pipeline, and delivers your output.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <section class="skills-section" id="skills">
+        <div class="container">
+            <span class="section-label">The Catalog</span>
+            <h2 class="section-title">Production-ready skills</h2>
+
+            <!-- SKILL 1: Motion Graphic Video -->
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-content">
+                            <div class="skill-header">
+                                <div class="skill-icon"><i class="fa-solid fa-video"></i></div>
+                                <div class="skill-title-group">
+                                    <div class="skill-name">Motion Graphic Video</div>
+                                    <div class="skill-price">$50 one-time</div>
+                                </div>
+                            </div>
+                            <p class="skill-desc">
+                                Give it a topic. Get back a fully produced motion graphic video &mdash; script, AI narration, sound effects, and rendered MP4. No editing software. No timeline. No export settings. Just a finished video.
+                            </p>
+                            <div class="pipeline">
+                                <span class="pipeline-step">Script</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Compose</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Narrate</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">SFX</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Render</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Script Generation</span>
+                                <span class="skill-tag">AI Narration</span>
+                                <span class="skill-tag">Sound Effects</span>
+                                <span class="skill-tag">Auto Render</span>
+                            </div>
+                            <div class="skill-meta">
+                                <div>
+                                    <div class="meta-block-label">What you need</div>
+                                    <div class="meta-block-value">OpenRouter API key<br>KIE API key</div>
+                                </div>
+                                <div>
+                                    <div class="meta-block-label">Cost per video</div>
+                                    <div class="meta-block-value"><strong>~$0.25</strong></div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="https://buy.stripe.com/test_5kQfZagzH2wc8wM3956oo06" target="_blank" class="btn-star">
+                                    <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill &mdash; $50</div></div></div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="skill-card-media">
+                            <div class="video-container" onclick="toggleVideo(this)">
+                                <div class="video-play-overlay">
+                                    <div class="play-btn-circle"><i class="fa-solid fa-play" style="margin-left:3px;"></i></div>
+                                </div>
+                                <video preload="metadata" playsinline muted loop poster="">
+                                    <source src="/videos/ChatbotExplained.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKILL 2: Website Redesign Pipeline -->
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-media">
+                            <div class="video-container" onclick="toggleVideo(this)">
+                                <div class="video-play-overlay">
+                                    <div class="play-btn-circle"><i class="fa-solid fa-play" style="margin-left:3px;"></i></div>
+                                </div>
+                                <video preload="metadata" playsinline muted loop>
+                                    <source src="/videos/SEOExplained.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                        <div class="skill-card-content">
+                            <div class="skill-header">
+                                <div class="skill-icon"><i class="fa-solid fa-paintbrush"></i></div>
+                                <div class="skill-title-group">
+                                    <div class="skill-name">Website Redesign Pipeline</div>
+                                    <div class="skill-price">$50 one-time</div>
+                                </div>
+                            </div>
+                            <p class="skill-desc">
+                                Give it any business URL. It scrapes the site, screenshots it, analyzes conversion issues, builds a modern redesign, previews it on localhost, and creates a Gmail draft with before/after screenshots. Ready to send.
+                            </p>
+                            <div class="pipeline">
+                                <span class="pipeline-step">Research</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Screenshot</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Analyze</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Redesign</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Draft</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Web Scraping</span>
+                                <span class="skill-tag">AI Analysis</span>
+                                <span class="skill-tag">Responsive Design</span>
+                                <span class="skill-tag">Gmail Draft</span>
+                            </div>
+                            <div class="skill-meta">
+                                <div>
+                                    <div class="meta-block-label">What you need</div>
+                                    <div class="meta-block-value">OpenRouter API key<br>Google account (Gmail)</div>
+                                </div>
+                                <div>
+                                    <div class="meta-block-label">Cost per lead</div>
+                                    <div class="meta-block-value"><strong>~$0.01</strong></div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08" target="_blank" class="btn-star">
+                                    <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill &mdash; $50</div></div></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKILL 3: Lead Generation Pipeline -->
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-content">
+                            <div class="skill-header">
+                                <div class="skill-icon"><i class="fa-solid fa-magnifying-glass-location"></i></div>
+                                <div class="skill-title-group">
+                                    <div class="skill-name">Lead Generation Pipeline</div>
+                                    <div class="skill-price">$50 one-time</div>
+                                </div>
+                            </div>
+                            <p class="skill-desc">
+                                Give it an industry and location. It scrapes every matching business from Google Maps, finds the real decision-maker's email, and delivers a clean Google Sheet &mdash; ready for cold outreach. No manual research. No guessing.
+                            </p>
+                            <div class="pipeline">
+                                <span class="pipeline-step">Search</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Scrape</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Enrich</span>
+                                <span class="pipeline-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="pipeline-step">Deliver</span>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Maps Scraping</span>
+                                <span class="skill-tag">Email Discovery</span>
+                                <span class="skill-tag">Auto Dedupe</span>
+                                <span class="skill-tag">Google Sheets</span>
+                            </div>
+                            <div class="skill-meta">
+                                <div>
+                                    <div class="meta-block-label">What you need</div>
+                                    <div class="meta-block-value">Apify token<br>AnyMailFinder key<br>Google account</div>
+                                </div>
+                                <div>
+                                    <div class="meta-block-label">Cost per 100 leads</div>
+                                    <div class="meta-block-value"><strong>~$1.50&ndash;$2.00</strong></div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09" target="_blank" class="btn-star">
+                                    <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill &mdash; $50</div></div></div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="skill-card-media">
+                            <div class="video-container" onclick="toggleVideo(this)">
+                                <div class="video-play-overlay">
+                                    <div class="play-btn-circle"><i class="fa-solid fa-play" style="margin-left:3px;"></i></div>
+                                </div>
+                                <video preload="metadata" playsinline muted loop>
+                                    <source src="/videos/LeadGenPipeline.mp4" type="video/mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <span class="section-label">Questions</span>
+            <h2 class="section-title">FAQ</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>What is a Claude Code skill?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A skill is a single <code>.md</code> file that tells Claude Code exactly how to run a complex pipeline &mdash; step by step, tool by tool. You drop it in your project, type a slash command, and Claude executes the entire workflow autonomously. Think of it as a production-grade SOP that an AI agent follows perfectly every time.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>What do I need to get started?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Claude Code installed on your machine, plus the API keys listed on each skill card. Most skills need an OpenRouter API key (for LLM calls) and one or two service-specific keys. Each skill's "What you need" section tells you exactly which accounts to set up.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>How do I install a skill?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>After purchase, you receive a <code>.md</code> file. Put it in your <code>.claude/agents/</code> directory. Open Claude Code and type the slash command (included in the file). Claude reads the instructions and runs the entire pipeline. No dependencies to install, no config files to edit.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>Can I customize the skills?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes &mdash; everything is in the <code>.md</code> file in plain English. Change the output style, adjust pipeline steps, add new features, swap API providers. It's your file. The skill is a starting point that already works out of the box, but you own it completely.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <h3>What if I need help?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Reply to your purchase receipt email and we'll get back to you within 24 hours. If you need something more hands-on &mdash; custom skill development, pipeline debugging, or a full walkthrough &mdash; book a call and we'll sort it out live.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section" id="buy">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to automate?</h2>
+                <p class="cta-subtitle">Pick a skill. Drop it in. Let Claude do the work.</p>
+                <div class="cta-buttons">
+                    <a href="https://buy.stripe.com/test_5kQfZagzH2wc8wM3956oo06" target="_blank" class="btn-star btn-star-on-dark">
+                        <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text"><i class="fa-solid fa-video" style="margin-right:6px;"></i>Video &mdash; $50</div></div></div>
+                    </a>
+                    <a href="https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08" target="_blank" class="btn-star btn-star-on-dark">
+                        <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text"><i class="fa-solid fa-paintbrush" style="margin-right:6px;"></i>Redesign &mdash; $50</div></div></div>
+                    </a>
+                    <a href="https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09" target="_blank" class="btn-star btn-star-on-dark">
+                        <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text"><i class="fa-solid fa-magnifying-glass-location" style="margin-right:6px;"></i>Leads &mdash; $50</div></div></div>
+                    </a>
+                </div>
+                <p class="cta-custom">Need something custom? <a href="https://cal.com/tedca/30min" target="_blank">Book a call</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo">
+                    <div class="footer-logo-mark">
+                        <div class="footer-logo-mark-dot"></div>
+                    </div>
+                    <span class="footer-logo-text">TEDCA.</span>
+                </div>
+                <div class="footer-right">
+                    <a href="https://tedca.org" class="footer-link">Main Site</a>
+                    <span class="footer-copy">&copy; 2026 Tedca Corp</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // ===== Intersection Observer for scroll animations =====
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe step cards and skill cards
+        document.querySelectorAll('.step-card, .skill-card, .animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== Stat counter animation =====
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) statObserver.observe(heroStats);
+
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(el => {
+                const prefix = el.dataset.prefix || '';
+                const suffix = el.dataset.suffix || '';
+
+                if (el.dataset.countDecimal) {
+                    // Animate decimal number
+                    const target = parseFloat(el.dataset.countDecimal);
+                    animateDecimal(el, target, prefix, suffix, 1200);
+                } else {
+                    const target = parseInt(el.dataset.count);
+                    if (target === 0) {
+                        el.textContent = prefix + '0' + suffix;
+                        el.style.animation = 'countUp 0.6s ease-out forwards';
+                        return;
+                    }
+                    animateInteger(el, target, prefix, suffix, 1200);
+                }
+            });
+        }
+
+        function animateInteger(el, target, prefix, suffix, duration) {
+            const start = performance.now();
+            function tick(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(eased * target);
+                el.textContent = prefix + current + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        function animateDecimal(el, target, prefix, suffix, duration) {
+            const start = performance.now();
+            const decimals = (target.toString().split('.')[1] || '').length;
+            function tick(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = (eased * target).toFixed(decimals);
+                el.textContent = prefix + current + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        // ===== FAQ toggle =====
+        function toggleFaq(questionEl) {
+            const item = questionEl.parentElement;
+            const isOpen = item.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
+            // Open clicked (if it wasn't already open)
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // ===== Video toggle =====
+        function toggleVideo(container) {
+            const video = container.querySelector('video');
+            const overlay = container.querySelector('.video-play-overlay');
+
+            if (video.paused) {
+                video.play();
+                overlay.classList.add('hidden');
+            } else {
+                video.pause();
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        // ===== Smooth nav background on scroll =====
+        const nav = document.querySelector('.nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 60) {
+                nav.style.background = 'rgba(232, 228, 221, 0.9)';
+                nav.style.backdropFilter = 'blur(20px)';
+                nav.style.webkitBackdropFilter = 'blur(20px)';
+            } else {
+                nav.style.background = 'transparent';
+                nav.style.backdropFilter = 'blur(12px)';
+                nav.style.webkitBackdropFilter = 'blur(12px)';
+            }
+            lastScroll = scrollY;
+        }, { passive: true });
+    </script>
+</body>
+</html>
