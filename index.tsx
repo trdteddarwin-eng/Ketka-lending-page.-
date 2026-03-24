@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import { LampBar } from './components/ui/hero';
-import { Boxes } from './components/ui/background-boxes';
 import './index.css';
+
+const App = lazy(() => import('./App'));
+const LampBar = lazy(() => import('./components/ui/hero').then(m => ({ default: m.LampBar })));
+const Boxes = lazy(() => import('./components/ui/background-boxes').then(m => ({ default: m.Boxes })));
 
 const rootElement = document.getElementById('react-root');
 
@@ -11,7 +12,9 @@ if (rootElement) {
     const root = ReactDOM.createRoot(rootElement);
     root.render(
         <React.StrictMode>
-            <App />
+            <Suspense fallback={null}>
+                <App />
+            </Suspense>
         </React.StrictMode>
     );
 }
@@ -22,7 +25,9 @@ if (lampMount) {
     const root = ReactDOM.createRoot(lampMount);
     root.render(
         <React.StrictMode>
-            <LampBar />
+            <Suspense fallback={null}>
+                <LampBar />
+            </Suspense>
         </React.StrictMode>
     );
 }
@@ -33,18 +38,9 @@ if (boxesMount) {
     const boxesRoot = ReactDOM.createRoot(boxesMount);
     boxesRoot.render(
         <React.StrictMode>
-            <Boxes />
-            <div style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                background: '#E8E4DD',
-                zIndex: 1,
-                maskImage: 'radial-gradient(transparent, white)',
-                WebkitMaskImage: 'radial-gradient(transparent, white)',
-                pointerEvents: 'none',
-            }} />
+            <Suspense fallback={null}>
+                <Boxes />
+            </Suspense>
         </React.StrictMode>
     );
 }

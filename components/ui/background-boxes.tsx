@@ -1,82 +1,59 @@
-"use client";
-import React from "react";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import React, { useRef, useEffect } from "react";
 
-export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const rows = new Array(150).fill(1);
-  const cols = new Array(100).fill(1);
+export function Boxes() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
-  // Tedca brand-inspired colors
-  const colors = [
-    "rgba(230, 59, 46, 0.4)",   // signal red
-    "rgba(230, 59, 46, 0.2)",   // signal red light
-    "rgba(17, 17, 17, 0.3)",    // dark
-    "rgba(232, 228, 221, 0.5)", // paper
-    "rgba(245, 243, 238, 0.4)", // offwhite
-    "rgba(230, 59, 46, 0.3)",   // signal red mid
-    "rgba(17, 17, 17, 0.15)",   // dark light
-    "rgba(200, 50, 40, 0.3)",   // deep red
-    "rgba(230, 59, 46, 0.15)",  // signal faint
-  ];
+  useEffect(() => {
+    const container = containerRef.current;
+    const glow = glowRef.current;
+    if (!container || !glow) return;
 
-  const getRandomColor = () => {
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      glow.style.background = `radial-gradient(300px circle at ${x}px ${y}px, rgba(230, 59, 46, 0.08), transparent 60%)`;
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    return () => container.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
-    <div
-      style={{
-        transform: `translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)`,
-      }}
-      className={cn(
-        "absolute left-1/4 p-4 -top-1/4 flex -translate-x-1/2 -translate-y-1/2 w-full h-full z-0",
-        className
-      )}
-      {...rest}
-    >
-      {rows.map((_, i) => (
-        <motion.div
-          key={`row` + i}
-          className="w-16 h-8 relative"
-          style={{ borderLeft: "1px solid rgba(17, 17, 17, 0.06)" }}
-        >
-          {cols.map((_, j) => (
-            <motion.div
-              whileHover={{
-                backgroundColor: getRandomColor(),
-                transition: { duration: 0 },
-              }}
-              animate={{
-                transition: { duration: 2 },
-              }}
-              key={`col` + j}
-              className="w-16 h-8 relative"
-              style={{ borderRight: "1px solid rgba(17, 17, 17, 0.06)", borderTop: "1px solid rgba(17, 17, 17, 0.06)" }}
-            >
-              {j % 2 === 0 && i % 2 === 0 ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="absolute h-6 w-10 -top-[14px] -left-[22px] pointer-events-none"
-                  style={{ color: "rgba(17, 17, 17, 0.08)", strokeWidth: "1px" }}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 6v12m6-6H6"
-                  />
-                </svg>
-              ) : null}
-            </motion.div>
-          ))}
-        </motion.div>
-      ))}
+    <div ref={containerRef} style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+      {/* Isometric grid - pure CSS, zero DOM nodes */}
+      <div style={{
+        position: 'absolute',
+        inset: '-50%',
+        width: '200%',
+        height: '200%',
+        transform: 'translate(-40%, -60%) skewX(-48deg) skewY(14deg) scale(0.675)',
+        backgroundImage: `
+          linear-gradient(to right, rgba(17,17,17,0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17,17,17,0.06) 1px, transparent 1px)
+        `,
+        backgroundSize: '64px 32px',
+      }} />
+
+      {/* Mouse follow glow */}
+      <div ref={glowRef} style={{
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'auto',
+        zIndex: 1,
+      }} />
+
+      {/* Radial fade mask */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: '#E8E4DD',
+        maskImage: 'radial-gradient(transparent, white)',
+        WebkitMaskImage: 'radial-gradient(transparent, white)',
+        pointerEvents: 'none',
+        zIndex: 2,
+      }} />
     </div>
   );
-};
-
-export const Boxes = React.memo(BoxesCore);
+}

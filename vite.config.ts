@@ -18,6 +18,16 @@ export default defineConfig(({ mode }) => {
       'import.meta.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL),
       'import.meta.env.VITE_WEBHOOK_SECRET': JSON.stringify(env.VITE_WEBHOOK_SECRET)
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'framer-motion': ['framer-motion'],
+            'react-vendor': ['react', 'react-dom'],
+          }
+        }
+      }
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

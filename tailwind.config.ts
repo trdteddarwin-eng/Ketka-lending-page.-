@@ -16,9 +16,8 @@ const config: Config = {
             },
             fontFamily: {
                 heading: ['Space Grotesk', 'sans-serif'],
-                drama: ['DM Serif Display', 'serif'],
                 mono: ['Space Mono', 'monospace'],
-                sans: ['Inter', 'sans-serif'], // Keep Inter as fallback sans
+                sans: ['system-ui', '-apple-system', 'sans-serif'],
             },
             animation: {
                 'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',

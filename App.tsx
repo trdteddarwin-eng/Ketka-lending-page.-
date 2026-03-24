@@ -1,13 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { AppState, BusinessConfig, TranscriptItem } from './types';
 import { GeminiLiveService } from './services/geminiLive';
-import { SetupForm } from './components/SetupForm';
-import { ActiveCall } from './components/ActiveCall';
-import { TranscriptSummary } from './components/TranscriptSummary';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChatWidget } from './components/ChatWidget';
 import { canStartDemo, recordDemoStart, getRemainingCooldown } from './utils/rateLimit';
-import Cal, { getCalApi } from "@calcom/embed-react";
+
+// Lazy-load heavy components that aren't needed on initial render
+const SetupForm = lazy(() => import('./components/SetupForm').then(m => ({ default: m.SetupForm })));
+const ActiveCall = lazy(() => import('./components/ActiveCall').then(m => ({ default: m.ActiveCall })));
+const TranscriptSummary = lazy(() => import('./components/TranscriptSummary').then(m => ({ default: m.TranscriptSummary })));
+const ChatWidget = lazy(() => import('./components/ChatWidget').then(m => ({ default: m.ChatWidget })));
+const Cal = lazy(() => import("@calcom/embed-react"));
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
@@ -131,6 +133,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     (async function () {
+      const { getCalApi } = await import("@calcom/embed-react");
       const cal = await getCalApi({ "namespace": "30min" });
       cal("ui", { "styles": { "branding": { "brandColor": "#7d3131" } }, "hideEventTypeDetails": false, "layout": "month_view" });
     })();
@@ -159,7 +162,9 @@ const App: React.FC = () => {
 
       {/* Chat Widget */}
       <div className="fixed bottom-6 right-6 z-[10000] pointer-events-auto">
-        <ChatWidget />
+        <Suspense fallback={null}>
+          <ChatWidget />
+        </Suspense>
       </div>
 
       {/* Header */}
@@ -204,6 +209,7 @@ const App: React.FC = () => {
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#11111105_1px,transparent_1px),linear-gradient(to_bottom,#11111105_1px,transparent_1px)] bg-[size:32px_32px]"></div>
         </div>
 
+        <Suspense fallback={null}>
         <AnimatePresence mode="wait">
           {errorMsg && (
             <motion.div
@@ -297,17 +303,20 @@ const App: React.FC = () => {
                   </p>
                 </div>
                 <div className="h-[400px] md:h-[600px] bg-paper overflow-hidden border border-dark shadow-[4px_4px_0px_#111111] p-2">
-                  <Cal
-                    namespace="30min"
-                    calLink="ted-charles-enqyjn/30min"
-                    style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                    config={{ layout: "month_view" }}
-                  />
+                  <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-dark/50 font-mono text-xs">Loading calendar...</div>}>
+                    <Cal
+                      namespace="30min"
+                      calLink="ted-charles-enqyjn/30min"
+                      style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                      config={{ layout: "month_view" }}
+                    />
+                  </Suspense>
                 </div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
+        </Suspense>
       </main>
     </div>
   );
