@@ -931,6 +931,37 @@
         }
         .auto-card:hover .auto-card-hint { opacity: 1; }
 
+        /* Mobile: agentic cards tap hint */
+        .agentic-tap-hint {
+            display: none;
+            margin-top: 8px;
+            font-size: 10px;
+            font-family: 'Space Mono', monospace;
+            color: rgba(17,17,17,0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-align: center;
+        }
+        @media (max-width: 767px) {
+            .agentic-tap-hint {
+                display: block;
+            }
+            /* Stack agentic cards full-width with spacing */
+            #svc-agentic .grid.md\:grid-cols-3 {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            .agentic-card {
+                padding: 1.5rem !important;
+            }
+            .agentic-card a[href*="stripe"] {
+                min-height: 48px;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
         /* FAQ for automation tab */
         .auto-faq-item {
             background: #F5F3EE; border: 1px solid rgba(17,17,17,0.1);
@@ -1436,17 +1467,9 @@
     <div id="react-root" class="fixed inset-0 z-[9999] pointer-events-none"></div>
     <div id="claude-skills-root"></div>
 
-    <!-- URGENCY BANNER -->
-    <div
-        class="bg-dark text-paper text-center py-2 text-xs font-mono uppercase tracking-widest fixed top-0 w-full z-[101] border-b border-signal/20">
-        <span class="text-signal animate-pulse">●</span> Only <strong class="text-paper">3 spots left</strong> this
-        month — AI Voice + Automation + Agentic Workflows for North Jersey businesses •
-        <a href="#book-call" class="text-signal underline hover:text-white transition-colors pointer-events-auto">Claim
-            yours →</a>
-    </div>
     <!-- Navbar -->
     <nav
-        class="fixed w-full z-[100] bg-transparent backdrop-blur-none transition-all duration-300 top-8">
+        class="fixed w-full z-[100] bg-transparent backdrop-blur-none transition-all duration-300 top-0">
         <div class="max-w-7xl mx-auto px-6 md:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center gap-3 cursor-pointer group">
@@ -1468,7 +1491,7 @@
     </nav>
 
     <!-- COMPANY HERO -->
-    <section class="pt-44 pb-20 lg:pt-56 lg:pb-28 relative overflow-hidden bg-paper">
+    <section class="pt-32 pb-20 lg:pt-44 lg:pb-28 relative overflow-hidden bg-paper">
         <!-- Background Boxes (React) -->
         <div id="hero-boxes-mount" style="position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;"></div>
 
@@ -2430,6 +2453,7 @@
                             <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Auto Render</span>
                         </div>
                         <a href="https://buy.stripe.com/test_5kQfZagzH2wc8wM3956oo06" target="_blank" class="mt-4 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $50</a>
+                        <div class="agentic-tap-hint">Tap card to see pipeline details</div>
                     </div>
                     <!-- Website Redesign Pipeline Card -->
                     <div class="agentic-card bg-paper border border-dark/10 p-6 group hover:border-signal transition-all cursor-pointer" data-agentic="website-pipeline">
@@ -2459,6 +2483,7 @@
                             <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Gmail Draft</span>
                         </div>
                         <a href="https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08" target="_blank" class="mt-4 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $50</a>
+                        <div class="agentic-tap-hint">Tap card to see pipeline details</div>
                     </div>
                     <div class="agentic-card bg-paper border border-dark/10 p-6 group hover:border-signal transition-all cursor-pointer" data-agentic="lead-gen">
                         <div class="w-12 h-12 mb-4 bg-signal text-paper flex items-center justify-center rounded-lg">
@@ -2491,6 +2516,7 @@
                             <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Google Sheets</span>
                         </div>
                         <a href="https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09" target="_blank" class="mt-4 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $50</a>
+                        <div class="agentic-tap-hint">Tap card to see pipeline details</div>
                     </div>
                 </div>
 

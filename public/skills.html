@@ -965,18 +965,308 @@
             .hero { padding: 120px 0 60px; }
             .hero-stats { gap: 24px; }
             .stat-number { font-size: 1.5rem; }
-            .skill-card-content { padding: 28px; }
             .skill-name { font-size: 1.25rem; }
             .skill-meta { grid-template-columns: 1fr; }
             .cta-buttons { gap: 16px; }
             .footer-inner { flex-direction: column; text-align: center; }
             .footer-right { flex-direction: column; gap: 12px; }
+
+            /* === SKILL CARDS MOBILE OVERHAUL === */
+
+            /* Full-width stacked cards with generous spacing */
+            .skills-grid {
+                gap: 0 !important;
+            }
+
+            .skill-card {
+                border-radius: 0;
+                border: none !important;
+                box-shadow: none !important;
+                margin-bottom: 0;
+            }
+
+            /* Skill number badge */
+            .skill-card-badge {
+                display: block;
+                font-family: var(--font-mono);
+                font-size: 0.6rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.25em;
+                padding: 6px 14px;
+                margin-bottom: 0;
+            }
+
+            /* Card 1 - Motion Graphic Video - signal red accent */
+            .skill-card:nth-child(1) .skill-card-badge {
+                background: #E63B2E;
+                color: #fff;
+            }
+            .skill-card:nth-child(1) {
+                border-top: 5px solid #E63B2E !important;
+            }
+            .skill-card:nth-child(1) .skill-icon {
+                background: #E63B2E;
+            }
+
+            /* Card 2 - Website Redesign - dark accent */
+            .skill-card:nth-child(2) .skill-card-badge {
+                background: #111111;
+                color: #E8E4DD;
+            }
+            .skill-card:nth-child(2) {
+                border-top: 5px solid #111111 !important;
+            }
+            .skill-card:nth-child(2) .skill-icon {
+                background: #111111;
+            }
+
+            /* Card 3 - Lead Generation - earthy brown accent */
+            .skill-card:nth-child(3) .skill-card-badge {
+                background: #8B5E3C;
+                color: #fff;
+            }
+            .skill-card:nth-child(3) {
+                border-top: 5px solid #8B5E3C !important;
+            }
+            .skill-card:nth-child(3) .skill-icon {
+                background: #8B5E3C;
+            }
+
+            /* Full-width divider between cards */
+            .skill-card + .skill-card::before {
+                content: '';
+                display: block;
+                width: calc(100% + 48px);
+                margin-left: -24px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent 0%, rgba(17,17,17,0.15) 20%, rgba(17,17,17,0.15) 80%, transparent 100%);
+                margin-bottom: 0;
+            }
+
+            /* Spacing between cards */
+            .skill-card + .skill-card {
+                margin-top: 2rem;
+                padding-top: 0;
+            }
+
+            /* Card inner: stack vertically, media on top */
+            .skill-card-inner {
+                display: flex !important;
+                flex-direction: column;
+            }
+
+            /* For card 2 where media comes first in HTML, keep it first on mobile too */
+            .skill-card:nth-child(2) .skill-card-inner {
+                flex-direction: column;
+            }
+
+            /* Content padding */
+            .skill-card-content {
+                padding: 24px 20px 28px;
+            }
+
+            /* === VIDEO DISPLAY MOBILE === */
+            .skill-card-media {
+                min-height: auto;
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                border-radius: 0;
+                padding: 12px;
+                background: var(--dark);
+            }
+
+            .video-container {
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                aspect-ratio: 9 / 16;
+                background: #111;
+                cursor: pointer;
+            }
+
+            .skill-card-media video {
+                border-radius: 12px;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                object-fit: cover;
+            }
+
+            .video-play-overlay {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0,0,0,0.3);
+                border-radius: 12px;
+                z-index: 2;
+                transition: opacity 0.3s;
+            }
+            .video-play-overlay.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .play-btn-circle {
+                width: 56px;
+                height: 56px;
+                font-size: 18px;
+                background: rgba(230, 59, 46, 0.9);
+                color: #fff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* === PIPELINE STEPS MOBILE === */
+            .pipeline {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            .pipeline-step {
+                padding: 10px 16px;
+                text-align: center;
+                font-size: 0.65rem;
+            }
+
+            .pipeline-arrow {
+                display: flex;
+                justify-content: center;
+                padding: 4px 0;
+                transform: rotate(90deg);
+                font-size: 0.6rem;
+            }
+
+            /* === BUY BUTTONS MOBILE === */
+            .btn-star {
+                display: block;
+                width: 100%;
+            }
+
+            .btn-star-inner {
+                width: 100%;
+            }
+
+            .btn-star-content {
+                width: 100%;
+            }
+
+            .btn-star-text {
+                width: 100%;
+                justify-content: center;
+                min-height: 48px;
+                padding: 0.875rem 1.25rem;
+                font-size: 0.8rem;
+            }
+
+            /* === FAQ TOUCH TARGETS === */
+            .faq-question {
+                padding: 20px 0;
+                min-height: 56px;
+            }
+
+            .faq-question h3 {
+                font-size: 0.95rem;
+            }
+
+            .faq-toggle {
+                width: 44px;
+                height: 44px;
+                font-size: 1.4rem;
+            }
+
+            .faq-answer p {
+                font-size: 0.875rem;
+                padding-bottom: 20px;
+            }
+
+            /* === HOW IT WORKS MOBILE === */
+            .steps-grid {
+                gap: 8px !important;
+            }
+
+            .step-card {
+                padding: 28px 20px;
+            }
+
+            /* Mobile step connector arrows (vertical) */
+            .step-mobile-arrow {
+                display: flex;
+                justify-content: center;
+                padding: 4px 0;
+                color: var(--dark);
+                opacity: 0.15;
+                font-size: 1.2rem;
+            }
+
+            /* === CTA BUTTONS MOBILE === */
+            .cta-buttons .btn-star {
+                width: 100%;
+            }
+
+            .cta-buttons .btn-star-text {
+                min-height: 48px;
+                justify-content: center;
+            }
+
+            /* === SECTION SPACING === */
+            .skills-section {
+                padding: 60px 0 80px;
+            }
+
+            .how-it-works {
+                padding: 60px 0;
+            }
+
+            .faq-section {
+                padding: 60px 0;
+            }
+
+            .cta-section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Desktop: hide mobile-only elements */
+        @media (min-width: 768px) {
+            .skill-card-badge {
+                display: none;
+            }
+            .step-mobile-arrow {
+                display: none;
+            }
         }
 
         /* Video play button overlay */
         .video-container {
             position: relative;
             cursor: pointer;
+            aspect-ratio: 9 / 16;
+            max-width: 320px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #111;
+        }
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            border-radius: 12px;
         }
 
         .video-play-overlay {
@@ -995,7 +1285,8 @@
         }
 
         .video-play-overlay.hidden {
-            display: none;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .play-btn-circle {
@@ -1120,6 +1411,7 @@
                     <div class="step-desc">Pick a skill below. You get a single .md file delivered instantly after purchase.</div>
                 </div>
                 <div class="step-connector step-connector-1"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="step-mobile-arrow"><i class="fa-solid fa-arrow-down"></i></div>
                 <div class="step-card stagger-2">
                     <div class="step-number">Step 02</div>
                     <div class="step-icon"><i class="fa-solid fa-folder-open"></i></div>
@@ -1127,6 +1419,7 @@
                     <div class="step-desc">Move the file into your <span class="font-mono" style="font-size:0.8em; background:var(--offwhite); padding:2px 6px;">.claude/agents/</span> folder. Done.</div>
                 </div>
                 <div class="step-connector step-connector-2"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="step-mobile-arrow"><i class="fa-solid fa-arrow-down"></i></div>
                 <div class="step-card stagger-3">
                     <div class="step-number">Step 03</div>
                     <div class="step-icon"><i class="fa-solid fa-terminal"></i></div>
@@ -1146,6 +1439,7 @@
             <!-- SKILL 1: Motion Graphic Video -->
             <div class="skills-grid">
                 <div class="skill-card">
+                    <div class="skill-card-badge">Skill 1 of 3</div>
                     <div class="skill-card-inner">
                         <div class="skill-card-content">
                             <div class="skill-header">
@@ -1192,30 +1486,21 @@
                             </div>
                         </div>
                         <div class="skill-card-media">
-                            <div class="video-container" onclick="toggleVideo(this)">
-                                <div class="video-play-overlay">
-                                    <div class="play-btn-circle"><i class="fa-solid fa-play" style="margin-left:3px;"></i></div>
-                                </div>
-                                <video preload="metadata" playsinline muted loop poster="">
-                                    <source src="/videos/ChatbotExplained.mp4" type="video/mp4">
-                                </video>
-                            </div>
+                            <video controls playsinline preload="metadata" style="width:100%;max-width:320px;margin:0 auto;display:block;border-radius:12px;background:#111;">
+                                <source src="/videos/ChatbotExplained.mp4" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                 </div>
 
                 <!-- SKILL 2: Website Redesign Pipeline -->
                 <div class="skill-card">
+                    <div class="skill-card-badge">Skill 2 of 3</div>
                     <div class="skill-card-inner">
                         <div class="skill-card-media">
-                            <div class="video-container" onclick="toggleVideo(this)">
-                                <div class="video-play-overlay">
-                                    <div class="play-btn-circle"><i class="fa-solid fa-play" style="margin-left:3px;"></i></div>
-                                </div>
-                                <video preload="metadata" playsinline muted loop>
-                                    <source src="/videos/SEOExplained.mp4" type="video/mp4">
-                                </video>
-                            </div>
+                            <video controls playsinline preload="metadata" style="width:100%;max-width:320px;margin:0 auto;display:block;border-radius:12px;background:#111;">
+                                <source src="/videos/SEOExplained.mp4" type="video/mp4">
+                            </video>
                         </div>
                         <div class="skill-card-content">
                             <div class="skill-header">
@@ -1266,6 +1551,7 @@
 
                 <!-- SKILL 3: Lead Generation Pipeline -->
                 <div class="skill-card">
+                    <div class="skill-card-badge">Skill 3 of 3</div>
                     <div class="skill-card-inner">
                         <div class="skill-card-content">
                             <div class="skill-header">
@@ -1310,14 +1596,9 @@
                             </div>
                         </div>
                         <div class="skill-card-media">
-                            <div class="video-container" onclick="toggleVideo(this)">
-                                <div class="video-play-overlay">
-                                    <div class="play-btn-circle"><i class="fa-solid fa-play" style="margin-left:3px;"></i></div>
-                                </div>
-                                <video preload="metadata" playsinline muted loop>
-                                    <source src="/videos/LeadGenPipeline.mp4" type="video/mp4">
-                                </video>
-                            </div>
+                            <video controls playsinline preload="metadata" style="width:100%;max-width:320px;margin:0 auto;display:block;border-radius:12px;background:#111;">
+                                <source src="/videos/LeadGenPipeline.mp4" type="video/mp4">
+                            </video>
                         </div>
                     </div>
                 </div>
