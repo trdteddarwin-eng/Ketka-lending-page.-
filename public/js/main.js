@@ -424,7 +424,7 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
             if (fcScrollLocked) { document.body.style.overflow = ''; fcScrollLocked = false; }
         }
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeFlowchartModal();
+            if (e.key === 'Escape') { closeFlowchartModal(); closeSkillModal(); }
         });
 
         // Card click handlers
@@ -592,10 +592,115 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
             });
         }
 
-        // Agentic card click handlers
+        // ── Skill Modal System ──
+        function openSkillModal(cardId) {
+            var data = AGENTIC_DATA[cardId];
+            if (!data) return;
+
+            document.getElementById('skillTitle').textContent = data.title;
+            document.getElementById('skillSubtitle').textContent = 'How it works, step by step';
+
+            var content = document.getElementById('skillModalContent');
+            var canvas = document.createElement('div');
+            canvas.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:0;padding:8px 0;';
+
+            // Strip FA prefix to get icon ID
+            function iconId(icon) {
+                return icon.replace('fa-solid fa-', 'icon-').replace('fa-brands fa-', 'icon-');
+            }
+
+            data.steps.forEach(function(step, i) {
+                var el = document.createElement('div');
+                el.className = 'fc-node';
+                el.setAttribute('data-type', step.type);
+
+                var badgeHtml = '<div class="fc-step-badge">' + (i + 1) + '</div>';
+                var accentHtml = '<div class="fc-node-accent"></div>';
+                var iconHtml = '<div class="fc-node-icon"><svg class="icon"><use href="#' + iconId(step.icon) + '"/></svg></div>';
+                var descHtml = '<div class="fc-node-desc">' + step.desc + '</div>';
+                var textHtml = '<div class="fc-node-text"><div class="fc-node-label">' + step.label + '</div>' + descHtml + '</div>';
+
+                el.innerHTML = badgeHtml + accentHtml + iconHtml + textHtml;
+                canvas.appendChild(el);
+
+                if (i < data.steps.length - 1) {
+                    var conn = document.createElement('div');
+                    conn.className = 'fc-connector';
+                    conn.setAttribute('data-conn-idx', i);
+                    canvas.appendChild(conn);
+                }
+            });
+
+            // Videos section
+            if (data.videos && data.videos.length) {
+                var vHeading = data.videoHeading || 'Videos Created by This Pipeline';
+                var vSub = data.videoSubheading || '';
+                var videoSection = document.createElement('div');
+                videoSection.style.marginTop = '24px';
+                var vHtml = '<div class="fc-video-label">' + vHeading + '</div>';
+                if (vSub) vHtml += '<p style="font-size:11px;color:rgba(17,17,17,0.5);margin:4px 0 12px;font-family:sans-serif;">' + vSub + '</p>';
+                data.videos.forEach(function(v) {
+                    vHtml += '<div style="margin-top:12px;">';
+                    vHtml += '<video src="' + v.src + '" controls playsinline preload="none" style="width:100%;max-width:400px;border-radius:0;border:1px solid rgba(17,17,17,0.1);"></video>';
+                    vHtml += '<div style="font-size:10px;font-family:\'DM Mono\',monospace;color:rgba(17,17,17,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-top:4px;">' + v.label + '</div>';
+                    vHtml += '</div>';
+                });
+                videoSection.innerHTML = vHtml;
+                canvas.appendChild(videoSection);
+            }
+
+            // Buy button
+            if (data.buyLink) {
+                var buyDiv = document.createElement('div');
+                buyDiv.style.cssText = 'margin-top:24px; text-align:center; padding-bottom:8px;';
+                buyDiv.innerHTML = '<a href="' + data.buyLink + '" target="_blank" class="btn-star pointer-events-auto"><div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill — $50</div></div></div></a>';
+                canvas.appendChild(buyDiv);
+            }
+
+            content.innerHTML = '';
+            content.appendChild(canvas);
+
+            document.getElementById('skillBackdrop').classList.add('fc-open');
+            document.getElementById('skillModal').classList.add('fc-open');
+            document.body.style.overflow = 'hidden';
+
+            // Animate nodes
+            requestAnimationFrame(function() {
+                var nodes = content.querySelectorAll('.fc-node');
+                var connectors = content.querySelectorAll('.fc-connector');
+                nodes.forEach(function(node, i) {
+                    setTimeout(function() {
+                        node.classList.add('fc-visible');
+                        if (i < connectors.length) {
+                            setTimeout(function() {
+                                connectors[i].classList.add('fc-conn-visible');
+                            }, 200);
+                        }
+                    }, i * 300);
+                });
+            });
+
+            // Start pipeline simulation if present
+            if (data.showPipeline) {
+                setTimeout(function() {
+                    if (typeof window.runPipelineSim === 'function') {
+                        window.runPipelineSim();
+                    }
+                }, 300);
+            }
+        }
+
+        function closeSkillModal() {
+            document.getElementById('skillBackdrop').classList.remove('fc-open');
+            document.getElementById('skillModal').classList.remove('fc-open');
+            document.body.style.overflow = '';
+            if (typeof window.stopPipelineSim === 'function') window.stopPipelineSim();
+        }
+
+        // Agentic card click handlers — open skill modal instead of inline expand
         document.querySelectorAll('.agentic-card[data-agentic]').forEach(function(card) {
             card.addEventListener('click', function() {
-                toggleAgenticExpand(this.dataset.agentic);
+                openSkillModal(this.dataset.agentic);
             });
         });
 
