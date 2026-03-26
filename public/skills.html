@@ -975,7 +975,7 @@
 
             /* Full-width stacked cards with generous spacing */
             .skills-grid {
-                gap: 0 !important;
+                gap: 3rem !important;
             }
 
             .skill-card {
@@ -985,25 +985,26 @@
                 margin-bottom: 0;
             }
 
-            /* Skill number badge */
+            /* Skill number badge — small inline pill, not full-width */
             .skill-card-badge {
-                display: block;
+                display: inline-block;
                 font-family: var(--font-mono);
-                font-size: 0.6rem;
+                font-size: 10px;
                 font-weight: 700;
                 text-transform: uppercase;
-                letter-spacing: 0.25em;
-                padding: 6px 14px;
-                margin-bottom: 0;
+                letter-spacing: 0.15em;
+                padding: 4px 12px;
+                margin: 12px 0 0 16px;
+                border-radius: 4px;
             }
 
             /* Card 1 - Motion Graphic Video - signal red accent */
             .skill-card:nth-child(1) .skill-card-badge {
-                background: #E63B2E;
-                color: #fff;
+                background: rgba(230, 59, 46, 0.12);
+                color: #E63B2E;
             }
             .skill-card:nth-child(1) {
-                border-top: 5px solid #E63B2E !important;
+                border-top: 3px solid #E63B2E !important;
             }
             .skill-card:nth-child(1) .skill-icon {
                 background: #E63B2E;
@@ -1011,11 +1012,11 @@
 
             /* Card 2 - Website Redesign - dark accent */
             .skill-card:nth-child(2) .skill-card-badge {
-                background: #111111;
-                color: #E8E4DD;
+                background: rgba(17, 17, 17, 0.08);
+                color: #111111;
             }
             .skill-card:nth-child(2) {
-                border-top: 5px solid #111111 !important;
+                border-top: 3px solid #111111 !important;
             }
             .skill-card:nth-child(2) .skill-icon {
                 background: #111111;
@@ -1023,31 +1024,24 @@
 
             /* Card 3 - Lead Generation - earthy brown accent */
             .skill-card:nth-child(3) .skill-card-badge {
-                background: #8B5E3C;
-                color: #fff;
+                background: rgba(139, 94, 60, 0.12);
+                color: #8B5E3C;
             }
             .skill-card:nth-child(3) {
-                border-top: 5px solid #8B5E3C !important;
+                border-top: 3px solid #8B5E3C !important;
             }
             .skill-card:nth-child(3) .skill-icon {
                 background: #8B5E3C;
             }
 
-            /* Full-width divider between cards */
+            /* Subtle thin divider between cards */
             .skill-card + .skill-card::before {
                 content: '';
                 display: block;
-                width: calc(100% + 48px);
-                margin-left: -24px;
-                height: 2px;
-                background: linear-gradient(90deg, transparent 0%, rgba(17,17,17,0.15) 20%, rgba(17,17,17,0.15) 80%, transparent 100%);
-                margin-bottom: 0;
-            }
-
-            /* Spacing between cards */
-            .skill-card + .skill-card {
-                margin-top: 2rem;
-                padding-top: 0;
+                width: 80%;
+                margin: 0 auto;
+                height: 1px;
+                background: #ddd;
             }
 
             /* Card inner: stack vertically, media on top */
@@ -1061,9 +1055,9 @@
                 flex-direction: column;
             }
 
-            /* Content padding */
+            /* Content padding — more breathing room */
             .skill-card-content {
-                padding: 24px 20px 28px;
+                padding: 1.5rem 1.5rem 2rem;
             }
 
             /* === VIDEO DISPLAY MOBILE === */
@@ -1073,7 +1067,7 @@
                 position: relative;
                 overflow: hidden;
                 border-radius: 0;
-                padding: 12px;
+                padding: 16px;
                 background: var(--dark);
             }
 
@@ -1089,14 +1083,16 @@
                 cursor: pointer;
             }
 
+            /* Native controls: let video flow naturally */
             .skill-card-media video {
                 border-radius: 12px;
                 width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                object-fit: cover;
+                height: auto;
+                position: relative;
+                display: block;
+                object-fit: contain;
+                max-width: 300px;
+                margin: 0 auto;
             }
 
             .video-play-overlay {
@@ -1127,6 +1123,23 @@
                 justify-content: center;
             }
 
+            /* === INNER ELEMENT SPACING MOBILE === */
+            .skill-header {
+                margin-bottom: 1.25rem;
+            }
+
+            .skill-desc {
+                margin-bottom: 1.5rem;
+            }
+
+            .skill-tags {
+                margin-bottom: 1.5rem;
+            }
+
+            .skill-meta {
+                margin-bottom: 1.75rem;
+            }
+
             /* === PIPELINE STEPS MOBILE === */
             .pipeline {
                 flex-direction: column;
@@ -1148,26 +1161,57 @@
                 font-size: 0.6rem;
             }
 
-            /* === BUY BUTTONS MOBILE === */
+            /* === BUY BUTTONS MOBILE — clean flat button === */
             .btn-star {
                 display: block;
                 width: 100%;
+                border-radius: 0;
+                outline: none;
+            }
+
+            /* Kill the star burst pseudo-element entirely */
+            .btn-star::before {
+                display: none !important;
+                content: none !important;
             }
 
             .btn-star-inner {
                 width: 100%;
+                padding: 0;
+                border-radius: 0;
+                background: #E63B2E;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            .btn-star:hover .btn-star-inner {
+                transform: none !important;
+                box-shadow: none !important;
             }
 
             .btn-star-content {
                 width: 100%;
+                border-radius: 0;
+                background: #E63B2E;
+            }
+
+            /* Kill the dotted texture overlay */
+            .btn-star-content::before {
+                display: none !important;
+                content: none !important;
             }
 
             .btn-star-text {
                 width: 100%;
                 justify-content: center;
-                min-height: 48px;
-                padding: 0.875rem 1.25rem;
+                padding: 16px;
                 font-size: 0.8rem;
+                font-family: 'Space Mono', monospace;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: #fff;
+                filter: none;
             }
 
             /* === FAQ TOUCH TARGETS === */
@@ -1216,8 +1260,16 @@
             }
 
             .cta-buttons .btn-star-text {
-                min-height: 48px;
                 justify-content: center;
+            }
+
+            /* CTA buttons on dark bg — same flat style */
+            .cta-buttons .btn-star-inner {
+                background: #E63B2E;
+            }
+
+            .cta-buttons .btn-star-content {
+                background: #E63B2E;
             }
 
             /* === SECTION SPACING === */
