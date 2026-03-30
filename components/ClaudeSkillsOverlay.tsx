@@ -45,13 +45,8 @@ export function ClaudeSkillsOverlay({ isOpen, onClose }: ClaudeSkillsOverlayProp
             actions={[
               {
                 label: "Motion Graphic Video — $50",
-                href: "https://buy.stripe.com/test_bJe3co3MV6Ms14k9xt6oo04",
+                href: "https://buy.stripe.com/eVqaEQ57a4AS0nP9G63F60b",
                 variant: "default",
-              },
-              {
-                label: "Research Agent — $50",
-                href: "https://buy.stripe.com/test_dRmeV6bfnb2I8wM3956oo05",
-                variant: "outline",
               },
             ]}
             actionsClassName="mt-8 flex-col sm:flex-row"

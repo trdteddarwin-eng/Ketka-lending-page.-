@@ -15,15 +15,15 @@ function httpsRequest(url, options = {}) {
 }
 
 const SKILL_MAP = {
-  'prod_UAnq0IMPBItsO3': {
+  'prod_UECNtAf8UV40e8': {
     name: 'Motion Graphic Video',
     githubPath: 'motion-graphic/motion-graphic.md',
     installFilename: 'motion-graphic.md',
   },
-  'prod_UAnqybIz9QuOhF': {
-    name: 'Research Agent',
-    githubPath: 'research-agent/research-agent.md',
-    installFilename: 'research-agent.md',
+  'prod_UECNOQAaZlnmMS': {
+    name: 'Lead Generation Pipeline',
+    githubPath: 'lead-gen/lead-gen.md',
+    installFilename: 'lead-gen.md',
   },
 };
 
@@ -37,9 +37,10 @@ async function findPaidSession(stripeKey, email) {
   if (res.status !== 200) return null;
 
   const sessions = JSON.parse(res.body);
+  const results = [];
+  const seenProducts = new Set();
   for (const session of sessions.data || []) {
     if (session.payment_status === 'paid') {
-      // Get line items
       const itemsRes = await httpsRequest(
         `https://api.stripe.com/v1/checkout/sessions/${session.id}/line_items`,
         { headers: { 'Authorization': `Bearer ${stripeKey}` } }
@@ -48,14 +49,15 @@ async function findPaidSession(stripeKey, email) {
         const items = JSON.parse(itemsRes.body);
         for (const item of items.data || []) {
           const productId = item.price?.product;
-          if (SKILL_MAP[productId]) {
-            return { session, skillInfo: SKILL_MAP[productId] };
+          if (SKILL_MAP[productId] && !seenProducts.has(productId)) {
+            seenProducts.add(productId);
+            results.push({ session, skillInfo: SKILL_MAP[productId] });
           }
         }
       }
     }
   }
-  return null;
+  return results.length > 0 ? results : null;
 }
 
 async function verifyBySessionId(stripeKey, sessionId) {
@@ -74,14 +76,15 @@ async function verifyBySessionId(stripeKey, sessionId) {
   );
   if (itemsRes.status !== 200) return null;
 
+  const results = [];
   const items = JSON.parse(itemsRes.body);
   for (const item of items.data || []) {
     const productId = item.price?.product;
     if (SKILL_MAP[productId]) {
-      return { session, skillInfo: SKILL_MAP[productId] };
+      results.push({ session, skillInfo: SKILL_MAP[productId] });
     }
   }
-  return null;
+  return results.length > 0 ? results : null;
 }
 
 exports.handler = async (event) => {
@@ -106,43 +109,47 @@ exports.handler = async (event) => {
 
   try {
     // Verify payment — by session_id (redirect) or email (recovery)
-    let result = null;
+    let results = null;
     if (sessionId) {
-      result = await verifyBySessionId(STRIPE_KEY, sessionId);
+      results = await verifyBySessionId(STRIPE_KEY, sessionId);
     } else if (email) {
-      result = await findPaidSession(STRIPE_KEY, email);
+      results = await findPaidSession(STRIPE_KEY, email);
     }
 
-    if (!result) {
+    if (!results) {
       return { statusCode: 403, headers, body: JSON.stringify({ error: 'No paid purchase found. Make sure you used the same email you paid with.' }) };
     }
 
-    const { skillInfo } = result;
-
-    // Fetch skill from private GitHub repo
-    const githubRes = await httpsRequest(
-      `https://api.github.com/repos/trdteddarwin-eng/Stripe-Tedca-website-/contents/${skillInfo.githubPath}?ref=main`,
-      {
-        headers: {
-          'Authorization': `Bearer ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3.raw',
-          'User-Agent': 'Tedca-Skill-Delivery',
+    // Fetch all skill files from GitHub
+    const skills = [];
+    for (const { skillInfo } of results) {
+      const githubRes = await httpsRequest(
+        `https://api.github.com/repos/trdteddarwin-eng/Stripe-Tedca-website-/contents/${skillInfo.githubPath}?ref=main`,
+        {
+          headers: {
+            'Authorization': `Bearer ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3.raw',
+            'User-Agent': 'Tedca-Skill-Delivery',
+          }
         }
+      );
+      if (githubRes.status === 200) {
+        skills.push({
+          skill_name: skillInfo.name,
+          install_filename: skillInfo.installFilename,
+          skill_content: githubRes.body,
+        });
       }
-    );
+    }
 
-    if (githubRes.status !== 200) {
-      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Failed to fetch skill file' }) };
+    if (skills.length === 0) {
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Failed to fetch skill files' }) };
     }
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({
-        skill_name: skillInfo.name,
-        install_filename: skillInfo.installFilename,
-        skill_content: githubRes.body,
-      }),
+      body: JSON.stringify({ skills }),
     };
 
   } catch (err) {

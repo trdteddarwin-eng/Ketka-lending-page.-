@@ -73,11 +73,9 @@
         <!-- Success state -->
         <div id="success" style="display:none;" class="success">
             <h1>You're in.</h1>
-            <p class="subtitle">Your <strong id="skill-name"></strong> skill is ready.</p>
+            <p class="subtitle" id="skill-subtitle"></p>
 
-            <button class="download-btn" id="download-btn" onclick="downloadSkill()">
-                Download Skill File
-            </button>
+            <div id="skill-downloads"></div>
 
             <hr class="divider">
 
@@ -86,24 +84,15 @@
             <div class="step">
                 <div class="step-number">1</div>
                 <div class="step-text">
-                    <strong>Move the downloaded file</strong> into your project's Claude agents folder:<br>
-                    <code>.claude/agents/</code><br>
-                    <span style="color:#666; font-size:13px;">Create the folder if it doesn't exist.</span>
+                    <strong>Drop the downloaded file</strong> into your project folder:<br>
+                    <code>.claude/agents/</code>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-text">
-                    <strong>Open Claude Code</strong> in your terminal and type:<br>
-                    <code id="slash-command"></code>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-text">
-                    <strong>That's it.</strong> Claude Code will install everything, ask for your API keys, and walk you through the rest.
+                    <strong>Open Claude Code</strong> (or your IDE) and Claude will handle the rest.
                 </div>
             </div>
 
@@ -117,30 +106,51 @@
     </div>
 
     <script>
-        let skillData = null;
+        let allSkills = [];
 
-        function downloadSkill() {
-            if (!skillData) return;
-            const blob = new Blob([skillData.skill_content], { type: 'text/markdown' });
+        function downloadSkill(index) {
+            const skill = allSkills[index];
+            if (!skill) return;
+            const blob = new Blob([skill.skill_content], { type: 'text/markdown' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = skillData.install_filename;
+            a.download = skill.install_filename;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
 
-            const btn = document.getElementById('download-btn');
+            const btn = document.getElementById('download-btn-' + index);
             btn.textContent = 'Downloaded!';
             btn.classList.add('downloaded');
             setTimeout(() => { btn.textContent = 'Download Again'; btn.classList.remove('downloaded'); }, 3000);
         }
 
         function showSuccess(data) {
-            skillData = data;
-            document.getElementById('skill-name').textContent = data.skill_name;
-            document.getElementById('slash-command').textContent = `/${data.install_filename.replace('.md', '')}`;
+            // Handle both old format (single skill) and new format (multiple skills)
+            if (data.skills) {
+                allSkills = data.skills;
+            } else {
+                allSkills = [data];
+            }
+
+            const subtitle = document.getElementById('skill-subtitle');
+            const container = document.getElementById('skill-downloads');
+
+            if (allSkills.length === 1) {
+                subtitle.innerHTML = 'Your <strong>' + allSkills[0].skill_name + '</strong> skill is ready.';
+            } else {
+                subtitle.innerHTML = 'You have <strong>' + allSkills.length + ' skills</strong> ready to download.';
+            }
+
+            container.innerHTML = allSkills.map((skill, i) =>
+                '<div style="margin-bottom: 16px;">' +
+                '<button class="download-btn" id="download-btn-' + i + '" onclick="downloadSkill(' + i + ')">' +
+                'Download ' + skill.skill_name +
+                '</button></div>'
+            ).join('');
+
             document.querySelectorAll('#loading, #email-form, #error').forEach(el => el.style.display = 'none');
             document.getElementById('success').style.display = 'block';
         }

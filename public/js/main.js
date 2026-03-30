@@ -449,19 +449,7 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                     { src: '/videos/ChatbotExplained.mp4', label: 'Chatbot Explained' },
                     { src: '/videos/SEOExplained.mp4', label: 'SEO Explained' }
                 ],
-                buyLink: 'https://buy.stripe.com/test_5kQfZagzH2wc8wM3956oo06'
-            },
-            'website-pipeline': {
-                title: 'Website Redesign Pipeline',
-                steps: [
-                    { label: 'Research & Scrape', icon: 'fa-solid fa-magnifying-glass', type: 'trigger', desc: 'Scrapes the target business website — content, structure, branding, and metadata — to understand what they currently have.' },
-                    { label: 'Screenshot & Capture', icon: 'fa-solid fa-camera', type: 'trigger', desc: 'Takes full-page screenshots of the existing site for before/after comparison.' },
-                    { label: 'Analyze Conversion Issues', icon: 'fa-solid fa-chart-line', type: 'ai', desc: 'AI analyzes the site for UX problems, missing CTAs, slow layouts, and conversion blockers — then writes a redesign brief.' },
-                    { label: 'Build Modern Redesign', icon: 'fa-solid fa-paintbrush', type: 'ai', desc: 'Generates a fully coded modern redesign with responsive layout, improved CTAs, and their branding — previews it on localhost.' },
-                    { label: 'Gmail Draft with Before/After', icon: 'fa-solid fa-envelope', type: 'outcome', desc: 'Creates a Gmail draft with before/after screenshots attached, ready for you to review and send.' }
-                ],
-                showPipeline: true,
-                buyLink: 'https://buy.stripe.com/test_5kQ3co3MV6MsdR6aBx6oo08'
+                buyLink: 'https://buy.stripe.com/eVqaEQ57a4AS0nP9G63F60b'
             },
             'lead-gen': {
                 title: 'Lead Generation Pipeline',
@@ -476,7 +464,7 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                 ],
                 videoHeading: 'See How It Works',
                 videoSubheading: 'A quick look at how this skill finds real CEOs and delivers verified leads — ready for outreach.',
-                buyLink: 'https://buy.stripe.com/test_28E3co2IR9YE7sIfVR6oo09'
+                buyLink: 'https://buy.stripe.com/14AcMYarugjA9Ypf0q3F60d'
             }
         };
 
