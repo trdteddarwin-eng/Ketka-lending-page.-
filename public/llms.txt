@@ -1,0 +1,35 @@
+# Tedca Corp
+
+> AI automation agency that builds systems to run your business 24/7.
+
+## What We Do
+
+Tedca Corp builds AI-powered business automation for small and medium businesses. We specialize in three areas:
+
+### Voice AI Receptionist
+AI phone agent that answers calls, books appointments, qualifies leads, and integrates with Google Calendar, Outlook, and CRMs. Handles after-hours calls, reduces no-shows, and converts missed calls into revenue. Plans start at $500/month.
+
+### AI Automation
+Pre-built automation workflows including AI chatbots, automated follow-up emails, AI lead scoring, WhatsApp AI agents, and automatic email reply systems. Each automation runs autonomously and integrates with existing business tools.
+
+### Claude Code Skills
+Developer tools that plug into Claude Code (Anthropic's CLI). One-time purchase ($50), no subscription. Available skills:
+
+- **Motion Graphic Video Creation**: Give it a topic. Returns a fully produced video with script, AI narration (ElevenLabs), sound effects, and rendered output. No editing needed.
+- **Lead Generation Pipeline**: Give it an industry and location. Scrapes Google Maps, finds business owner emails, deduplicates, and delivers a clean Google Sheet ready for outreach.
+
+## Key Facts
+
+- Founded: 2025
+- Location: United States
+- Clients: 50+ businesses using Tedca automations
+- Voice AI: 91% of callers can't tell it's AI
+- Skills: Instant delivery via Stripe, no recurring fees
+- Tech stack: Claude Code, Anthropic, OpenRouter, ElevenLabs, Remotion, Apify, Google Sheets
+
+## Contact
+
+- Website: https://tedca.org
+- Email: tedca.skill@gmail.com
+- Book a call: https://cal.com/tedca/30min
+- Skills store: https://tedca.org/skills.html
