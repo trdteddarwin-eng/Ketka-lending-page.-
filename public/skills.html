@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Claude Code Skills | TEDCA. — Developer-Built AI Pipelines</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K527ZSZMNC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K527ZSZMNC');
+    </script>
     <meta name="description" content="Developer-built Claude Code skills that plug in and play. Motion graphic videos, website redesign pipelines, and lead generation — all from a single slash command.">
     <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
@@ -1734,7 +1743,7 @@
                         <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text"><i class="fa-solid fa-magnifying-glass-location" style="margin-right:6px;"></i>Leads &mdash; $50</div></div></div>
                     </a>
                 </div>
-                <p class="cta-custom">Need something custom? <a href="https://cal.com/tedca/30min" target="_blank">Book a call</a></p>
+                <p class="cta-custom">Need something custom? <a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank">Book a call</a></p>
             </div>
         </div>
     </section>
@@ -1759,7 +1768,7 @@
                     <h4 style="font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.4); margin-bottom: 16px;">Connect</h4>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 8px;"><a href="mailto:tedca.skill@gmail.com" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 14px;">tedca.skill@gmail.com</a></li>
-                        <li style="margin-bottom: 8px;"><a href="https://cal.com/tedca/30min" target="_blank" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 14px;">Schedule a Demo</a></li>
+                        <li style="margin-bottom: 8px;"><a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 14px;">Schedule a Demo</a></li>
                         <li><a href="https://linkedin.com/company/tedca" target="_blank" style="color: rgba(255,255,255,0.3); text-decoration: none; font-size: 14px;">LinkedIn</a></li>
                     </ul>
                 </div>
@@ -1767,13 +1776,27 @@
             <div style="border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
                 <span style="font-size: 12px; color: rgba(255,255,255,0.2);">&copy; 2026 Tedca Corp. All rights reserved.</span>
                 <div style="display: flex; gap: 24px;">
-                    <a href="#" style="font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none;">Privacy Policy</a>
-                    <a href="#" style="font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none;">Terms of Service</a>
-                    <a href="#" style="font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none;">Refund Policy</a>
+                    <a href="/privacy-policy.html" style="font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none;">Privacy Policy</a>
+                    <a href="/terms.html" style="font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none;">Terms of Service</a>
+                    <a href="/refund-policy.html" style="font-size: 12px; color: rgba(255,255,255,0.2); text-decoration: none;">Refund Policy</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- GA4 Stripe click tracking -->
+    <script>
+    document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href*="buy.stripe.com"]');
+        if (!link) return;
+        var isVideo = link.href.indexOf('9G63F60b') !== -1;
+        gtag('event', 'begin_checkout', {
+            currency: 'USD',
+            value: 50,
+            items: [{ item_name: isVideo ? 'Motion Graphic Video' : 'Lead Generation Pipeline', price: 50 }]
+        });
+    });
+    </script>
 
     <!-- ==================== SCRIPTS ==================== -->
     <script>

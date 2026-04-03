@@ -10,7 +10,32 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
     },
 
-    plugins: [react()],
+    plugins: [
+      {
+        name: 'blog-rewrite',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url === '/blog' || req.url === '/blog/') {
+              req.url = '/blog/index.html';
+            } else if (req.url === '/blog/dental-ai-receptionist-case-study') {
+              req.url = '/blog/dental-ai-receptionist-case-study.html';
+            } else if (req.url === '/blog/ai-follow-up-emails-case-study') {
+              req.url = '/blog/ai-follow-up-emails-case-study.html';
+            } else if (req.url === '/blog/ai-chatbot-case-study') {
+              req.url = '/blog/ai-chatbot-case-study.html';
+            } else if (req.url === '/blog/ai-lead-generation-case-study') {
+              req.url = '/blog/ai-lead-generation-case-study.html';
+            } else if (req.url === '/blog/ai-email-reply-case-study') {
+              req.url = '/blog/ai-email-reply-case-study.html';
+            } else if (req.url === '/blog/whatsapp-ai-agent-case-study') {
+              req.url = '/blog/whatsapp-ai-agent-case-study.html';
+            }
+            next();
+          });
+        }
+      },
+      react(),
+    ],
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),

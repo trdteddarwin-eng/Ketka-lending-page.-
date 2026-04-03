@@ -280,7 +280,8 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                 title: 'Auto Follow-Up Emails',
                 subtitle: 'Never let a lead go cold again',
                 videoSrc: '/videos/auto-followup.mp4',
-                summary: '80% of sales require 5+ follow-ups, but 44% of reps give up after one. AI sends every follow-up automatically — increasing conversions by 41%.',
+                blogUrl: '/blog/ai-follow-up-emails-case-study',
+                summary: 'New leads get instant AI follow-up. Cold leads get reactivated automatically. Businesses using AI follow-ups recover 41% more deals that would have gone cold.',
                 nodes: [
                     { id: 'n0', label: 'Lead enters CRM', icon: 'fa-solid fa-user-plus', type: 'trigger', desc: 'New contact added via form, call, or manual entry' },
                     { id: 'n1', label: 'No reply detected (3 days)', icon: 'fa-solid fa-clock', type: 'trigger', desc: 'System monitors inbox for a response within your set window' },
@@ -295,30 +296,12 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                     { from: 'n3', to: 'n4' }, { from: 'n4', to: 'n5' }, { from: 'n5', to: 'n6' }
                 ]
             },
-            'ai-lead-scoring': {
-                title: 'AI Lead Scoring',
-                subtitle: 'Focus on leads most likely to close',
-                videoSrc: '/videos/ai-lead-scoring.mp4',
-                summary: 'Sales teams waste 67% of their time on unqualified leads. AI scoring boosts productivity by 52% and close rates by 38%.',
-                nodes: [
-                    { id: 'n0', label: 'New lead arrives', icon: 'fa-solid fa-user-plus', type: 'trigger', desc: 'Lead captured from any channel — web form, ad, referral, or import' },
-                    { id: 'n1', label: 'Checks engagement signals', icon: 'fa-solid fa-signal', type: 'ai', desc: 'Analyzes email opens, site visits, content downloads, and call history' },
-                    { id: 'n2', label: 'AI analyzes fit signals', icon: 'fa-solid fa-magnifying-glass-chart', type: 'ai', desc: 'Evaluates company size, budget range, industry match, and timing' },
-                    { id: 'n3', label: 'Scores 0-100', icon: 'fa-solid fa-star-half-stroke', type: 'ai', desc: 'Assigns a composite score weighted by your historical close patterns' },
-                    { id: 'n4', label: 'Routes to right sales rep', icon: 'fa-solid fa-route', type: 'outcome', desc: 'High scores go to closers, medium to nurture, low to drip campaigns' },
-                    { id: 'n5', label: 'Re-scores weekly', icon: 'fa-solid fa-arrows-rotate', type: 'ai', desc: 'Scores update as behavior changes — cold leads can heat back up' },
-                    { id: 'n6', label: 'CRM updated with insights', icon: 'fa-solid fa-database', type: 'outcome', desc: 'Score history and reasoning logged so reps know exactly why a lead ranked high' }
-                ],
-                edges: [
-                    { from: 'n0', to: 'n1' }, { from: 'n1', to: 'n2' }, { from: 'n2', to: 'n3' },
-                    { from: 'n3', to: 'n4' }, { from: 'n4', to: 'n5' }, { from: 'n5', to: 'n6' }
-                ]
-            },
             'ai-chatbot': {
                 title: '24/7 AI Chatbot',
                 subtitle: 'Instant answers, around the clock',
                 videoSrc: '/videos/ai-chatbot.mp4',
-                summary: '98% of website visitors leave without taking action. An AI chatbot increases lead conversion by 47% by engaging every visitor instantly, 24/7.',
+                blogUrl: '/blog/ai-chatbot-case-study',
+                summary: 'AI answers every visitor\'s question instantly and books appointments directly into your calendar. Businesses with AI chatbots see 47% more booked appointments.',
                 nodes: [
                     { id: 'n0', label: 'Customer visits site', icon: 'fa-solid fa-globe', type: 'trigger', desc: 'Visitor lands on any page of your website or app' },
                     { id: 'n1', label: 'Bot activates', icon: 'fa-solid fa-robot', type: 'trigger', desc: 'Chat widget appears after a set delay or on page scroll' },
@@ -337,6 +320,7 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                 title: 'AI Lead Generation',
                 subtitle: 'Find your next customer on autopilot',
                 videoSrc: '/videos/ai-lead-gen.mp4',
+                blogUrl: '/blog/ai-lead-generation-case-study',
                 summary: 'AI scans multiple channels, identifies ideal prospects, and delivers qualified leads straight to your pipeline — no manual prospecting.',
                 nodes: [
                     { id: 'n0', label: 'Define ideal customer profile', icon: 'fa-solid fa-crosshairs', type: 'trigger', desc: 'Set industry, size, location, and budget criteria for your perfect lead' },
@@ -360,7 +344,8 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                 title: 'Automatic Email Reply',
                 subtitle: 'AI reads and replies in your voice',
                 videoSrc: '/videos/auto-email-reply.mp4',
-                summary: 'Your AI email assistant reads every incoming message, understands context, drafts on-brand replies, and sends them — cutting response time from hours to seconds.',
+                blogUrl: '/blog/ai-email-reply-case-study',
+                summary: 'Your AI customer service agent scans every incoming email, drafts replies in your voice, auto-sends routine responses, and notifies you about important messages. Response time drops from hours to seconds.',
                 nodes: [
                     { id: 'n0', label: 'Email arrives in inbox', icon: 'fa-solid fa-envelope', type: 'trigger', desc: 'New email detected in your connected Gmail or Outlook account' },
                     { id: 'n1', label: 'AI reads & classifies', icon: 'fa-solid fa-brain', type: 'ai', desc: 'Understands intent — inquiry, complaint, scheduling, spam, or FYI' },
@@ -383,7 +368,8 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                 title: 'WhatsApp AI Agent',
                 subtitle: 'Customer support that never sleeps',
                 videoSrc: '/videos/whatsapp-ai.mp4',
-                summary: 'Your AI WhatsApp agent handles customer questions, books appointments, sends quotes, and escalates complex issues — all in real time, 24/7.',
+                blogUrl: '/blog/whatsapp-ai-agent-case-study',
+                summary: 'Your AI sales agent on WhatsApp answers questions, books appointments, sends quotes, and closes deals by sending Stripe payment links directly in chat. Works 24/7.',
                 nodes: [
                     { id: 'n0', label: 'Customer messages WhatsApp', icon: 'fa-brands fa-whatsapp', type: 'trigger', desc: 'Incoming message detected on your WhatsApp Business number' },
                     { id: 'n1', label: 'AI understands intent', icon: 'fa-solid fa-brain', type: 'ai', desc: 'Natural language processing determines what the customer needs' },
@@ -412,6 +398,16 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
             document.getElementById('fcTitle').textContent = data.title;
             document.getElementById('fcSubtitle').textContent = data.subtitle;
             document.getElementById('fcSummary').textContent = data.summary;
+            const caseStudyLink = document.getElementById('fcCaseStudyLink');
+            if (caseStudyLink) {
+                if (data.blogUrl) {
+                    caseStudyLink.href = data.blogUrl + '.html';
+                    caseStudyLink.style.display = 'inline-block';
+                    caseStudyLink.onclick = function() { closeFlowchartModal(); };
+                } else {
+                    caseStudyLink.style.display = 'none';
+                }
+            }
             document.getElementById('fcBackdrop').classList.add('fc-open');
             document.getElementById('fcModal').classList.add('fc-open');
             document.body.style.overflow = 'hidden';

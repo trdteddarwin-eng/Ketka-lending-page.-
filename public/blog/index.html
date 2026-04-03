@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Blog — Tedca Corp | AI Automation Insights</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K527ZSZMNC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K527ZSZMNC');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="description" content="AI automation case studies, insights, and guides from Tedca Corp. Learn how businesses use Voice AI receptionists, lead generation pipelines, and agentic workflows to save time and grow revenue.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tedca.org/blog">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Blog — Tedca Corp | AI Automation Insights">
+    <meta property="og:description" content="Case studies and guides on AI automation for small businesses. Voice AI, lead generation, and workflow automation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tedca.org/blog">
+    <meta property="og:image" content="https://tedca.org/og-image.svg">
+    <meta property="og:site_name" content="Tedca Corp">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog — Tedca Corp | AI Automation Insights">
+    <meta name="twitter:description" content="Case studies and guides on AI automation for small businesses.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- AEO: Blog Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Tedca Corp Blog",
+        "description": "AI automation case studies, insights, and guides for small businesses.",
+        "url": "https://tedca.org/blog",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Tedca Corp",
+            "url": "https://tedca.org",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tedca.org/favicon.svg"
+            }
+        },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "How a Dental Practice Cut Missed Calls by 80% with an AI Receptionist",
+                "url": "https://tedca.org/blog/dental-ai-receptionist-case-study",
+                "datePublished": "2026-04-03",
+                "author": { "@type": "Organization", "name": "Tedca Corp" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How a Real Estate Agency Recovered 41% More Deals with AI Follow-Ups",
+                "url": "https://tedca.org/blog/ai-follow-up-emails-case-study",
+                "datePublished": "2026-04-03",
+                "author": { "@type": "Organization", "name": "Tedca Corp" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How a Med Spa Booked 47% More Appointments with an AI Chatbot",
+                "url": "https://tedca.org/blog/ai-chatbot-case-study",
+                "datePublished": "2026-04-03",
+                "author": { "@type": "Organization", "name": "Tedca Corp" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How a Roofing Company Fills Its Pipeline with 200+ Leads Per Month Using AI",
+                "url": "https://tedca.org/blog/ai-lead-generation-case-study",
+                "datePublished": "2026-04-03",
+                "author": { "@type": "Organization", "name": "Tedca Corp" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How a Law Firm Cut Email Response Time from 4 Hours to 30 Seconds",
+                "url": "https://tedca.org/blog/ai-email-reply-case-study",
+                "datePublished": "2026-04-03",
+                "author": { "@type": "Organization", "name": "Tedca Corp" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How an HVAC Company Books 3x More Jobs Through WhatsApp AI",
+                "url": "https://tedca.org/blog/whatsapp-ai-agent-case-study",
+                "datePublished": "2026-04-03",
+                "author": { "@type": "Organization", "name": "Tedca Corp" }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --paper: #E8E4DD;
+            --signal: #E63B2E;
+            --offwhite: #F5F3EE;
+            --dark: #111111;
+        }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            background-color: #ffffff;
+            color: var(--dark);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        .blog-nav {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .blog-nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--signal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-mark span {
+            width: 6px;
+            height: 6px;
+            background: var(--paper);
+            border-radius: 50%;
+        }
+        .logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.05em;
+            color: var(--dark);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dark);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-cta {
+            padding: 10px 20px;
+            background: var(--dark) !important;
+            color: var(--paper) !important;
+            opacity: 1 !important;
+            font-family: 'Space Mono', monospace !important;
+            font-size: 11px !important;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            text-decoration: none !important;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--signal) !important; }
+
+        /* Hero */
+        .blog-hero {
+            padding: 140px 2rem 80px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .blog-hero .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border: 1px solid rgba(230,59,46,0.2);
+            background: rgba(230,59,46,0.05);
+            margin-bottom: 24px;
+        }
+        .blog-hero .tag span {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+        }
+        .blog-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .blog-hero h1 em {
+            font-style: italic;
+            text-transform: lowercase;
+            font-weight: 400;
+            color: rgba(17,17,17,0.4);
+        }
+        .blog-hero p {
+            font-size: 18px;
+            color: rgba(17,17,17,0.6);
+            max-width: 560px;
+            line-height: 1.6;
+        }
+
+        /* Post Grid */
+        .posts-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem 100px;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        @media (min-width: 768px) {
+            .posts-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .posts-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Post Card */
+        .post-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card:hover {
+            border-color: rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0,0,0,0.08);
+        }
+        .post-card-visual {
+            aspect-ratio: 16/9;
+            background: var(--offwhite);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .post-card-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--signal);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .post-card-body h2 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+        .post-card-body p {
+            font-size: 14px;
+            color: rgba(17,17,17,0.5);
+            line-height: 1.6;
+            flex: 1;
+        }
+        .post-card-meta {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post-card-meta span {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(17,17,17,0.35);
+        }
+        .read-arrow {
+            font-size: 18px;
+            color: var(--signal);
+            transition: transform 0.2s;
+        }
+        .post-card:hover .read-arrow { transform: translateX(4px); }
+
+        /* Footer */
+        .blog-footer {
+            background: var(--dark);
+            padding: 64px 2rem;
+            border-top: 1px solid var(--dark);
+        }
+        .blog-footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .footer-col h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(232,228,221,0.6);
+            margin-bottom: 16px;
+        }
+        .footer-col p {
+            font-size: 12px;
+            color: rgba(232,228,221,0.4);
+            line-height: 1.6;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 8px; }
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(232,228,221,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--signal); }
+        .footer-bottom {
+            border-top: 1px solid rgba(232,228,221,0.1);
+            padding-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .footer-bottom { flex-direction: row; justify-content: space-between; }
+        }
+        .footer-bottom span {
+            font-size: 12px;
+            color: rgba(232,228,221,0.3);
+        }
+        .footer-bottom a {
+            font-size: 12px;
+            color: rgba(232,228,221,0.3);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-bottom a:hover { color: var(--signal); }
+        .footer-legal { display: flex; gap: 24px; }
+
+        /* Card SVG illustration */
+        .card-illustration {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links a:not(.nav-cta) { display: none; }
+            .blog-hero { padding: 120px 1.5rem 60px; }
+            .posts-section { padding: 0 1.5rem 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="blog-nav">
+        <div class="blog-nav-inner">
+            <a href="/" class="logo-group">
+                <div class="logo-mark"><span></span></div>
+                <div class="logo-text">TEDCA.</div>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/blog" class="active">Blog</a>
+                <a href="/skills.html">Skills</a>
+                <a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank" class="nav-cta">Book a Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="blog-hero">
+        <div class="tag">
+            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#E63B2E"/></svg>
+            <span>Insights & Case Studies</span>
+        </div>
+        <h1>AI Automation<br><em>that actually works.</em></h1>
+        <p>Real case studies, practical guides, and honest results from businesses using AI to automate the work that's costing them money.</p>
+    </section>
+
+    <!-- Posts -->
+    <section class="posts-section">
+        <div class="posts-grid">
+
+            <!-- Post 1: Dental Case Study -->
+            <a href="/blog/dental-ai-receptionist-case-study" class="post-card">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Phone ringing visualization -->
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <!-- Phone icon -->
+                        <rect x="160" y="60" width="80" height="105" rx="12" fill="#111111"/>
+                        <rect x="166" y="72" width="68" height="80" rx="4" fill="#E8E4DD"/>
+                        <!-- Sound waves -->
+                        <path d="M260 95 Q275 95 275 112 Q275 130 260 130" stroke="#E63B2E" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.9"/>
+                        <path d="M270 82 Q295 82 295 112 Q295 143 270 143" stroke="#E63B2E" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+                        <path d="M280 70 Q315 70 315 112 Q315 155 280 155" stroke="#E63B2E" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+                        <!-- AI indicator -->
+                        <circle cx="200" cy="105" r="16" fill="#E63B2E" opacity="0.15"/>
+                        <circle cx="200" cy="105" r="8" fill="#E63B2E"/>
+                        <text x="200" y="109" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="white" font-weight="700">AI</text>
+                        <!-- Stat badge -->
+                        <rect x="120" y="180" width="160" height="28" rx="4" fill="#111111"/>
+                        <text x="200" y="198" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.1em">80% FEWER MISSED</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Case Study</div>
+                    <h2>How a Dental Practice Cut Missed Calls by 80% with an AI Receptionist</h2>
+                    <p>A mid-size dental clinic was losing $12,000/month to missed calls. Here's how an AI voice agent changed that in 2 weeks.</p>
+                    <div class="post-card-meta">
+                        <span>April 3, 2026 &middot; 7 min read</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 2: AI Follow-Up Emails Case Study -->
+            <a href="/blog/ai-follow-up-emails-case-study" class="post-card">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <!-- Email envelope -->
+                        <rect x="140" y="60" width="120" height="80" rx="4" fill="#111111" opacity="0.12"/>
+                        <path d="M140 68 L200 110 L260 68" stroke="#111111" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.3"/>
+                        <!-- Follow-up arrows cycling -->
+                        <path d="M280 80 Q310 80 310 100 Q310 120 280 120" stroke="#E63B2E" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <polygon points="280,116 274,120 280,124" fill="#E63B2E"/>
+                        <!-- AI indicator -->
+                        <circle cx="200" cy="95" r="16" fill="#E63B2E" opacity="0.15"/>
+                        <circle cx="200" cy="95" r="8" fill="#E63B2E"/>
+                        <text x="200" y="99" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="white" font-weight="700">AI</text>
+                        <!-- Stat badge -->
+                        <rect x="120" y="160" width="160" height="28" rx="4" fill="#111111"/>
+                        <text x="200" y="178" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.1em">41% MORE DEALS</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Case Study</div>
+                    <h2>How a Real Estate Agency Recovered 41% More Deals with AI Follow-Ups</h2>
+                    <p>A real estate agency was losing leads to slow follow-ups. AI-powered email sequences changed the game.</p>
+                    <div class="post-card-meta">
+                        <span>April 3, 2026 &middot; 7 min read</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 3: AI Chatbot Case Study -->
+            <a href="/blog/ai-chatbot-case-study" class="post-card">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <!-- Chat bubbles -->
+                        <rect x="110" y="55" width="100" height="32" rx="12" fill="#111111" opacity="0.1"/>
+                        <rect x="116" y="67" width="50" height="4" rx="2" fill="#111111" opacity="0.2"/>
+                        <rect x="190" y="95" width="110" height="32" rx="12" fill="#E63B2E" opacity="0.15"/>
+                        <rect x="196" y="107" width="60" height="4" rx="2" fill="#E63B2E" opacity="0.3"/>
+                        <rect x="110" y="135" width="90" height="32" rx="12" fill="#111111" opacity="0.1"/>
+                        <rect x="116" y="147" width="40" height="4" rx="2" fill="#111111" opacity="0.2"/>
+                        <!-- AI bot icon -->
+                        <circle cx="320" cy="112" r="22" fill="#E63B2E" opacity="0.12"/>
+                        <circle cx="320" cy="112" r="12" fill="#E63B2E"/>
+                        <text x="320" y="116" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="white" font-weight="700">AI</text>
+                        <!-- Stat badge -->
+                        <rect x="120" y="180" width="160" height="28" rx="4" fill="#111111"/>
+                        <text x="200" y="198" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.1em">47% MORE BOOKINGS</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Case Study</div>
+                    <h2>How a Med Spa Booked 47% More Appointments with an AI Chatbot</h2>
+                    <p>A med spa was losing website visitors who had questions but no patience to call. An AI chatbot fixed that overnight.</p>
+                    <div class="post-card-meta">
+                        <span>April 3, 2026 &middot; 7 min read</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 4: AI Lead Generation Case Study -->
+            <a href="/blog/ai-lead-generation-case-study" class="post-card">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <!-- Funnel shape -->
+                        <path d="M140 50 L260 50 L230 110 L170 110 Z" fill="#111111" opacity="0.08" stroke="#111111" stroke-width="1.5" opacity="0.15"/>
+                        <path d="M170 110 L230 110 L215 150 L185 150 Z" fill="#E63B2E" opacity="0.1" stroke="#E63B2E" stroke-width="1.5" opacity="0.2"/>
+                        <!-- Lead dots flowing down -->
+                        <circle cx="180" cy="65" r="4" fill="#111111" opacity="0.2"/>
+                        <circle cx="200" cy="60" r="4" fill="#111111" opacity="0.25"/>
+                        <circle cx="220" cy="68" r="4" fill="#111111" opacity="0.2"/>
+                        <circle cx="195" cy="90" r="4" fill="#E63B2E" opacity="0.3"/>
+                        <circle cx="210" cy="85" r="4" fill="#E63B2E" opacity="0.35"/>
+                        <circle cx="200" cy="130" r="5" fill="#E63B2E" opacity="0.5"/>
+                        <!-- Output arrow -->
+                        <line x1="200" y1="155" x2="200" y2="175" stroke="#E63B2E" stroke-width="2" stroke-linecap="round"/>
+                        <polygon points="194,175 200,183 206,175" fill="#E63B2E"/>
+                        <!-- Stat badge -->
+                        <rect x="120" y="185" width="160" height="28" rx="4" fill="#111111"/>
+                        <text x="200" y="203" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.1em">200+ LEADS / MONTH</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Case Study</div>
+                    <h2>How a Roofing Company Fills Its Pipeline with 200+ Leads Per Month Using AI</h2>
+                    <p>A roofing company went from buying overpriced leads to generating 200+ verified contacts per month with AI scraping.</p>
+                    <div class="post-card-meta">
+                        <span>April 3, 2026 &middot; 7 min read</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 5: AI Email Reply Case Study -->
+            <a href="/blog/ai-email-reply-case-study" class="post-card">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <!-- Inbox stack -->
+                        <rect x="120" y="50" width="160" height="28" rx="4" fill="#111111" opacity="0.06" stroke="#111111" stroke-width="1" opacity="0.1"/>
+                        <rect x="126" y="60" width="80" height="4" rx="2" fill="#111111" opacity="0.15"/>
+                        <rect x="120" y="82" width="160" height="28" rx="4" fill="#111111" opacity="0.08" stroke="#111111" stroke-width="1" opacity="0.1"/>
+                        <rect x="126" y="92" width="60" height="4" rx="2" fill="#111111" opacity="0.15"/>
+                        <rect x="120" y="114" width="160" height="28" rx="4" fill="#E63B2E" opacity="0.08" stroke="#E63B2E" stroke-width="1" opacity="0.15"/>
+                        <rect x="126" y="124" width="70" height="4" rx="2" fill="#E63B2E" opacity="0.25"/>
+                        <!-- Lightning bolt (speed) -->
+                        <path d="M310 70 L295 105 L310 105 L295 140" stroke="#E63B2E" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Stat badge -->
+                        <rect x="120" y="160" width="160" height="28" rx="4" fill="#111111"/>
+                        <text x="200" y="178" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.1em">4HRS TO 30 SECONDS</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Case Study</div>
+                    <h2>How a Law Firm Cut Email Response Time from 4 Hours to 30 Seconds</h2>
+                    <p>A law firm was drowning in client emails. AI-powered auto-replies now handle 80% of inbound messages instantly.</p>
+                    <div class="post-card-meta">
+                        <span>April 3, 2026 &middot; 7 min read</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 6: WhatsApp AI Agent Case Study -->
+            <a href="/blog/whatsapp-ai-agent-case-study" class="post-card">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <!-- WhatsApp phone -->
+                        <rect x="155" y="40" width="90" height="130" rx="12" fill="#111111"/>
+                        <rect x="163" y="54" width="74" height="100" rx="4" fill="#E8E4DD"/>
+                        <!-- Chat bubbles inside phone -->
+                        <rect x="169" y="62" width="46" height="14" rx="4" fill="#25D366" opacity="0.7"/>
+                        <rect x="203" y="82" width="28" height="14" rx="4" fill="#E63B2E" opacity="0.6"/>
+                        <rect x="169" y="102" width="52" height="14" rx="4" fill="#25D366" opacity="0.7"/>
+                        <rect x="195" y="122" width="36" height="14" rx="4" fill="#E63B2E" opacity="0.6"/>
+                        <!-- Payment symbol -->
+                        <circle cx="310" cy="90" r="20" fill="#E63B2E" opacity="0.12"/>
+                        <text x="310" y="96" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="18" fill="#E63B2E" font-weight="700">$</text>
+                        <!-- Calendar symbol -->
+                        <rect x="290" y="120" width="40" height="36" rx="4" fill="#111111" opacity="0.08" stroke="#111111" stroke-width="1.5" opacity="0.15"/>
+                        <line x1="290" y1="130" x2="330" y2="130" stroke="#111111" stroke-width="1" opacity="0.15"/>
+                        <circle cx="305" cy="142" r="3" fill="#E63B2E" opacity="0.4"/>
+                        <!-- Stat badge -->
+                        <rect x="120" y="185" width="160" height="28" rx="4" fill="#111111"/>
+                        <text x="200" y="203" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.1em">3X MORE JOBS</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Case Study</div>
+                    <h2>How an HVAC Company Books 3x More Jobs Through WhatsApp AI</h2>
+                    <p>An HVAC company deployed a WhatsApp AI agent that books jobs, sends Stripe payment links, and responds in 45 seconds.</p>
+                    <div class="post-card-meta">
+                        <span>April 3, 2026 &middot; 7 min read</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Placeholder: Coming Soon Card -->
+            <div class="post-card" style="opacity: 0.5; pointer-events: none;">
+                <div class="post-card-visual">
+                    <svg class="card-illustration" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="225" fill="#F5F3EE"/>
+                        <text x="200" y="118" text-anchor="middle" font-family="Space Mono, monospace" font-size="12" fill="rgba(17,17,17,0.2)" letter-spacing="0.1em">COMING SOON</text>
+                    </svg>
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-tag">Guide</div>
+                    <h2>5 AI Automations Every Service Business Should Run in 2026</h2>
+                    <p>The highest-ROI automations we've built — from follow-up emails to lead scoring to invoice reminders.</p>
+                    <div class="post-card-meta">
+                        <span>Coming soon</span>
+                        <span class="read-arrow">&rarr;</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="blog-footer-inner">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo-group" style="margin-bottom: 16px;">
+                        <div class="logo-mark" style="width:24px;height:24px;border:1px solid var(--dark);">
+                            <span style="width:4px;height:4px;"></span>
+                        </div>
+                        <div class="logo-text" style="color:var(--paper);font-size:20px;">TEDCA.</div>
+                    </div>
+                    <p>AI systems that run your business while you sleep. Voice AI, automation, and Claude Code skills.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/#svc-voice">Voice AI</a></li>
+                        <li><a href="/#svc-automation">Automation</a></li>
+                        <li><a href="/skills.html">Claude Code Skills</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/blog/dental-ai-receptionist-case-study">Dental AI Case Study</a></li>
+                        <li><a href="/delivered">Download Your Skill</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="mailto:tedca.skill@gmail.com">tedca.skill@gmail.com</a></li>
+                        <li><a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank">Schedule a Demo</a></li>
+                        <li><a href="https://linkedin.com/company/tedca" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Tedca Corp. All rights reserved.</span>
+                <div class="footer-legal">
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

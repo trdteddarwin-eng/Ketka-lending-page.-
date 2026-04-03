@@ -27,9 +27,50 @@ Developer tools that plug into Claude Code (Anthropic's CLI). One-time purchase 
 - Skills: Instant delivery via Stripe, no recurring fees
 - Tech stack: Claude Code, Anthropic, OpenRouter, ElevenLabs, Remotion, Apify, Google Sheets
 
+## Blog & Case Studies
+
+Tedca publishes case studies and guides on AI automation for small businesses.
+
+### How a Dental Practice Cut Missed Calls by 80% with an AI Receptionist
+- URL: https://tedca.org/blog/dental-ai-receptionist-case-study
+- Published: 2026-04-03
+- Summary: A mid-size dental clinic was losing $12,000/month to missed calls. After deploying Tedca's Voice AI receptionist, missed calls dropped from 37% to 7%, appointment bookings increased 3x, and the practice recovered $9,600/month in revenue. Deployment took 12 business days. The AI answers 24/7, books appointments, sends SMS confirmations, and 91% of callers can't tell it's AI.
+- Key stats: 80% fewer missed calls, 3x more bookings, $9.6K/month recovered, 12-day deployment
+
+### How a Real Estate Agency Recovered 41% More Deals with AI Follow-Ups
+- URL: https://tedca.org/blog/ai-follow-up-emails-case-study
+- Published: 2026-04-03
+- Summary: A real estate agency was losing deals because agents could not follow up with every lead fast enough. After deploying AI-powered follow-up email sequences from Tedca, the agency recovered 41% more deals by re-engaging cold leads automatically. The AI sends personalized follow-ups based on lead behavior, timing, and engagement signals.
+- Key stats: 41% more deals recovered, automated follow-up sequences, personalized AI-written emails
+
+### How a Med Spa Booked 47% More Appointments with an AI Chatbot
+- URL: https://tedca.org/blog/ai-chatbot-case-study
+- Published: 2026-04-03
+- Summary: A med spa was losing website visitors who had questions but no patience to call. After deploying an AI chatbot from Tedca, appointment bookings increased 47%. The chatbot answers questions about treatments, pricing, and availability, then books directly into the calendar. It runs 24/7 and handles multiple conversations simultaneously.
+- Key stats: 47% more appointments booked, 24/7 website coverage, instant booking in chat
+
+### How a Roofing Company Fills Its Pipeline with 200+ Leads Per Month Using AI
+- URL: https://tedca.org/blog/ai-lead-generation-case-study
+- Published: 2026-04-03
+- Summary: A roofing company was spending $3,000/month on lead services delivering recycled, low-quality contacts. After switching to Tedca's AI lead generation pipeline, they now generate 200+ verified leads per month using AI-powered scraping, enrichment, and deduplication. Leads include verified business emails and are delivered in clean spreadsheets ready for outreach.
+- Key stats: 200+ leads/month, verified contact info, fraction of previous lead-buying cost
+
+### How a Law Firm Cut Email Response Time from 4 Hours to 30 Seconds
+- URL: https://tedca.org/blog/ai-email-reply-case-study
+- Published: 2026-04-03
+- Summary: A law firm was averaging 4-hour email response times, losing potential clients to faster competitors. After deploying Tedca's AI email reply system, 80% of inbound emails now receive intelligent, contextual responses within 30 seconds. Complex inquiries are escalated to attorneys with a summary and suggested response.
+- Key stats: Response time from 4 hours to 30 seconds, 80% of emails auto-replied, smart escalation
+
+### How an HVAC Company Books 3x More Jobs Through WhatsApp AI
+- URL: https://tedca.org/blog/whatsapp-ai-agent-case-study
+- Published: 2026-04-03
+- Summary: An HVAC company noticed 60% of customer inquiries came through WhatsApp but averaged 3-hour response times. After deploying a WhatsApp AI agent from Tedca, the company books 3x more jobs, responds in 45 seconds, and collected $18,000 in Stripe payments through WhatsApp in its first month. The agent answers questions, books appointments, sends payment links, and escalates complex issues to humans with full context.
+- Key stats: 3x more jobs booked, 45-second response time, $18K payments collected in month one
+
 ## Contact
 
 - Website: https://tedca.org
 - Email: tedca.skill@gmail.com
-- Book a call: https://cal.com/tedca/30min
+- Book a call: https://cal.com/ted-charles-enqyjn/consulting-for-tedca
+- Blog: https://tedca.org/blog
 - Skills store: https://tedca.org/skills.html

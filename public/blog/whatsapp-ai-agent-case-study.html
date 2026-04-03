@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>How an HVAC Company Books 3x More Jobs Through WhatsApp AI | Tedca Corp</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K527ZSZMNC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K527ZSZMNC');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="description" content="Case study: An HVAC company was losing 60% of WhatsApp inquiries to slow response times. A WhatsApp AI agent now books 3x more jobs, responds in 45 seconds, and collected $18K in payments in month one.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tedca.org/blog/whatsapp-ai-agent-case-study">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="How an HVAC Company Books 3x More Jobs Through WhatsApp AI">
+    <meta property="og:description" content="An HVAC company deployed a WhatsApp AI agent that books jobs, sends payment links, and responds in 45 seconds.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tedca.org/blog/whatsapp-ai-agent-case-study">
+    <meta property="og:image" content="https://tedca.org/og-image.svg">
+    <meta property="og:site_name" content="Tedca Corp">
+    <meta property="article:published_time" content="2026-04-03">
+    <meta property="article:author" content="Tedca Corp">
+    <meta property="article:section" content="Case Study">
+    <meta property="article:tag" content="WhatsApp AI">
+    <meta property="article:tag" content="HVAC">
+    <meta property="article:tag" content="chatbot">
+    <meta property="article:tag" content="automation">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How an HVAC Company Books 3x More Jobs Through WhatsApp AI">
+    <meta name="twitter:description" content="Case study: WhatsApp AI agent books 3x more HVAC jobs and collects $18K in payments in month one.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- AEO: Article + FAQ + Speakable Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How an HVAC Company Books 3x More Jobs Through WhatsApp AI",
+        "description": "Case study: An HVAC company was losing 60% of WhatsApp inquiries to slow response times. A WhatsApp AI agent now books 3x more jobs, responds in 45 seconds, and collected $18K in payments in month one.",
+        "image": "https://tedca.org/og-image.svg",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": {
+            "@type": "Organization",
+            "name": "Tedca Corp",
+            "url": "https://tedca.org"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Tedca Corp",
+            "url": "https://tedca.org",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tedca.org/favicon.svg"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://tedca.org/blog/whatsapp-ai-agent-case-study"
+        },
+        "articleSection": "Case Study",
+        "keywords": ["WhatsApp AI agent", "HVAC automation", "chatbot", "Stripe payments", "appointment booking", "WhatsApp business"],
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".tldr-box", ".key-result"]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does a WhatsApp AI agent work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A WhatsApp AI agent connects to your business WhatsApp number and automatically reads, understands, and responds to customer messages. It uses natural language processing to determine what the customer needs, then takes action: answering questions from a knowledge base, booking appointments into your calendar, sending Stripe payment links, or escalating complex issues to a human with the full conversation attached."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can it send payment links through WhatsApp?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. The AI agent integrates with Stripe to generate and send payment links directly inside the WhatsApp conversation. Customers can pay for service deposits, maintenance plans, or invoiced work without leaving the chat. Payments are tracked automatically and linked to the customer record."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it integrate with my booking or calendar system?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The WhatsApp AI agent integrates with Google Calendar, Outlook, Calendly, and most scheduling tools via API. When a customer wants to book a service appointment, the AI checks real-time availability, offers open slots, confirms the booking, and sends a calendar invite, all within the WhatsApp conversation."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can customers tell they are talking to AI?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most customers cannot tell. The AI uses natural, conversational language and responds contextually to questions. It avoids robotic patterns and handles follow-up questions naturally. In testing, over 85% of customers believed they were chatting with a human agent until told otherwise."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the ROI of a WhatsApp AI agent?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Based on real deployments, businesses see 3-5x ROI within the first month. The HVAC company in this case study collected $18,000 in payments through WhatsApp in month one, while the AI agent cost a fraction of hiring additional office staff. The 24/7 availability alone captures revenue that would otherwise be lost to after-hours and weekend inquiries."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --paper: #E8E4DD;
+            --signal: #E63B2E;
+            --offwhite: #F5F3EE;
+            --dark: #111111;
+        }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            background-color: #ffffff;
+            color: var(--dark);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        .blog-nav {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .blog-nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--signal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-mark span {
+            width: 6px;
+            height: 6px;
+            background: var(--paper);
+            border-radius: 50%;
+        }
+        .logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.05em;
+            color: var(--dark);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dark);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-cta {
+            padding: 10px 20px;
+            background: var(--dark) !important;
+            color: var(--paper) !important;
+            opacity: 1 !important;
+            font-family: 'Space Mono', monospace !important;
+            font-size: 11px !important;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            text-decoration: none !important;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--signal) !important; }
+
+        /* Article Layout */
+        .article-header {
+            padding: 140px 2rem 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        .breadcrumb a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(17,17,17,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--signal); }
+        .breadcrumb svg { opacity: 0.3; }
+
+        .article-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border: 1px solid rgba(230,59,46,0.2);
+            background: rgba(230,59,46,0.05);
+            margin-bottom: 24px;
+        }
+        .article-tag span {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+        }
+
+        .article-header h1 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .article-header .subtitle {
+            font-size: 18px;
+            color: rgba(17,17,17,0.55);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .article-meta span {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(17,17,17,0.4);
+            letter-spacing: 0.05em;
+        }
+        .meta-dot {
+            width: 3px;
+            height: 3px;
+            background: rgba(17,17,17,0.2);
+            border-radius: 50%;
+        }
+
+        /* Hero Visual */
+        .article-hero-visual {
+            max-width: 960px;
+            margin: 0 auto 60px;
+            padding: 0 2rem;
+        }
+        .hero-svg-wrapper {
+            background: var(--offwhite);
+            border: 1px solid rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        /* Article Body */
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 2rem 80px;
+        }
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 56px 0 20px;
+            line-height: 1.15;
+        }
+        .article-body h3 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 40px 0 16px;
+        }
+        .article-body p {
+            font-size: 17px;
+            line-height: 1.75;
+            color: rgba(17,17,17,0.75);
+            margin-bottom: 20px;
+        }
+        .article-body strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+        .article-body ul, .article-body ol {
+            padding-left: 24px;
+            margin-bottom: 20px;
+        }
+        .article-body li {
+            font-size: 17px;
+            line-height: 1.75;
+            color: rgba(17,17,17,0.75);
+            margin-bottom: 8px;
+        }
+
+        /* TL;DR Box - AEO Speakable */
+        .tldr-box {
+            background: var(--offwhite);
+            border-left: 4px solid var(--signal);
+            padding: 28px 32px;
+            margin: 0 0 48px;
+        }
+        .tldr-box .tldr-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+            margin-bottom: 12px;
+        }
+        .tldr-box p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--dark);
+            margin-bottom: 0;
+        }
+
+        /* Key Result Cards */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 40px 0;
+        }
+        @media (max-width: 640px) {
+            .results-grid { grid-template-columns: 1fr; }
+        }
+        .key-result {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .key-result:hover {
+            border-color: rgba(230,59,46,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -8px rgba(0,0,0,0.06);
+        }
+        .key-result .stat {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--signal);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .key-result .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(17,17,17,0.45);
+        }
+
+        /* Inline SVG Diagrams */
+        .diagram-wrapper {
+            margin: 40px 0;
+            background: var(--offwhite);
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 8px;
+        }
+        .diagram-wrapper svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .diagram-caption {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(17,17,17,0.4);
+            text-align: center;
+            padding: 12px 0 4px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Pull Quote */
+        .pull-quote {
+            border-top: 2px solid var(--dark);
+            border-bottom: 2px solid var(--dark);
+            padding: 32px 0;
+            margin: 48px 0;
+        }
+        .pull-quote blockquote {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.35;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        .pull-quote cite {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-style: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(17,17,17,0.4);
+        }
+
+        /* Takeaway Box */
+        .takeaway-box {
+            background: var(--dark);
+            color: var(--paper);
+            padding: 32px;
+            margin: 48px 0;
+        }
+        .takeaway-box .takeaway-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+            margin-bottom: 16px;
+        }
+        .takeaway-box p {
+            color: rgba(232,228,221,0.8);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+        .takeaway-box strong {
+            color: var(--paper);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 64px 0 0;
+            padding-top: 48px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .faq-section h2 {
+            margin-top: 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 24px 0;
+        }
+        .faq-item h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+            cursor: default;
+        }
+        .faq-item p {
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: var(--offwhite);
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 48px 40px;
+            margin: 64px 0 0;
+            text-align: center;
+        }
+        .cta-banner h3 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 0 0 12px;
+        }
+        .cta-banner p {
+            font-size: 15px;
+            color: rgba(17,17,17,0.55);
+            margin-bottom: 24px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--signal);
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .cta-btn:hover {
+            background: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        /* Before/After comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 40px 0;
+        }
+        @media (max-width: 640px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+        .comparison-card {
+            padding: 28px 24px;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .comparison-card.before {
+            background: #fff;
+        }
+        .comparison-card.after {
+            background: var(--offwhite);
+            border-color: rgba(230,59,46,0.15);
+        }
+        .comparison-card .comp-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+        .comparison-card.before .comp-label { color: rgba(17,17,17,0.35); }
+        .comparison-card.after .comp-label { color: var(--signal); }
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .comparison-card li {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(17,17,17,0.65);
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .comparison-card li:last-child { border-bottom: none; }
+
+        /* Footer */
+        .blog-footer {
+            background: var(--dark);
+            padding: 64px 2rem;
+            border-top: 1px solid var(--dark);
+        }
+        .blog-footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .footer-col h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(232,228,221,0.6);
+            margin-bottom: 16px;
+        }
+        .footer-col p {
+            font-size: 12px;
+            color: rgba(232,228,221,0.4);
+            line-height: 1.6;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 8px; }
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(232,228,221,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--signal); }
+        .footer-bottom {
+            border-top: 1px solid rgba(232,228,221,0.1);
+            padding-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .footer-bottom { flex-direction: row; justify-content: space-between; }
+        }
+        .footer-bottom span, .footer-bottom a {
+            font-size: 12px;
+            color: rgba(232,228,221,0.3);
+        }
+        .footer-bottom a { text-decoration: none; transition: color 0.2s; }
+        .footer-bottom a:hover { color: var(--signal); }
+        .footer-legal { display: flex; gap: 24px; }
+
+        @media (max-width: 768px) {
+            .nav-links a:not(.nav-cta) { display: none; }
+            .article-header { padding: 120px 1.5rem 40px; }
+            .article-hero-visual { padding: 0 1.5rem; }
+            .article-body { padding: 0 1.5rem 60px; }
+            .pull-quote blockquote { font-size: 20px; }
+            .results-grid { grid-template-columns: 1fr; }
+            .comparison { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="blog-nav">
+        <div class="blog-nav-inner">
+            <a href="/" class="logo-group">
+                <div class="logo-mark"><span></span></div>
+                <div class="logo-text">TEDCA.</div>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/blog" class="active">Blog</a>
+                <a href="/skills.html">Skills</a>
+                <a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank" class="nav-cta">Book a Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <a href="/blog">Blog</a>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <a href="/blog/whatsapp-ai-agent-case-study" style="color: var(--signal);">Case Study</a>
+        </nav>
+
+        <div class="article-tag">
+            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#E63B2E"/></svg>
+            <span>Case Study</span>
+        </div>
+
+        <h1>How an HVAC Company Books 3x More Jobs Through WhatsApp AI</h1>
+        <p class="subtitle">An HVAC company noticed 60% of customer inquiries came through WhatsApp. But their 2-person office could not reply fast enough, especially during peak season. Then they deployed a WhatsApp AI agent.</p>
+
+        <div class="article-meta">
+            <span>Tedca Corp</span>
+            <div class="meta-dot"></div>
+            <span>April 3, 2026</span>
+            <div class="meta-dot"></div>
+            <span>7 min read</span>
+        </div>
+    </header>
+
+    <!-- Hero Illustration -->
+    <div class="article-hero-visual">
+        <div class="hero-svg-wrapper">
+            <svg viewBox="0 0 960 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style>
+                        @keyframes dashFlow { to { stroke-dashoffset: -24; } }
+                        @keyframes msgStack { 0%,100% { opacity:0.3; transform: translateY(0); } 50% { opacity:0.8; transform: translateY(-4px); } }
+                        @keyframes aiPulse { 0%,100% { r:6; opacity:1; } 50% { r:14; opacity:0.2; } }
+                        @keyframes checkFadeIn { 0% { opacity:0; transform: translateX(-8px); } 100% { opacity:1; transform: translateX(0); } }
+                        @keyframes waveIn { 0%,100% { opacity:0; stroke-dashoffset:40; } 30%,70% { opacity:1; stroke-dashoffset:0; } }
+                        @keyframes badgePulse { 0%,100% { opacity:0.85; } 50% { opacity:1; transform: scale(1.03); } }
+                        @keyframes dollarFall { 0% { opacity:0; transform: translateY(-20px); } 30% { opacity:0.4; } 100% { opacity:0; transform: translateY(30px); } }
+                        .hero-dash { animation: dashFlow 1s linear infinite; }
+                        .hero-msg1 { animation: msgStack 2.5s ease-in-out infinite; }
+                        .hero-msg2 { animation: msgStack 2.5s ease-in-out 0.4s infinite; }
+                        .hero-msg3 { animation: msgStack 2.5s ease-in-out 0.8s infinite; }
+                        .hero-ai-pulse { animation: aiPulse 2s ease-out infinite; }
+                        .hero-check1 { animation: checkFadeIn 0.6s ease-out 0.3s both; }
+                        .hero-check2 { animation: checkFadeIn 0.6s ease-out 0.8s both; }
+                        .hero-check3 { animation: checkFadeIn 0.6s ease-out 1.3s both; }
+                        .hero-wave1 { animation: waveIn 2.5s ease-in-out infinite; stroke-dasharray: 40; }
+                        .hero-badge { animation: badgePulse 3s ease-in-out infinite; transform-origin: 720px 356px; }
+                        .hero-dollar1 { animation: dollarFall 2.5s ease-in infinite; }
+                        .hero-dollar2 { animation: dollarFall 2.5s ease-in 0.5s infinite; }
+                        .hero-dollar3 { animation: dollarFall 2.5s ease-in 1s infinite; }
+                    </style>
+                </defs>
+                <rect width="960" height="400" fill="#F5F3EE"/>
+
+                <!-- Left side: Before (manual) -->
+                <text x="240" y="50" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="rgba(17,17,17,0.35)" letter-spacing="0.1em">BEFORE</text>
+
+                <!-- WhatsApp phone with stacked unanswered messages -->
+                <rect x="190" y="70" width="100" height="150" rx="14" fill="#111111" opacity="0.15"/>
+                <rect x="198" y="84" width="84" height="120" rx="4" fill="#E8E4DD" opacity="0.5"/>
+
+                <!-- Unanswered message bubbles (pulsing) -->
+                <g class="hero-msg1">
+                    <rect x="204" y="92" width="60" height="20" rx="6" fill="#25D366" opacity="0.4"/>
+                    <rect x="208" y="98" width="30" height="3" rx="1.5" fill="#fff" opacity="0.5"/>
+                </g>
+                <g class="hero-msg2">
+                    <rect x="204" y="118" width="52" height="20" rx="6" fill="#25D366" opacity="0.3"/>
+                    <rect x="208" y="124" width="24" height="3" rx="1.5" fill="#fff" opacity="0.5"/>
+                </g>
+                <g class="hero-msg3">
+                    <rect x="204" y="144" width="68" height="20" rx="6" fill="#25D366" opacity="0.2"/>
+                    <rect x="208" y="150" width="36" height="3" rx="1.5" fill="#fff" opacity="0.5"/>
+                </g>
+
+                <!-- Notification badge -->
+                <circle cx="282" cy="78" r="12" fill="#E63B2E"/>
+                <text x="282" y="83" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="white" font-weight="700">9+</text>
+
+                <text x="240" y="250" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="rgba(17,17,17,0.3)" letter-spacing="0.05em">3-HR RESPONSE TIME</text>
+
+                <!-- Dollar signs falling (animated) -->
+                <text class="hero-dollar1" x="190" y="300" font-family="Space Grotesk, sans-serif" font-size="18" fill="#E63B2E" opacity="0">$</text>
+                <text class="hero-dollar2" x="230" y="310" font-family="Space Grotesk, sans-serif" font-size="14" fill="#E63B2E" opacity="0">$</text>
+                <text class="hero-dollar3" x="270" y="295" font-family="Space Grotesk, sans-serif" font-size="20" fill="#E63B2E" opacity="0">$</text>
+
+                <!-- Center: Flowing arrow -->
+                <line x1="400" y1="200" x2="560" y2="200" stroke="#E63B2E" stroke-width="2" stroke-dasharray="8 4" class="hero-dash"/>
+                <polygon points="560,192 576,200 560,208" fill="#E63B2E"/>
+                <rect x="448" y="178" width="64" height="44" rx="8" fill="#E63B2E"/>
+                <text x="480" y="204" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="white" font-weight="700">AI</text>
+
+                <!-- Right side: After (AI) -->
+                <text x="720" y="50" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#E63B2E" letter-spacing="0.1em">AFTER</text>
+
+                <!-- WhatsApp phone with AI responding -->
+                <rect x="680" y="70" width="100" height="150" rx="14" fill="#111111"/>
+                <rect x="688" y="84" width="84" height="120" rx="4" fill="#E8E4DD"/>
+
+                <!-- AI response bubbles -->
+                <rect x="694" y="92" width="56" height="16" rx="4" fill="#25D366"/>
+                <rect x="698" y="98" width="28" height="3" rx="1.5" fill="#fff" opacity="0.7"/>
+                <rect x="722" y="114" width="50" height="16" rx="4" fill="#E63B2E" opacity="0.9"/>
+                <rect x="726" y="120" width="24" height="3" rx="1.5" fill="#fff" opacity="0.7"/>
+                <rect x="694" y="136" width="62" height="16" rx="4" fill="#25D366"/>
+                <rect x="698" y="142" width="32" height="3" rx="1.5" fill="#fff" opacity="0.7"/>
+
+                <!-- AI pulse ring -->
+                <circle cx="730" cy="172" r="6" fill="#E63B2E" opacity="0.1" class="hero-ai-pulse"/>
+                <circle cx="730" cy="172" r="4" fill="#E63B2E"/>
+
+                <!-- Checkmarks (staggered fade in) -->
+                <g class="hero-check1" transform="translate(680, 232)">
+                    <circle cx="20" cy="14" r="14" fill="#111111" opacity="0.08"/>
+                    <polyline points="13,14 18,19 27,10" stroke="#111111" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text x="44" y="18" font-family="Space Grotesk, sans-serif" font-size="13" fill="rgba(17,17,17,0.6)">45s response time</text>
+                </g>
+                <g class="hero-check2" transform="translate(680, 268)">
+                    <circle cx="20" cy="14" r="14" fill="#111111" opacity="0.08"/>
+                    <polyline points="13,14 18,19 27,10" stroke="#111111" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text x="44" y="18" font-family="Space Grotesk, sans-serif" font-size="13" fill="rgba(17,17,17,0.6)">Jobs booked in chat</text>
+                </g>
+                <g class="hero-check3" transform="translate(680, 304)">
+                    <circle cx="20" cy="14" r="14" fill="#111111" opacity="0.08"/>
+                    <polyline points="13,14 18,19 27,10" stroke="#111111" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text x="44" y="18" font-family="Space Grotesk, sans-serif" font-size="13" fill="rgba(17,17,17,0.6)">Stripe payments sent</text>
+                </g>
+
+                <!-- Bottom stat badge (gentle pulse) -->
+                <g class="hero-badge">
+                    <rect x="664" y="340" width="112" height="32" rx="4" fill="#111111"/>
+                    <text x="720" y="360" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.08em">3X MORE JOBS</text>
+                </g>
+            </svg>
+        </div>
+        <div class="diagram-caption">Before &amp; after: Unanswered WhatsApp messages vs. AI responding, booking, and collecting payments</div>
+    </div>
+
+    <!-- Article Body -->
+    <article class="article-body">
+
+        <!-- TL;DR (AEO Speakable) -->
+        <div class="tldr-box">
+            <div class="tldr-label">TL;DR</div>
+            <p>An HVAC company with a 2-person office was averaging 3-hour response times on WhatsApp, losing jobs to faster competitors. After deploying a WhatsApp AI agent from Tedca, response time dropped to 45 seconds, job bookings tripled, and the AI collected $18,000 in Stripe payments through WhatsApp in its first month. The agent runs 24/7, answers questions, books appointments, sends payment links, and escalates complex issues to a human with full context.</p>
+        </div>
+
+        <!-- Key Results -->
+        <div class="results-grid">
+            <div class="key-result">
+                <div class="stat">3x</div>
+                <div class="stat-label">More Jobs Booked</div>
+            </div>
+            <div class="key-result">
+                <div class="stat">45s</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+            <div class="key-result">
+                <div class="stat">$18K</div>
+                <div class="stat-label">Payments Collected (Mo 1)</div>
+            </div>
+        </div>
+
+        <h2>The Problem: Customers Message, Nobody Replies</h2>
+
+        <p>This HVAC company, a 12-person operation serving a metro area with 3 service trucks on the road, had a growing problem: <strong>60% of their customer inquiries were coming through WhatsApp.</strong> And they were terrible at responding.</p>
+
+        <p>The 2-person office handled scheduling, invoicing, and customer calls. WhatsApp messages stacked up throughout the day. The average response time was <strong>3 hours</strong>. On weekends, it was worse. Sometimes messages sat unread until Monday morning.</p>
+
+        <p>The result was predictable. Customers who needed AC repair in July did not wait 3 hours for a reply. They messaged the next company on the list. Every slow response was a lost job, often worth $200 to $800 in service revenue.</p>
+
+        <h2>Why Hiring Another Person Was Not the Fix</h2>
+
+        <p>The company considered hiring a dedicated customer service rep for WhatsApp. The problems:</p>
+
+        <ul>
+            <li><strong>$3,000-$4,000/month</strong> in salary for a single person</li>
+            <li>Still only covers business hours (peak messaging happens evenings and weekends)</li>
+            <li>One person cannot handle 50+ simultaneous conversations during a heat wave</li>
+            <li>No ability to collect payments or book appointments in-chat without switching tools</li>
+        </ul>
+
+        <p>They needed something that could handle <strong>unlimited conversations at any hour</strong>, with the ability to actually close the deal inside WhatsApp.</p>
+
+        <h2>The Solution: A WhatsApp AI Agent That Sells</h2>
+
+        <p>Tedca deployed a WhatsApp AI agent configured specifically for this HVAC company. Here is what it does on every incoming message:</p>
+
+        <ol>
+            <li><strong>Responds in under 45 seconds.</strong> No matter the time of day or how many conversations are active</li>
+            <li><strong>Answers customer questions.</strong> Pricing ranges, service areas, availability, maintenance plan details</li>
+            <li><strong>Books service appointments.</strong> Checks real-time calendar availability and confirms the slot</li>
+            <li><strong>Sends Stripe payment links.</strong> Service deposits, maintenance plan sign-ups, outstanding invoices</li>
+            <li><strong>Handles quote requests.</strong> Gathers details (system type, issue description, photos) and sends itemized estimates</li>
+            <li><strong>Escalates when needed.</strong> Complex issues or upset customers get routed to a human with the full conversation history attached</li>
+        </ol>
+
+        <!-- Workflow Diagram -->
+        <div class="diagram-wrapper">
+            <svg viewBox="0 0 660 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style>
+                        @keyframes flowDash { to { stroke-dashoffset: -14; } }
+                        @keyframes cardSlideIn { 0% { opacity:0; transform: translateY(12px); } 100% { opacity:1; transform: translateY(0); } }
+                        @keyframes glowPulse { 0%,100% { filter: drop-shadow(0 0 0px transparent); } 50% { filter: drop-shadow(0 0 8px rgba(230,59,46,0.3)); } }
+                        @keyframes dotBlink { 0%,100% { opacity:0.1; } 50% { opacity:0.5; } }
+                        .flow-arrow { animation: flowDash 0.8s linear infinite; }
+                        .flow-card1 { animation: cardSlideIn 0.5s ease-out 0.1s both; }
+                        .flow-card2 { animation: cardSlideIn 0.5s ease-out 0.4s both; }
+                        .flow-card3 { animation: cardSlideIn 0.5s ease-out 0.7s both; }
+                        .flow-card4 { animation: cardSlideIn 0.5s ease-out 1.0s both; }
+                        .flow-card5 { animation: cardSlideIn 0.5s ease-out 1.3s both; }
+                        .flow-card6 { animation: cardSlideIn 0.5s ease-out 1.6s both; }
+                        .flow-glow { animation: glowPulse 3s ease-in-out infinite; }
+                        .flow-dot { animation: dotBlink 1.5s ease-in-out infinite; }
+                    </style>
+                </defs>
+
+                <!-- Step 1: Customer messages -->
+                <g class="flow-card1">
+                    <rect x="20" y="20" width="120" height="72" rx="8" fill="#ffffff" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                    <circle cx="46" cy="42" r="12" fill="#25D366" opacity="0.15"/>
+                    <circle cx="46" cy="42" r="4" fill="#25D366" class="flow-dot"/>
+                    <text x="80" y="48" font-family="Space Grotesk, sans-serif" font-size="11" fill="#111111" font-weight="600">Message in</text>
+                    <text x="80" y="64" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">WhatsApp</text>
+                </g>
+
+                <!-- Arrow 1 -->
+                <line x1="140" y1="56" x2="178" y2="56" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow"/>
+                <polygon points="178,52 186,56 178,60" fill="#E63B2E"/>
+
+                <!-- Step 2: AI understands -->
+                <g class="flow-card2 flow-glow">
+                    <rect x="186" y="20" width="120" height="72" rx="8" fill="#111111"/>
+                    <text x="246" y="46" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#E8E4DD" font-weight="600">AI reads intent</text>
+                    <text x="246" y="64" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(232,228,221,0.5)">NLP processing</text>
+                </g>
+
+                <!-- Arrow 2 -->
+                <line x1="306" y1="56" x2="344" y2="56" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow"/>
+                <polygon points="344,52 352,56 344,60" fill="#E63B2E"/>
+
+                <!-- Step 3: Knowledge base -->
+                <g class="flow-card3">
+                    <rect x="352" y="20" width="120" height="72" rx="8" fill="#ffffff" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                    <text x="412" y="46" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#111111" font-weight="600">Checks KB</text>
+                    <text x="412" y="64" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">Pricing &amp; info</text>
+                </g>
+
+                <!-- Arrow 3 -->
+                <line x1="472" y1="56" x2="510" y2="56" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow"/>
+                <polygon points="510,52 518,56 510,60" fill="#E63B2E"/>
+
+                <!-- Step 4: Sends reply -->
+                <g class="flow-card4 flow-glow">
+                    <rect x="518" y="20" width="120" height="72" rx="8" fill="#E63B2E"/>
+                    <text x="578" y="46" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="white" font-weight="600">Sends reply</text>
+                    <text x="578" y="64" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(255,255,255,0.7)">&lt; 45 seconds</text>
+                </g>
+
+                <!-- Arrow down from Sends reply -->
+                <line x1="578" y1="92" x2="578" y2="130" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow"/>
+                <polygon points="574,130 578,138 582,130" fill="#E63B2E"/>
+
+                <!-- Step 5: Books or pays -->
+                <g class="flow-card5">
+                    <rect x="518" y="140" width="120" height="72" rx="8" fill="#ffffff" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                    <text x="578" y="166" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#111111" font-weight="600">Books / Pays</text>
+                    <text x="578" y="184" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">Cal + Stripe</text>
+                </g>
+
+                <!-- Branch from Step 3: Escalate -->
+                <line x1="412" y1="92" x2="412" y2="190" stroke="rgba(17,17,17,0.15)" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow"/>
+                <polygon points="408,190 412,198 416,190" fill="rgba(17,17,17,0.2)"/>
+
+                <!-- Step: Escalate to human -->
+                <g class="flow-card6">
+                    <rect x="352" y="200" width="120" height="60" rx="8" fill="#F5F3EE" stroke="rgba(17,17,17,0.08)" stroke-width="1"/>
+                    <text x="412" y="224" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="rgba(17,17,17,0.5)" font-weight="600">Escalates</text>
+                    <text x="412" y="242" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.3)">Full context</text>
+                </g>
+
+                <!-- Label -->
+                <text x="320" y="166" font-family="Space Mono, monospace" font-size="8" fill="rgba(17,17,17,0.25)" letter-spacing="0.1em">COMPLEX</text>
+            </svg>
+            <div class="diagram-caption">WhatsApp AI flow: receive, understand, reply, book or collect payment, escalate if needed</div>
+        </div>
+
+        <p>The critical difference from a basic chatbot: <strong>this AI agent does not just answer questions. It closes deals.</strong> It sends Stripe payment links directly in the WhatsApp thread. A customer can go from "How much does an AC tune-up cost?" to "Booked and paid" without ever leaving the conversation.</p>
+
+        <div class="pull-quote">
+            <blockquote>"We were shocked. The AI collected more payments in its first weekend than our office does in a normal Monday. Customers actually prefer paying in chat."</blockquote>
+            <cite>Operations Manager</cite>
+        </div>
+
+        <h2>The Results: Immediate Impact, Compounding Returns</h2>
+
+        <p>The WhatsApp AI agent was fully deployed within 10 business days. Here is what changed:</p>
+
+        <!-- Before/After Comparison -->
+        <div class="comparison">
+            <div class="comparison-card before">
+                <div class="comp-label">Before AI</div>
+                <ul>
+                    <li>3-hour average response time</li>
+                    <li>Missed messages on weekends</li>
+                    <li>Manual booking by phone only</li>
+                    <li>No payment collection in chat</li>
+                    <li>Quotes sent manually via email</li>
+                    <li>No after-hours coverage</li>
+                    <li>Jobs lost to faster competitors</li>
+                </ul>
+            </div>
+            <div class="comparison-card after">
+                <div class="comp-label">After AI</div>
+                <ul>
+                    <li>45-second AI response</li>
+                    <li>24/7 WhatsApp coverage</li>
+                    <li>Instant booking in chat</li>
+                    <li>Stripe payments in conversation</li>
+                    <li>Automated itemized estimates</li>
+                    <li>Weekend and holiday coverage</li>
+                    <li>3x more jobs booked monthly</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>The $18,000 in first-month payments included service deposits, maintenance plan sign-ups, and outstanding invoice collections. The AI made it so easy to pay that customers who normally took weeks to settle invoices paid within minutes of receiving the in-chat link.</p>
+
+        <h2>What About the Existing Staff?</h2>
+
+        <p>Nobody was replaced. The 2-person office now focuses on:</p>
+
+        <ul>
+            <li>Complex service coordination (multi-day installations, warranty claims)</li>
+            <li>High-value commercial accounts that need a personal touch</li>
+            <li>Following up on quotes the AI flagged as high-probability</li>
+        </ul>
+
+        <p>The office manager reported that <strong>phone volume dropped 40%</strong> because customers who used to call now get faster answers on WhatsApp. The staff spends less time on repetitive questions ("What's your service area?" "Do you do weekends?") and more time on work that actually requires a human.</p>
+
+        <h2>How Does a WhatsApp AI Agent Actually Work?</h2>
+
+        <p>Behind the scenes, the AI agent runs on a stack of integrated services:</p>
+
+        <ul>
+            <li><strong>WhatsApp Business API</strong> receives and sends messages through the company's verified number</li>
+            <li><strong>Large language model</strong> understands customer intent and generates natural, contextual responses</li>
+            <li><strong>Knowledge base</strong> stores pricing, service details, FAQs, and company policies</li>
+            <li><strong>Calendar integration</strong> checks live technician availability and books directly</li>
+            <li><strong>Stripe API</strong> generates payment links and tracks transaction status</li>
+            <li><strong>Escalation logic</strong> detects frustration, complex requests, or high-value opportunities and routes to humans</li>
+        </ul>
+
+        <p>The entire message-to-response cycle takes under 45 seconds. Most replies land in 10 to 15 seconds. Fast enough that customers stay engaged in the conversation instead of moving on to a competitor.</p>
+
+        <!-- Takeaway -->
+        <div class="takeaway-box">
+            <div class="takeaway-label">Key Takeaway</div>
+            <p>If your customers are reaching out on WhatsApp, every minute of delay is revenue walking to a competitor. A WhatsApp AI agent does not just reply faster. <strong>It books the job, collects the payment, and logs the conversation, all inside one chat thread.</strong> For service businesses where speed-to-lead determines who gets the job, this is not a nice-to-have. It is the difference between growing and losing market share.</p>
+        </div>
+
+        <h2>How Much Does This Cost?</h2>
+
+        <p>A WhatsApp AI agent from Tedca runs <strong>$400-$900/month</strong> depending on message volume and integrations. Compare that to:</p>
+
+        <ul>
+            <li>Dedicated chat rep: $3,000-$4,000/mo (business hours only)</li>
+            <li>Virtual assistant service: $1,500-$2,500/mo (limited hours, no payment capability)</li>
+            <li>Basic chatbot: $50-$200/mo (can only handle FAQs, cannot book or collect payments)</li>
+        </ul>
+
+        <p>The AI is the only option that responds 24/7, books appointments, collects payments, handles unlimited simultaneous conversations, and gets smarter over time as it learns your business patterns.</p>
+
+        <!-- FAQ Section (AEO) -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>How does a WhatsApp AI agent work?</h3>
+                <p>A WhatsApp AI agent connects to your business WhatsApp number and automatically reads, understands, and responds to customer messages. It uses natural language processing to determine what the customer needs, then takes action: answering questions from a knowledge base, booking appointments into your calendar, sending Stripe payment links, or escalating complex issues to a human with the full conversation attached.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can it send payment links through WhatsApp?</h3>
+                <p>Yes. The AI agent integrates with Stripe to generate and send payment links directly inside the WhatsApp conversation. Customers can pay for service deposits, maintenance plans, or invoiced work without leaving the chat. Payments are tracked automatically and linked to the customer record.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Does it integrate with my booking or calendar system?</h3>
+                <p>The WhatsApp AI agent integrates with Google Calendar, Outlook, Calendly, and most scheduling tools via API. When a customer wants to book a service appointment, the AI checks real-time availability, offers open slots, confirms the booking, and sends a calendar invite, all within the WhatsApp conversation.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can customers tell they are talking to AI?</h3>
+                <p>Most customers cannot tell. The AI uses natural, conversational language and responds contextually to questions. It avoids robotic patterns and handles follow-up questions naturally. In testing, over 85% of customers believed they were chatting with a human agent until told otherwise.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What is the ROI of a WhatsApp AI agent?</h3>
+                <p>Based on real deployments, businesses see 3-5x ROI within the first month. The HVAC company in this case study collected $18,000 in payments through WhatsApp in month one, while the AI agent cost a fraction of hiring additional office staff. The 24/7 availability alone captures revenue that would otherwise be lost to after-hours and weekend inquiries.</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-banner">
+            <h3>Want a WhatsApp AI agent for your business?</h3>
+            <p>Book a free 30-minute call. We will show you how a WhatsApp AI agent can book more jobs and collect payments while you sleep.</p>
+            <a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank" class="cta-btn">Book a Free Call &rarr;</a>
+        </div>
+
+    </article>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="blog-footer-inner">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo-group" style="margin-bottom: 16px;">
+                        <div class="logo-mark" style="width:24px;height:24px;border:1px solid var(--dark);">
+                            <span style="width:4px;height:4px;"></span>
+                        </div>
+                        <div class="logo-text" style="color:var(--paper);font-size:20px;">TEDCA.</div>
+                    </div>
+                    <p>AI systems that run your business while you sleep. Voice AI, automation, and Claude Code skills.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/#svc-voice">Voice AI</a></li>
+                        <li><a href="/#svc-automation">Automation</a></li>
+                        <li><a href="/skills.html">Claude Code Skills</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/blog/dental-ai-receptionist-case-study">Dental AI Case Study</a></li>
+                        <li><a href="/delivered">Download Your Skill</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="mailto:tedca.skill@gmail.com">tedca.skill@gmail.com</a></li>
+                        <li><a href="https://cal.com/ted-charles-enqyjn/consulting-for-tedca" target="_blank">Schedule a Demo</a></li>
+                        <li><a href="https://linkedin.com/company/tedca" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Tedca Corp. All rights reserved.</span>
+                <div class="footer-legal">
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
