@@ -70,7 +70,7 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
         Cal.ns["30min"]("inline", {
             elementOrSelector: "#my-cal-inline-30min",
             config: { "layout": "month_view" },
-            calLink: "ted-charles-enqyjn/30min",
+            calLink: "tedca-skill-nv7wuk/secret",
         });
         Cal.ns["30min"]("ui", {
             "styles": { "branding": { "brandColor": "#000000" } },

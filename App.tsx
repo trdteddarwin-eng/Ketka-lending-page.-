@@ -306,7 +306,7 @@ const App: React.FC = () => {
                   <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-dark/50 font-mono text-xs">Loading calendar...</div>}>
                     <Cal
                       namespace="30min"
-                      calLink="ted-charles-enqyjn/30min"
+                      calLink="tedca-skill-nv7wuk/secret"
                       style={{ width: "100%", height: "100%", overflow: "scroll" }}
                       config={{ layout: "month_view" }}
                     />
