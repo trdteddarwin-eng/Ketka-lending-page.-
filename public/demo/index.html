@@ -83,6 +83,158 @@
             overflow-x: hidden;
         }
 
+        /* ========== ANIMATED DOT GRID BACKGROUND ========== */
+        .dot-grid {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(17,17,17,0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+        }
+
+        /* ========== FLOATING PARTICLES ========== */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--signal);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+        .particle:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; width: 3px; height: 3px; }
+        .particle:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: -4s; width: 5px; height: 5px; opacity: 0.15; }
+        .particle:nth-child(3) { left: 40%; animation-duration: 15s; animation-delay: -8s; width: 2px; height: 2px; }
+        .particle:nth-child(4) { left: 55%; animation-duration: 20s; animation-delay: -2s; width: 4px; height: 4px; }
+        .particle:nth-child(5) { left: 70%; animation-duration: 14s; animation-delay: -6s; width: 3px; height: 3px; }
+        .particle:nth-child(6) { left: 85%; animation-duration: 16s; animation-delay: -10s; width: 6px; height: 6px; opacity: 0.1; }
+        .particle:nth-child(7) { left: 15%; animation-duration: 22s; animation-delay: -14s; width: 2px; height: 2px; }
+        .particle:nth-child(8) { left: 65%; animation-duration: 13s; animation-delay: -7s; width: 3px; height: 3px; }
+
+        /* ========== MORPHING BLOB ACCENT ========== */
+        .hero-blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(230,59,46,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: blobMorph 10s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes blobMorph {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); border-radius: 50%; }
+            33% { transform: translate(-45%, -55%) scale(1.15) rotate(60deg); border-radius: 40% 60% 50% 50%; }
+            66% { transform: translate(-55%, -45%) scale(0.9) rotate(120deg); border-radius: 50% 40% 60% 50%; }
+        }
+
+        /* ========== STAGGERED ENTRANCE ========== */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .stagger-1 { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+        .stagger-2 { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+        .stagger-3 { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+        .stagger-4 { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+        .stagger-5 { animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+
+        /* ========== GRADIENT BORDER ON FOCUS ========== */
+        @keyframes borderGlow {
+            0% { border-color: var(--signal); box-shadow: 0 0 0 4px rgba(230,59,46,0.08); }
+            50% { border-color: #ff6b5a; box-shadow: 0 0 0 6px rgba(230,59,46,0.12); }
+            100% { border-color: var(--signal); box-shadow: 0 0 0 4px rgba(230,59,46,0.08); }
+        }
+
+        /* ========== BUTTON SHINE EFFECT ========== */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: btnShine 4s ease-in-out infinite;
+        }
+        @keyframes btnShine {
+            0%, 70%, 100% { left: -100%; }
+            85% { left: 150%; }
+        }
+
+        /* ========== LIVE COUNTER BADGE ========== */
+        .live-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: 1px solid rgba(230,59,46,0.2);
+            background: rgba(230,59,46,0.04);
+            margin-bottom: 28px;
+            animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
+        }
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--signal);
+            border-radius: 50%;
+            animation: livePulse 2s ease-in-out infinite;
+        }
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+        .live-counter span {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--signal);
+        }
+        .live-counter .counter-num {
+            font-variant-numeric: tabular-nums;
+            min-width: 2ch;
+        }
+
+        /* ========== CURSOR GLOW (desktop only) ========== */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(230,59,46,0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+        @media (hover: hover) {
+            .cursor-glow { opacity: 1; }
+        }
+
         /* ========== NAV ========== */
         .blog-nav {
             position: fixed;
@@ -384,9 +536,10 @@
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .search-fields input:focus {
-            border-color: var(--dark);
-            box-shadow: 0 0 0 4px rgba(17,17,17,0.06);
+        .search-fields input:focus, .search-fields select:focus {
+            border-color: var(--signal);
+            box-shadow: 0 0 0 4px var(--signal-glow);
+            animation: borderGlow 2s ease-in-out infinite;
         }
         .search-fields input::placeholder {
             color: rgba(17,17,17,0.3);
@@ -999,6 +1152,14 @@
     <div class="confetti-container" id="confetti"></div>
 
     <!-- Nav -->
+    <!-- Ambient layers -->
+    <div class="dot-grid"></div>
+    <div class="particles">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    </div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+
     <nav class="blog-nav">
         <div class="blog-nav-inner">
             <a href="/" class="logo-group">
@@ -1026,10 +1187,15 @@
             <svg class="float-icon" style="top:25%;right:15%;width:50px" viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.6)" stroke-width="1"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <svg class="float-icon" style="bottom:15%;left:12%;width:70px" viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.6)" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
 
+            <div class="hero-blob" style="top:30%;left:50%;"></div>
             <div class="search-content">
-                <h1>Find the CEO of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
-                <p class="subline">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
-                <div class="search-fields">
+                <div class="live-counter">
+                    <div class="live-dot"></div>
+                    <span><span class="counter-num" id="live-searches">2,847</span> searches run this month</span>
+                </div>
+                <h1 class="stagger-1">Find the CEO of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
+                <p class="subline stagger-2">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
+                <div class="search-fields stagger-3">
                     <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC...">
                     <input type="text" id="location-input" placeholder="e.g., Miami, FL or Texas">
                     <select id="leads-count" style="width:100%;padding:16px 20px;font-family:'Space Grotesk',sans-serif;font-size:16px;border:2px solid rgba(17,17,17,0.12);background:#fff;color:var(--dark);border-radius:0;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23111%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 16px center;">
@@ -1037,8 +1203,8 @@
                         <option value="5" selected>5 leads (free)</option>
                     </select>
                 </div>
-                <button class="btn-dark" onclick="goToEmail()">Search Leads</button>
-                <p class="fine-print">No credit card required. 3 free searches.</p>
+                <button class="btn-dark btn-shine stagger-4" onclick="goToEmail()">Search Leads</button>
+                <p class="fine-print stagger-5">No credit card required. 3 free searches.</p>
             </div>
         </div>
 
@@ -1056,7 +1222,7 @@
                         <input type="email" id="email-input" placeholder="you@company.com" autocomplete="email">
                         <div class="input-error" id="email-error">Please enter a valid email address.</div>
                     </div>
-                    <button class="btn-primary" id="email-btn" onclick="submitEmail()">Find CEOs Now</button>
+                    <button class="btn-primary btn-shine" id="email-btn" onclick="submitEmail()">Find CEOs Now</button>
                     <p class="fine-print">Your email is only used to prevent abuse. We won't spam you.</p>
                 </div>
             </div>
@@ -1665,10 +1831,29 @@
         // Hide footer initially
         document.getElementById('main-footer').style.display = 'none';
 
-        // Focus email input
+        // Focus industry input (first screen now)
         setTimeout(function() {
-            document.getElementById('email-input').focus();
-        }, 100);
+            document.getElementById('industry-input').focus();
+        }, 800);
+
+        // Cursor glow follows mouse (desktop only)
+        var glow = document.getElementById('cursor-glow');
+        if (window.matchMedia('(hover: hover)').matches && glow) {
+            document.addEventListener('mousemove', function(e) {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        }
+
+        // Live counter incrementer (fake social proof animation)
+        var counterEl = document.getElementById('live-searches');
+        if (counterEl) {
+            var count = 2847;
+            setInterval(function() {
+                count += Math.floor(Math.random() * 3) + 1;
+                counterEl.textContent = count.toLocaleString();
+            }, 8000);
+        }
     })();
     </script>
 </body>
