@@ -1250,34 +1250,18 @@
                         <option value="3">3 leads (free)</option>
                         <option value="5" selected>5 leads (free)</option>
                     </select>
+                    <div class="input-wrap" id="email-wrap" style="margin-top:4px;">
+                        <input type="email" id="email-input" placeholder="Your email (required to start)" autocomplete="email" style="border:2px solid rgba(17,17,17,0.12);">
+                        <div class="input-error" id="email-error">Please enter a valid email address.</div>
+                    </div>
                 </div>
-                <button class="btn-dark btn-shine stagger-4" onclick="goToEmail()">Search Leads</button>
+                <button class="btn-dark btn-shine stagger-4" onclick="submitAndSearch()">Find Leads</button>
                 <p class="fine-print stagger-5">No credit card required. 3 free searches.</p>
             </div>
         </div>
 
-        <!-- SCREEN 2: Email Gate (Before pipeline runs) -->
-        <div class="screen screen-email" id="screen-2">
-            <div class="email-content">
-                <div class="search-summary" style="display:inline-flex;align-items:center;gap:10px;padding:10px 20px;background:var(--offwhite);border:1px solid rgba(17,17,17,0.08);margin-bottom:32px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--signal)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                    <span id="search-summary-text" style="font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--dark);">Dentists in Miami, FL</span>
-                </div>
-                <h2 style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:12px;">One more step.</h2>
-                <p class="subline" style="margin-bottom:32px;">Enter your email to start the search. We verify it to prevent abuse.</p>
-                <div class="email-form">
-                    <div class="input-wrap" id="email-wrap">
-                        <input type="email" id="email-input" placeholder="you@company.com" autocomplete="email">
-                        <div class="input-error" id="email-error">Please enter a valid email address.</div>
-                    </div>
-                    <button class="btn-primary btn-shine" id="email-btn" onclick="submitEmail()">Find CEOs Now</button>
-                    <p class="fine-print">Your email is only used to prevent abuse. We won't spam you.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCREEN 3: Loading Pipeline -->
-        <div class="screen screen-loading" id="screen-3">
+        <!-- SCREEN 2: Loading Pipeline -->
+        <div class="screen screen-loading" id="screen-2">
             <div class="pipeline-wrapper">
                 <div class="pipeline-header">
                     <h2>AI Pipeline Active</h2>
@@ -1379,7 +1363,7 @@
         </div>
 
         <!-- SCREEN 4: Results -->
-        <div class="screen screen-results" id="screen-4">
+        <div class="screen screen-results" id="screen-3">
             <div class="results-container">
                 <div class="results-banner" id="results-banner">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -1522,7 +1506,7 @@
 
         // Footer visibility: only show on results screen
         const footer = document.getElementById('main-footer');
-        if (n === 4) {
+        if (n === 3) {
             footer.style.display = 'block';
         } else {
             footer.style.display = 'none';
@@ -1540,46 +1524,38 @@
         }, 400);
     }
 
-    // ============ SCREEN 1: SEARCH FORM → GO TO EMAIL ============
-    function goToEmail() {
+    // ============ SCREEN 1: VALIDATE ALL FIELDS + START PIPELINE ============
+    async function submitAndSearch() {
         var industry = document.getElementById('industry-input').value.trim();
         var location = document.getElementById('location-input').value.trim();
-        if (!industry || !location) return;
-        searchIndustry = industry;
-        searchLocation = location;
-        document.getElementById('search-summary-text').textContent = industry + ' in ' + location;
-        showScreen(2);
-    }
-
-    // Enter key on search inputs
-    document.getElementById('industry-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') goToEmail();
-    });
-    document.getElementById('location-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') goToEmail();
-    });
-
-    // ============ SCREEN 2: EMAIL SUBMISSION → START PIPELINE ============
-    async function submitEmail() {
         var input = document.getElementById('email-input');
         var wrap = document.getElementById('email-wrap');
         var errorEl = document.getElementById('email-error');
-        var btn = document.getElementById('email-btn');
+        var btn = document.querySelector('.btn-dark.btn-shine');
         var email = input.value.trim();
 
-        // Basic format check
+        // Validate all fields
+        if (!industry) { document.getElementById('industry-input').focus(); return; }
+        if (!location) { document.getElementById('location-input').focus(); return; }
+
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
             wrap.classList.add('error');
-            errorEl.textContent = 'Please enter a valid email address.';
+            errorEl.textContent = 'Please enter a valid email to start.';
+            input.focus();
             return;
         }
 
         wrap.classList.remove('error');
         btn.classList.add('loading');
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.7';
+
+        searchIndustry = industry;
+        searchLocation = location;
 
         try {
-            // Call verify-email API
+            // Verify email
             var verifyRes = await fetch('/api/verify-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1591,10 +1567,12 @@
                 wrap.classList.add('error');
                 errorEl.textContent = verifyData.message || 'This email appears to be invalid.';
                 btn.classList.remove('loading');
+                btn.style.pointerEvents = '';
+                btn.style.opacity = '';
                 return;
             }
 
-            // Store the demo email
+            // Check rate limit
             var storeRes = await fetch('/api/store-demo-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1604,33 +1582,37 @@
 
             if (!storeData.allowed) {
                 wrap.classList.add('error');
-                errorEl.textContent = storeData.message || 'You have used all free searches. Upgrade to continue.';
+                errorEl.textContent = 'You have used all 3 free searches. Buy the full skill or book a call to continue.';
                 btn.classList.remove('loading');
+                btn.style.pointerEvents = '';
+                btn.style.opacity = '';
                 return;
             }
 
-            // Success — go straight to loading pipeline
+            // All good, start pipeline
             userEmail = email;
             btn.classList.remove('loading');
             document.getElementById('loading-industry').textContent = searchIndustry;
             document.getElementById('loading-location').textContent = searchLocation;
-            showScreen(3);
+            showScreen(2);
             setTimeout(function() { runPipeline(searchIndustry, searchLocation); }, 600);
 
         } catch (err) {
-            // If API is not available, proceed with demo mode
+            // API not available, proceed with demo mode
             userEmail = email;
             btn.classList.remove('loading');
             document.getElementById('loading-industry').textContent = searchIndustry;
             document.getElementById('loading-location').textContent = searchLocation;
-            showScreen(3);
+            showScreen(2);
             setTimeout(function() { runPipeline(searchIndustry, searchLocation); }, 600);
         }
     }
 
-    // Enter key on email input
-    document.getElementById('email-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') submitEmail();
+    // Enter key on all inputs triggers submit
+    ['industry-input', 'location-input', 'email-input'].forEach(function(id) {
+        document.getElementById(id).addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') submitAndSearch();
+        });
     });
 
     // ============ SCREEN 3: PIPELINE ANIMATION ============
@@ -1802,7 +1784,7 @@
             tbody.appendChild(tr);
         });
 
-        showScreen(4);
+        showScreen(3);
     }
 
     function escapeHtml(str) {
