@@ -218,6 +218,54 @@
             min-width: 2ch;
         }
 
+        /* ========== TEXT ROTATOR ========== */
+        .text-rotator {
+            display: inline-flex;
+            position: relative;
+            overflow: hidden;
+            background: var(--signal);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 8px;
+            vertical-align: baseline;
+            min-width: 120px;
+            justify-content: center;
+        }
+        .text-rotator-inner {
+            display: inline-flex;
+            position: relative;
+            overflow: hidden;
+            height: 1.15em;
+        }
+        .text-rotator-word {
+            display: inline-flex;
+            position: absolute;
+            left: 0;
+            top: 0;
+            white-space: nowrap;
+        }
+        .text-rotator-word.active {
+            position: relative;
+        }
+        .text-rotator-char {
+            display: inline-block;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .text-rotator-word.entering .text-rotator-char {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .text-rotator-word.exiting .text-rotator-char {
+            transform: translateY(-130%);
+            opacity: 0;
+        }
+        .text-rotator-space {
+            display: inline-block;
+            width: 0.3em;
+        }
+
         /* ========== CURSOR GLOW (desktop only) ========== */
         .cursor-glow {
             position: fixed;
@@ -1193,7 +1241,7 @@
                     <div class="live-dot"></div>
                     <span><span class="counter-num" id="live-searches">2,847</span> searches run this month</span>
                 </div>
-                <h1 class="stagger-1">Find the CEO of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
+                <h1 class="stagger-1">Find the <span class="text-rotator" id="text-rotator"><span class="text-rotator-inner" id="rotator-inner"></span></span> of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
                 <p class="subline stagger-2">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
                 <div class="search-fields stagger-3">
                     <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC...">
@@ -1835,6 +1883,65 @@
         setTimeout(function() {
             document.getElementById('industry-input').focus();
         }, 800);
+
+        // Text Rotator — staggered character animation
+        (function initTextRotator() {
+            var words = ['CEO', 'Owner', 'Founder', 'Director', 'Manager'];
+            var container = document.getElementById('rotator-inner');
+            if (!container) return;
+            var currentIndex = 0;
+            var staggerDelay = 0.03; // seconds per character
+
+            function createWordEl(word, className) {
+                var wordEl = document.createElement('span');
+                wordEl.className = 'text-rotator-word ' + className;
+                for (var i = 0; i < word.length; i++) {
+                    var charEl = document.createElement('span');
+                    charEl.className = 'text-rotator-char';
+                    charEl.textContent = word[i];
+                    charEl.style.transitionDelay = (i * staggerDelay) + 's';
+                    wordEl.appendChild(charEl);
+                }
+                return wordEl;
+            }
+
+            // Initial word
+            var firstWord = createWordEl(words[0], 'active entering');
+            container.appendChild(firstWord);
+            // Trigger entering animation after paint
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    firstWord.classList.add('entering');
+                });
+            });
+
+            function rotateNext() {
+                var oldIndex = currentIndex;
+                currentIndex = (currentIndex + 1) % words.length;
+
+                var oldWord = container.querySelector('.text-rotator-word.active');
+                if (oldWord) {
+                    oldWord.classList.remove('entering');
+                    oldWord.classList.add('exiting');
+                    oldWord.classList.remove('active');
+                    // Remove after animation
+                    setTimeout(function() {
+                        if (oldWord.parentNode) oldWord.parentNode.removeChild(oldWord);
+                    }, 500);
+                }
+
+                var newWord = createWordEl(words[currentIndex], 'active');
+                container.appendChild(newWord);
+                // Trigger entering after a frame
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        newWord.classList.add('entering');
+                    });
+                });
+            }
+
+            setInterval(rotateNext, 2200);
+        })();
 
         // Cursor glow follows mouse (desktop only)
         var glow = document.getElementById('cursor-glow');
