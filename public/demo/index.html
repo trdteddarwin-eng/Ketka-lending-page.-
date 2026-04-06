@@ -1018,23 +1018,8 @@
     <div class="app-wrapper">
 
         <!-- SCREEN 1: Email Gate -->
-        <div class="screen screen-email active visible" id="screen-1">
-            <div class="email-content">
-                <h1>Find the CEO of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
-                <p class="subline">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
-                <div class="email-form">
-                    <div class="input-wrap" id="email-wrap">
-                        <input type="email" id="email-input" placeholder="you@company.com" autocomplete="email">
-                        <div class="input-error" id="email-error">Please enter a valid email address.</div>
-                    </div>
-                    <button class="btn-primary" id="email-btn" onclick="submitEmail()">Start Free Demo</button>
-                    <p class="fine-print">No credit card required. 3 free searches.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCREEN 2: Search Form -->
-        <div class="screen screen-search" id="screen-2">
+        <!-- SCREEN 1: Search Form (First) -->
+        <div class="screen screen-search active visible" id="screen-1">
             <!-- Floating background icons -->
             <svg class="float-icon" style="top:10%;left:8%;width:80px" viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.6)" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <svg class="float-icon" style="top:60%;right:10%;width:60px" viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.6)" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -1042,19 +1027,38 @@
             <svg class="float-icon" style="bottom:15%;left:12%;width:70px" viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.6)" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
 
             <div class="search-content">
-                <div class="verified-badge" id="verified-badge">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <circle cx="9" cy="9" r="9" fill="#22c55e"/>
-                        <path d="M5.5 9.5L7.5 11.5L12.5 6.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span id="verified-email-text">you@company.com verified</span>
-                </div>
-                <h2>What industry and location<br>do you want to search?</h2>
+                <h1>Find the CEO of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
+                <p class="subline">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
                 <div class="search-fields">
                     <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC...">
                     <input type="text" id="location-input" placeholder="e.g., Miami, FL or Texas">
+                    <select id="leads-count" style="width:100%;padding:16px 20px;font-family:'Space Grotesk',sans-serif;font-size:16px;border:2px solid rgba(17,17,17,0.12);background:#fff;color:var(--dark);border-radius:0;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23111%22 stroke-width=%222%22><polyline points=%226 9 12 15 18 9%22/></svg>');background-repeat:no-repeat;background-position:right 16px center;">
+                        <option value="3">3 leads (free)</option>
+                        <option value="5" selected>5 leads (free)</option>
+                    </select>
                 </div>
-                <button class="btn-dark" onclick="startSearch()">Find CEOs</button>
+                <button class="btn-dark" onclick="goToEmail()">Search Leads</button>
+                <p class="fine-print">No credit card required. 3 free searches.</p>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Email Gate (Before pipeline runs) -->
+        <div class="screen screen-email" id="screen-2">
+            <div class="email-content">
+                <div class="search-summary" style="display:inline-flex;align-items:center;gap:10px;padding:10px 20px;background:var(--offwhite);border:1px solid rgba(17,17,17,0.08);margin-bottom:32px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--signal)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <span id="search-summary-text" style="font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--dark);">Dentists in Miami, FL</span>
+                </div>
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:12px;">One more step.</h2>
+                <p class="subline" style="margin-bottom:32px;">Enter your email to start the search. We verify it to prevent abuse.</p>
+                <div class="email-form">
+                    <div class="input-wrap" id="email-wrap">
+                        <input type="email" id="email-input" placeholder="you@company.com" autocomplete="email">
+                        <div class="input-error" id="email-error">Please enter a valid email address.</div>
+                    </div>
+                    <button class="btn-primary" id="email-btn" onclick="submitEmail()">Find CEOs Now</button>
+                    <p class="fine-print">Your email is only used to prevent abuse. We won't spam you.</p>
+                </div>
             </div>
         </div>
 
@@ -1322,7 +1326,26 @@
         }, 400);
     }
 
-    // ============ SCREEN 1: EMAIL SUBMISSION ============
+    // ============ SCREEN 1: SEARCH FORM → GO TO EMAIL ============
+    function goToEmail() {
+        var industry = document.getElementById('industry-input').value.trim();
+        var location = document.getElementById('location-input').value.trim();
+        if (!industry || !location) return;
+        searchIndustry = industry;
+        searchLocation = location;
+        document.getElementById('search-summary-text').textContent = industry + ' in ' + location;
+        showScreen(2);
+    }
+
+    // Enter key on search inputs
+    document.getElementById('industry-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') goToEmail();
+    });
+    document.getElementById('location-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') goToEmail();
+    });
+
+    // ============ SCREEN 2: EMAIL SUBMISSION → START PIPELINE ============
     async function submitEmail() {
         var input = document.getElementById('email-input');
         var wrap = document.getElementById('email-wrap');
@@ -1372,52 +1395,28 @@
                 return;
             }
 
-            // Success
+            // Success — go straight to loading pipeline
             userEmail = email;
-            document.getElementById('verified-email-text').textContent = email + ' verified';
             btn.classList.remove('loading');
-            showScreen(2);
+            document.getElementById('loading-industry').textContent = searchIndustry;
+            document.getElementById('loading-location').textContent = searchLocation;
+            showScreen(3);
+            setTimeout(function() { runPipeline(searchIndustry, searchLocation); }, 600);
 
         } catch (err) {
             // If API is not available, proceed with demo mode
             userEmail = email;
-            document.getElementById('verified-email-text').textContent = email + ' verified';
             btn.classList.remove('loading');
-            showScreen(2);
+            document.getElementById('loading-industry').textContent = searchIndustry;
+            document.getElementById('loading-location').textContent = searchLocation;
+            showScreen(3);
+            setTimeout(function() { runPipeline(searchIndustry, searchLocation); }, 600);
         }
     }
 
     // Enter key on email input
     document.getElementById('email-input').addEventListener('keydown', function(e) {
         if (e.key === 'Enter') submitEmail();
-    });
-
-    // ============ SCREEN 2: SEARCH SUBMISSION ============
-    async function startSearch() {
-        var industry = document.getElementById('industry-input').value.trim();
-        var location = document.getElementById('location-input').value.trim();
-
-        if (!industry || !location) return;
-
-        searchIndustry = industry;
-        searchLocation = location;
-
-        // Update loading screen text
-        document.getElementById('loading-industry').textContent = industry;
-        document.getElementById('loading-location').textContent = location;
-
-        showScreen(3);
-
-        // After transition completes, start the pipeline animation
-        setTimeout(function() { runPipeline(industry, location); }, 600);
-    }
-
-    // Enter key on search inputs
-    document.getElementById('industry-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') startSearch();
-    });
-    document.getElementById('location-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') startSearch();
     });
 
     // ============ SCREEN 3: PIPELINE ANIMATION ============
