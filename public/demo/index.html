@@ -269,19 +269,22 @@
         /* ========== RADAR EFFECT ========== */
         .radar-container {
             position: absolute;
-            inset: 0;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
             z-index: 0;
             pointer-events: none;
         }
         .radar-inner {
             position: relative;
             width: 100%;
-            max-width: 700px;
-            height: 400px;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -676,7 +679,7 @@
         }
         .search-content {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             max-width: 500px;
             width: 100%;
         }
@@ -1367,76 +1370,6 @@
         <!-- SCREEN 1: Email Gate -->
         <!-- SCREEN 1: Search Form (First) -->
         <div class="screen screen-search active visible" id="screen-1">
-            <!-- Radar Effect Background -->
-            <div class="radar-container">
-                <div class="radar-inner">
-                    <!-- Concentric circles -->
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-
-                    <!-- Sweep line -->
-                    <div class="radar-sweep">
-                        <div class="radar-sweep-line"></div>
-                    </div>
-
-                    <!-- Pipeline icon nodes — Row 1 (top) -->
-                    <div class="radar-icon" style="top:8%;left:10%;">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        </div>
-                        <span class="radar-icon-label">Google Maps</span>
-                    </div>
-                    <div class="radar-icon" style="top:5%;right:20%;">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                        </div>
-                        <span class="radar-icon-label">Lead Finder</span>
-                    </div>
-                    <div class="radar-icon" style="top:12%;left:50%;transform:translateX(-50%);">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                        </div>
-                        <span class="radar-icon-label">CEO Data</span>
-                    </div>
-
-                    <!-- Row 2 (middle) -->
-                    <div class="radar-icon" style="top:45%;left:5%;">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        </div>
-                        <span class="radar-icon-label">Email Verify</span>
-                    </div>
-                    <div class="radar-icon" style="top:45%;right:5%;">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        </div>
-                        <span class="radar-icon-label">Verified</span>
-                    </div>
-
-                    <!-- Row 3 (bottom) -->
-                    <div class="radar-icon" style="bottom:10%;left:15%;">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                        </div>
-                        <span class="radar-icon-label">CRM Export</span>
-                    </div>
-                    <div class="radar-icon" style="bottom:8%;right:15%;">
-                        <div class="radar-icon-box">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </div>
-                        <span class="radar-icon-label">Lead Sheet</span>
-                    </div>
-
-                    <div class="radar-bottom-line"></div>
-                </div>
-            </div>
-
             <div class="hero-blob" style="top:30%;left:50%;"></div>
             <div class="search-content">
                 <div class="live-counter">
@@ -1459,6 +1392,24 @@
                 </div>
                 <button class="btn-dark btn-shine stagger-4" onclick="submitAndSearch()">Find Leads</button>
                 <p class="fine-print stagger-5">No credit card required. 3 free searches.</p>
+            </div>
+
+            <!-- Radar at bottom, form sits on top -->
+            <div class="radar-container">
+                <div class="radar-inner">
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-circle"></div>
+                    <div class="radar-sweep">
+                        <div class="radar-sweep-line"></div>
+                    </div>
+                    <div class="radar-bottom-line"></div>
+                </div>
             </div>
         </div>
 
