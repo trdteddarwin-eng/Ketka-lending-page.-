@@ -29,6 +29,8 @@ export default defineConfig(({ mode }) => {
               req.url = '/blog/ai-email-reply-case-study.html';
             } else if (req.url === '/blog/whatsapp-ai-agent-case-study') {
               req.url = '/blog/whatsapp-ai-agent-case-study.html';
+            } else if (req.url === '/demo' || req.url === '/demo/') {
+              req.url = '/demo/index.html';
             }
             next();
           });
