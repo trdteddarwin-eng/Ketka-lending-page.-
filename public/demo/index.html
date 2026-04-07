@@ -1550,11 +1550,15 @@
                     <div class="live-dot"></div>
                     <span><span class="counter-num" id="live-searches">2,847</span> searches run this month</span>
                 </div>
-                <h1 class="stagger-1">Find the <span class="text-rotator" id="text-rotator"><span class="text-rotator-inner" id="rotator-inner"></span></span> of Any Local Business<span class="highlight">in 60 Seconds</span></h1>
+                <h1 class="stagger-1">Find the <span class="text-rotator" id="text-rotator"><span class="text-rotator-inner" id="rotator-inner"></span></span> of Any Local Business <span class="highlight">in 60 Seconds</span></h1>
                 <p class="subline stagger-2">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
                 <div class="search-fields stagger-3">
-                    <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC...">
+                    <div style="position:relative;">
+                        <label style="position:absolute;top:-8px;left:16px;background:#F5F3EE;padding:0 6px;font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(17,17,17,0.4);z-index:1;">Industry</label>
+                        <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC...">
+                    </div>
                     <div class="autocomplete-wrapper">
+                        <label style="position:absolute;top:-8px;left:16px;background:#F5F3EE;padding:0 6px;font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(17,17,17,0.4);z-index:1;">Location</label>
                         <input type="text" id="location-input" placeholder="e.g., Miami, FL or Texas" autocomplete="off">
                         <div class="autocomplete-dropdown" id="ac-dropdown"></div>
                     </div>
