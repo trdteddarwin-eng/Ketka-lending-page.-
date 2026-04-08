@@ -1553,12 +1553,13 @@
                 <h1 class="stagger-1">Find the <span class="text-rotator" id="text-rotator"><span class="text-rotator-inner" id="rotator-inner"></span></span> of Any Local Business <span class="highlight">in 60 Seconds</span></h1>
                 <p class="subline stagger-2">Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try it free.</p>
                 <div class="search-fields stagger-3">
-                    <div style="position:relative;">
-                        <label style="position:absolute;top:-8px;left:16px;background:#F5F3EE;padding:0 6px;font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(17,17,17,0.4);z-index:1;">Industry</label>
-                        <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC...">
+                    <div class="autocomplete-wrapper">
+                        <label style="position:absolute;top:-8px;left:16px;background:#F5F3EE;padding:0 6px;font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(17,17,17,0.4);z-index:2;">Industry</label>
+                        <input type="text" id="industry-input" placeholder="e.g., Dentists, Plumbers, HVAC..." autocomplete="off">
+                        <div class="autocomplete-dropdown" id="ac-industry-dropdown"></div>
                     </div>
                     <div class="autocomplete-wrapper">
-                        <label style="position:absolute;top:-8px;left:16px;background:#F5F3EE;padding:0 6px;font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(17,17,17,0.4);z-index:1;">Location</label>
+                        <label style="position:absolute;top:-8px;left:16px;background:#F5F3EE;padding:0 6px;font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(17,17,17,0.4);z-index:2;">Location</label>
                         <input type="text" id="location-input" placeholder="e.g., Miami, FL or Texas" autocomplete="off">
                         <div class="autocomplete-dropdown" id="ac-dropdown"></div>
                     </div>
@@ -2267,6 +2268,67 @@
             setInterval(rotateNext, 2200);
         })();
 
+        // ============ INDUSTRY AUTOCOMPLETE ============
+        var INDUSTRIES = [
+            "Dentists","Dental Clinics","Orthodontists","Plumbers","Plumbing Companies","Electricians","HVAC","HVAC Repair","Air Conditioning","Heating",
+            "Roofing","Roofing Contractors","General Contractors","Home Builders","Painters","Landscaping","Lawn Care","Tree Service","Pest Control","Cleaning Services",
+            "Car Dealerships","Auto Repair","Auto Body Shops","Tire Shops","Towing Companies","Car Wash",
+            "Restaurants","Cafes","Bakeries","Bars","Food Trucks","Catering",
+            "Real Estate Agents","Property Management","Mortgage Brokers","Insurance Agents","Financial Advisors","Accountants","Tax Preparation",
+            "Law Firms","Personal Injury Lawyers","Family Lawyers","Criminal Defense","Immigration Lawyers",
+            "Med Spa","Dermatologists","Chiropractors","Physical Therapy","Veterinarians","Optometrists","Pediatricians","Family Medicine","Urgent Care",
+            "Gyms","Fitness Studios","Yoga Studios","Personal Trainers","Martial Arts","Dance Studios",
+            "Hair Salons","Barber Shops","Nail Salons","Spas","Tattoo Shops",
+            "Hotels","Motels","Bed and Breakfast","Wedding Venues","Event Planners","Photographers","Videographers",
+            "IT Services","Web Design","Marketing Agencies","SEO Companies","Software Companies","Consulting Firms",
+            "Moving Companies","Storage Facilities","Locksmiths","Security Companies","Florists","Pet Grooming","Daycare Centers","Tutoring Services","Driving Schools"
+        ];
+        var indInput = document.getElementById('industry-input');
+        var indDropdown = document.getElementById('ac-industry-dropdown');
+        var indActiveIdx = -1;
+
+        function setupAutocomplete(input, dropdown, dataList, activeIdxRef) {
+            input.addEventListener('input', function() {
+                var val = this.value.trim().toLowerCase();
+                activeIdxRef.val = -1;
+                if (val.length < 2) { dropdown.classList.remove('open'); return; }
+                var matches = dataList.filter(function(c) { return c.toLowerCase().indexOf(val) !== -1; }).slice(0, 6);
+                if (!matches.length) { dropdown.classList.remove('open'); return; }
+                dropdown.innerHTML = matches.map(function(c) {
+                    var lower = c.toLowerCase();
+                    var idx = lower.indexOf(val);
+                    var before = c.substring(0, idx);
+                    var match = c.substring(idx, idx + val.length);
+                    var after = c.substring(idx + val.length);
+                    return '<div class="autocomplete-item" data-val="' + c + '">' + before + '<span class="ac-match">' + match + '</span>' + after + '</div>';
+                }).join('');
+                dropdown.classList.add('open');
+                dropdown.querySelectorAll('.autocomplete-item').forEach(function(item) {
+                    item.addEventListener('mousedown', function(e) {
+                        e.preventDefault();
+                        input.value = this.dataset.val;
+                        dropdown.classList.remove('open');
+                    });
+                });
+            });
+            input.addEventListener('keydown', function(e) {
+                var items = dropdown.querySelectorAll('.autocomplete-item');
+                if (!items.length || !dropdown.classList.contains('open')) return;
+                if (e.key === 'ArrowDown') { e.preventDefault(); activeIdxRef.val = Math.min(activeIdxRef.val + 1, items.length - 1); updateItems(items, activeIdxRef.val); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdxRef.val = Math.max(activeIdxRef.val - 1, 0); updateItems(items, activeIdxRef.val); }
+                else if (e.key === 'Enter' && activeIdxRef.val >= 0) { e.preventDefault(); input.value = items[activeIdxRef.val].dataset.val; dropdown.classList.remove('open'); activeIdxRef.val = -1; }
+                else if (e.key === 'Escape') { dropdown.classList.remove('open'); activeIdxRef.val = -1; }
+            });
+            input.addEventListener('blur', function() { setTimeout(function() { dropdown.classList.remove('open'); }, 200); });
+            function updateItems(items, activeIdx) {
+                items.forEach(function(item, i) { item.classList.toggle('active', i === activeIdx); });
+                if (activeIdx >= 0) items[activeIdx].scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        // Set up both autocompletes
+        setupAutocomplete(indInput, indDropdown, INDUSTRIES, { val: -1 });
+
         // ============ LOCATION AUTOCOMPLETE ============
         var CITIES = [
             "New York, NY","Los Angeles, CA","Chicago, IL","Houston, TX","Phoenix, AZ","Philadelphia, PA","San Antonio, TX","San Diego, CA","Dallas, TX","San Jose, CA",
@@ -2285,46 +2347,12 @@
             "Bangkok, TH","Jakarta, ID","Manila, PH","Kuala Lumpur, MY","Mexico City, MX","Sao Paulo, BR","Buenos Aires, AR","Bogota, CO","Lima, PE","Santiago, CL",
             "Cape Town, ZA","Johannesburg, ZA","Lagos, NG","Nairobi, KE","Cairo, EG"
         ];
-        var acInput = document.getElementById('location-input');
-        var acDropdown = document.getElementById('ac-dropdown');
-        var acActiveIdx = -1;
-
-        acInput.addEventListener('input', function() {
-            var val = this.value.trim().toLowerCase();
-            acActiveIdx = -1;
-            if (val.length < 2) { acDropdown.classList.remove('open'); return; }
-            var matches = CITIES.filter(function(c) { return c.toLowerCase().indexOf(val) !== -1; }).slice(0, 6);
-            if (!matches.length) { acDropdown.classList.remove('open'); return; }
-            acDropdown.innerHTML = matches.map(function(c, i) {
-                var lower = c.toLowerCase();
-                var idx = lower.indexOf(val);
-                var before = c.substring(0, idx);
-                var match = c.substring(idx, idx + val.length);
-                var after = c.substring(idx + val.length);
-                return '<div class="autocomplete-item" data-val="' + c + '">' + before + '<span class="ac-match">' + match + '</span>' + after + '</div>';
-            }).join('');
-            acDropdown.classList.add('open');
-            acDropdown.querySelectorAll('.autocomplete-item').forEach(function(item) {
-                item.addEventListener('mousedown', function(e) {
-                    e.preventDefault();
-                    acInput.value = this.dataset.val;
-                    acDropdown.classList.remove('open');
-                });
-            });
-        });
-        acInput.addEventListener('keydown', function(e) {
-            var items = acDropdown.querySelectorAll('.autocomplete-item');
-            if (!items.length || !acDropdown.classList.contains('open')) return;
-            if (e.key === 'ArrowDown') { e.preventDefault(); acActiveIdx = Math.min(acActiveIdx + 1, items.length - 1); updateAcActive(items); }
-            else if (e.key === 'ArrowUp') { e.preventDefault(); acActiveIdx = Math.max(acActiveIdx - 1, 0); updateAcActive(items); }
-            else if (e.key === 'Enter' && acActiveIdx >= 0) { e.preventDefault(); acInput.value = items[acActiveIdx].dataset.val; acDropdown.classList.remove('open'); acActiveIdx = -1; }
-            else if (e.key === 'Escape') { acDropdown.classList.remove('open'); acActiveIdx = -1; }
-        });
-        acInput.addEventListener('blur', function() { setTimeout(function() { acDropdown.classList.remove('open'); }, 150); });
-        function updateAcActive(items) {
-            items.forEach(function(item, i) { item.classList.toggle('active', i === acActiveIdx); });
-            if (acActiveIdx >= 0) items[acActiveIdx].scrollIntoView({ block: 'nearest' });
-        }
+        setupAutocomplete(
+            document.getElementById('location-input'),
+            document.getElementById('ac-dropdown'),
+            CITIES,
+            { val: -1 }
+        );
 
         // Cursor glow follows mouse (desktop only)
         var glow = document.getElementById('cursor-glow');
