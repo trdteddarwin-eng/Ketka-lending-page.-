@@ -4401,7 +4401,8 @@
         </div>
         <div class="fc-modal-footer">
             <p id="fcSummary">See the full automation in action.</p>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <a id="fcDemoLink" href="/demo" style="display:none;background:var(--signal);" onclick="closeFlowchartModal()">Try Free Demo &rarr;</a>
                 <a id="fcCaseStudyLink" href="#" target="_blank">Read Case Study &rarr;</a>
                 <a href="https://cal.com/tedca-skill-nv7wuk/secret" target="_blank" onclick="closeFlowchartModal()">Get This Automation &rarr;</a>
             </div>
@@ -4666,6 +4667,7 @@
                 subtitle: 'Find your next customer on autopilot',
                 videoSrc: '/videos/ai-lead-gen.mp4',
                 blogUrl: '/blog/ai-lead-generation-case-study',
+                demoUrl: '/demo',
                 summary: 'AI scans multiple channels, identifies ideal prospects, and delivers qualified leads straight to your pipeline. No manual prospecting.',
                 nodes: [
                     { id: 'n0', label: 'Define ideal customer profile', icon: 'icon-crosshairs', type: 'trigger', desc: 'Set industry, size, location, and budget criteria for your perfect lead' },
@@ -4751,6 +4753,15 @@
                     caseStudyLink.onclick = function() { closeFlowchartModal(); };
                 } else {
                     caseStudyLink.style.display = 'none';
+                }
+            }
+            var demoLink = document.getElementById('fcDemoLink');
+            if (demoLink) {
+                if (data.demoUrl) {
+                    demoLink.href = data.demoUrl;
+                    demoLink.style.display = 'inline-block';
+                } else {
+                    demoLink.style.display = 'none';
                 }
             }
             document.getElementById('fcBackdrop').classList.add('fc-open');
