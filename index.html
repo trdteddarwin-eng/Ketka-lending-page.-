@@ -2719,7 +2719,8 @@
                             <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Auto Dedupe</span>
                             <span class="text-[8px] font-mono bg-signal/10 text-signal px-2 py-0.5 uppercase tracking-wider">Google Sheets</span>
                         </div>
-                        <a href="https://buy.stripe.com/14AcMYarugjA9Ypf0q3F60d" target="_blank" class="mt-4 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $50</a>
+                        <a href="/demo" class="mt-3 inline-block w-full px-4 py-3 bg-dark text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-signal transition-colors text-center">Try Free Demo</a>
+                        <a href="https://buy.stripe.com/14AcMYarugjA9Ypf0q3F60d" target="_blank" class="mt-2 inline-block w-full px-4 py-3 bg-signal text-paper text-xs font-mono font-bold uppercase tracking-widest hover:bg-dark transition-colors text-center">Buy — $350</a>
                         <div class="agentic-tap-hint">Tap card to see pipeline details</div>
                     </div>
                 </div>
@@ -4885,7 +4886,7 @@
             if (data.buyLink) {
                 html += '<div style="margin-top:24px; text-align:center;">';
                 html += '<a href="' + data.buyLink + '" target="_blank" class="btn-star pointer-events-auto">';
-                html += '<div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill — $50</div></div></div>';
+                html += '<div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill — $350</div></div></div>';
                 html += '</a>';
                 html += '</div>';
             }
@@ -4998,7 +4999,7 @@
             if (data.buyLink) {
                 var buyDiv = document.createElement('div');
                 buyDiv.style.cssText = 'margin-top:24px; text-align:center; padding-bottom:8px;';
-                buyDiv.innerHTML = '<a href="' + data.buyLink + '" target="_blank" class="btn-star pointer-events-auto"><div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill — $50</div></div></div></a>';
+                buyDiv.innerHTML = '<a href="' + data.buyLink + '" target="_blank" class="btn-star pointer-events-auto"><div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill — $350</div></div></div></a>';
                 canvas.appendChild(buyDiv);
             }
 
@@ -5541,7 +5542,7 @@
         gtag('event', 'begin_checkout', {
             currency: 'USD',
             value: 50,
-            items: [{ item_name: isVideo ? 'Motion Graphic Video' : 'Lead Generation Pipeline', price: 50 }]
+            items: [{ item_name: isVideo ? 'Motion Graphic Video' : 'Lead Generation Pipeline', price: isVideo ? 50 : 350 }]
         });
     });
     </script>
