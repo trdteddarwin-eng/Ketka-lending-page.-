@@ -1,6 +1,6 @@
 // Vercel Serverless Function: Demo lead gen pipeline (Apify + AnyMailFinder)
 
-export const config = { maxDuration: 120 };
+export const config = { maxDuration: 60 };
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           searchStringsArray: [searchQuery],
-          maxCrawledPlacesPerSearch: 25,
+          maxCrawledPlacesPerSearch: 10,
           language: 'en',
           includeWebResults: false,
         }),
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
 
     // Poll for completion (every 3s, timeout 90s)
     const startTime = Date.now();
-    const TIMEOUT_MS = 90000;
+    const TIMEOUT_MS = 40000;
     let runStatus = '';
 
     while (Date.now() - startTime < TIMEOUT_MS) {
@@ -131,8 +131,8 @@ export default async function handler(req, res) {
     const withWebsites = places.filter(p => p.website);
     const leads = [];
     let amfCalls = 0;
-    const MAX_AMF_CALLS = 15;
-    const TARGET_CEOS = 5;
+    const MAX_AMF_CALLS = 8;
+    const TARGET_CEOS = 3;
 
     for (const place of withWebsites) {
       if (leads.length >= TARGET_CEOS || amfCalls >= MAX_AMF_CALLS) break;
