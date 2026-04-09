@@ -768,13 +768,13 @@
             75% { transform: translateY(-25px) rotate(4deg); }
         }
 
-        /* ========== SCREEN 3: LOADING PIPELINE ========== */
+        /* ========== SCREEN 2: LOADING ========== */
         .screen-loading {
             align-items: center;
             justify-content: center;
             min-height: calc(100vh - 72px);
             padding: 2rem;
-            background: var(--dark);
+            background: #ffffff;
             position: relative;
             overflow: hidden;
         }
@@ -782,188 +782,319 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 30%, rgba(230,59,46,0.08) 0%, transparent 60%);
+            background: radial-gradient(ellipse at 50% 60%, rgba(230,59,46,0.04) 0%, transparent 55%);
             pointer-events: none;
         }
-        .pipeline-wrapper {
+        .loading-wrapper {
             position: relative;
             z-index: 1;
-            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
             width: 100%;
+            max-width: 500px;
         }
-        .pipeline-header {
+        .loading-header {
             text-align: center;
-            margin-bottom: 48px;
         }
-        .pipeline-header h2 {
+        .loading-header h2 {
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        .loading-header p {
             font-size: 14px;
+            color: rgba(17,17,17,0.4);
+        }
+
+        /* Typewriter Animation */
+        .typewriter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+        .typewriter {
+            --blue: var(--signal);
+            --blue-dark: #c02a1f;
+            --key: #fff;
+            --tw-paper: #F5F3EE;
+            --text: #c8c9d8;
+            --tool: #FBC56C;
+            --duration: 3s;
+            position: relative;
+            animation: bounce05 var(--duration) linear infinite;
+            transform: scale(1.5);
+        }
+        @media (max-width: 640px) {
+            .typewriter { transform: scale(1.2); }
+        }
+        .typewriter .slide {
+            width: 92px;
+            height: 20px;
+            border-radius: 3px;
+            margin-left: 14px;
+            transform: translateX(14px);
+            background: linear-gradient(var(--blue), var(--blue-dark));
+            animation: slide05 var(--duration) ease infinite;
+        }
+        .typewriter .slide:before, .typewriter .slide:after,
+        .typewriter .slide i:before {
+            content: "";
+            position: absolute;
+            background: var(--tool);
+        }
+        .typewriter .slide:before {
+            width: 2px;
+            height: 8px;
+            top: 6px;
+            left: 100%;
+        }
+        .typewriter .slide:after {
+            left: 94px;
+            top: 3px;
+            height: 14px;
+            width: 6px;
+            border-radius: 3px;
+        }
+        .typewriter .slide i {
+            display: block;
+            position: absolute;
+            right: 100%;
+            width: 6px;
+            height: 4px;
+            top: 4px;
+            background: var(--tool);
+        }
+        .typewriter .slide i:before {
+            right: 100%;
+            top: -2px;
+            width: 4px;
+            border-radius: 2px;
+            height: 14px;
+        }
+        .typewriter .paper {
+            position: absolute;
+            left: 24px;
+            top: -26px;
+            width: 40px;
+            height: 46px;
+            border-radius: 5px;
+            background: var(--tw-paper);
+            transform: translateY(46px);
+            animation: paper05 var(--duration) linear infinite;
+        }
+        .typewriter .paper:before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            top: 7px;
+            border-radius: 2px;
+            height: 4px;
+            transform: scaleY(0.8);
+            background: var(--text);
+            box-shadow: 0 12px 0 var(--text), 0 24px 0 var(--text), 0 36px 0 var(--text);
+        }
+        .typewriter .keyboard {
+            width: 120px;
+            height: 56px;
+            margin-top: -10px;
+            z-index: 1;
+            position: relative;
+        }
+        .typewriter .keyboard:before, .typewriter .keyboard:after {
+            content: "";
+            position: absolute;
+        }
+        .typewriter .keyboard:before {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 7px;
+            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+            transform: perspective(10px) rotateX(2deg);
+            transform-origin: 50% 100%;
+        }
+        .typewriter .keyboard:after {
+            left: 2px;
+            top: 25px;
+            width: 11px;
+            height: 4px;
+            border-radius: 2px;
+            box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key);
+            animation: keyboard05 var(--duration) linear infinite;
+        }
+        @keyframes bounce05 {
+            85%, 92%, 100% { transform: scale(1.5) translateY(0); }
+            89% { transform: scale(1.5) translateY(-4px); }
+            95% { transform: scale(1.5) translateY(2px); }
+        }
+        @media (max-width: 640px) {
+            @keyframes bounce05 {
+                85%, 92%, 100% { transform: scale(1.2) translateY(0); }
+                89% { transform: scale(1.2) translateY(-4px); }
+                95% { transform: scale(1.2) translateY(2px); }
+            }
+        }
+        @keyframes slide05 {
+            5% { transform: translateX(14px); }
+            15%, 30% { transform: translateX(6px); }
+            40%, 55% { transform: translateX(0); }
+            65%, 70% { transform: translateX(-4px); }
+            80%, 89% { transform: translateX(-12px); }
+            100% { transform: translateX(14px); }
+        }
+        @keyframes paper05 {
+            5% { transform: translateY(46px); }
+            20%, 30% { transform: translateY(34px); }
+            40%, 55% { transform: translateY(22px); }
+            65%, 70% { transform: translateY(10px); }
+            80%, 85% { transform: translateY(0); }
+            92%, 100% { transform: translateY(46px); }
+        }
+        @keyframes keyboard05 {
+            5%, 12%, 21%, 30%, 39%, 48%, 57%, 66%, 75%, 84% {
+                box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key);
+            }
+            9% { box-shadow: 15px 2px 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+            18% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 2px 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+            27% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 12px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+            36% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 12px 0 var(--key), 60px 12px 0 var(--key), 68px 12px 0 var(--key), 83px 10px 0 var(--key); }
+            45% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 2px 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+            54% { box-shadow: 15px 0 0 var(--key), 30px 2px 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+            63% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 12px 0 var(--key); }
+            72% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 2px 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 10px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+            81% { box-shadow: 15px 0 0 var(--key), 30px 0 0 var(--key), 45px 0 0 var(--key), 60px 0 0 var(--key), 75px 0 0 var(--key), 90px 0 0 var(--key), 22px 10px 0 var(--key), 37px 12px 0 var(--key), 52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key); }
+        }
+        .loading-pct {
+            font-size: clamp(36px, 7vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--dark);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            margin-top: 8px;
+        }
+        .loading-pct span {
+            font-size: 0.5em;
+            color: rgba(17,17,17,0.3);
+            font-weight: 400;
+        }
+
+        /* Did You Know Facts */
+        .fun-facts {
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 400px;
+        }
+        .fun-fact-label {
             font-family: 'Space Mono', monospace;
+            font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--signal);
+            font-weight: 700;
             margin-bottom: 8px;
         }
-        .pipeline-header p {
-            font-size: 13px;
-            color: rgba(232,228,221,0.4);
+        .fun-fact-text {
+            font-size: 14px;
+            color: rgba(17,17,17,0.5);
+            line-height: 1.6;
+            transition: opacity 0.5s ease;
         }
+        .fun-fact-text.fading { opacity: 0; }
 
-        /* Pipeline Steps */
-        .pipeline-steps {
+        /* Animated steps at bottom */
+        .loading-steps {
             display: flex;
-            flex-direction: column;
-            gap: 0;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 400px;
         }
-        .pipeline-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            position: relative;
-            padding: 0 0 40px 0;
-            opacity: 0.2;
-            transition: opacity 0.6s ease;
-        }
-        .pipeline-step.active {
-            opacity: 1;
-        }
-        .pipeline-step.done {
-            opacity: 0.6;
-        }
-        .pipeline-step:last-child {
-            padding-bottom: 0;
-        }
-
-        /* Step connector line */
-        .pipeline-step::before {
-            content: '';
-            position: absolute;
-            left: 24px;
-            top: 52px;
-            bottom: 0;
-            width: 2px;
-            background: rgba(232,228,221,0.1);
-        }
-        .pipeline-step:last-child::before {
-            display: none;
-        }
-        .pipeline-step.active::before {
-            background: linear-gradient(to bottom, var(--signal), rgba(232,228,221,0.1));
-            animation: lineFlow 2s ease-in-out infinite;
-        }
-        @keyframes lineFlow {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 40px; }
-        }
-        .pipeline-step.done::before {
-            background: rgba(34,197,94,0.3);
-        }
-
-        .step-icon {
-            width: 48px;
-            height: 48px;
-            flex-shrink: 0;
+        .loading-step-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(17,17,17,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid rgba(232,228,221,0.1);
-            position: relative;
-            background: var(--dark);
-            z-index: 1;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
         }
-        .pipeline-step.active .step-icon {
+        .loading-step-dot.active {
             border-color: var(--signal);
-            box-shadow: 0 0 20px var(--signal-glow);
+            background: rgba(230,59,46,0.08);
         }
-        .pipeline-step.done .step-icon {
+        .loading-step-dot.done {
             border-color: var(--success);
-            background: rgba(34,197,94,0.1);
+            background: rgba(34,197,94,0.08);
         }
-        .step-icon svg {
-            width: 22px;
-            height: 22px;
+        .loading-step-dot svg {
+            width: 14px;
+            height: 14px;
+            color: rgba(17,17,17,0.15);
+            transition: color 0.3s;
         }
-        .step-icon .icon-default {
-            color: rgba(232,228,221,0.3);
-        }
-        .pipeline-step.active .step-icon .icon-default {
-            color: var(--signal);
-        }
-        .pipeline-step.done .step-icon .icon-default {
-            display: none;
-        }
-        .step-icon .icon-check {
-            display: none;
-            color: var(--success);
-        }
-        .pipeline-step.done .step-icon .icon-check {
-            display: block;
-        }
-        /* Spinning indicator */
-        .step-icon .spinner-ring {
-            display: none;
-            position: absolute;
-            inset: -4px;
-            border: 2px solid transparent;
-            border-top-color: var(--signal);
-            border-radius: 0;
-            animation: spin 1s linear infinite;
-        }
-        .pipeline-step.active .step-icon .spinner-ring {
-            display: block;
-        }
-        /* Radar sweep for step 1 */
-        .radar-sweep {
-            display: none;
-            position: absolute;
-            inset: 2px;
+        .loading-step-dot.active svg { color: var(--signal); }
+        .loading-step-dot.done svg { color: var(--success); }
+        .loading-step-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(17,17,17,0.06);
+            position: relative;
             overflow: hidden;
         }
-        .radar-sweep::after {
-            content: '';
+        .loading-step-line-fill {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
+            left: 0;
+            top: 0;
             height: 100%;
-            background: conic-gradient(from 0deg, transparent 0deg, rgba(230,59,46,0.3) 40deg, transparent 50deg);
-            transform-origin: top left;
-            animation: radarSpin 2s linear infinite;
+            width: 0%;
+            background: var(--signal);
+            transition: width 0.6s ease;
         }
-        @keyframes radarSpin {
-            to { transform: rotate(360deg); }
-        }
-        .pipeline-step.active:first-child .radar-sweep {
-            display: block;
-        }
+        .loading-step-line.done .loading-step-line-fill { width: 100%; background: var(--success); }
 
-        .step-info {
-            padding-top: 4px;
+        /* Status text */
+        .loading-status {
+            text-align: center;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .step-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: rgba(232,228,221,0.4);
-            margin-bottom: 4px;
-            transition: color 0.3s;
+        .loading-status-text {
+            font-size: clamp(14px, 3vw, 16px);
+            color: rgba(17,17,17,0.45);
+            transition: opacity 0.4s ease;
         }
-        .pipeline-step.active .step-label {
-            color: var(--paper);
+        .loading-status-text.fading { opacity: 0; }
+
+        /* Progress bar */
+        .loading-progress {
+            width: 100%;
+            height: 3px;
+            background: rgba(232,228,221,0.08);
+            overflow: hidden;
+            border-radius: 2px;
         }
-        .pipeline-step.done .step-label {
-            color: rgba(232,228,221,0.5);
-        }
-        .step-status {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            color: rgba(232,228,221,0.2);
-            letter-spacing: 0.05em;
-            transition: color 0.3s;
-        }
-        .pipeline-step.active .step-status {
-            color: var(--signal);
-        }
-        .pipeline-step.done .step-status {
-            color: var(--success);
+        .loading-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--signal), #ff6b5a);
+            transition: width 0.5s ease;
+            border-radius: 2px;
         }
 
         /* Counter tick-up animation */
@@ -1093,12 +1224,13 @@
             margin-left: 6px;
         }
 
-        /* ========== RESULT CARDS ========== */
+        /* ========== SIMPLE PROFILE CARDS ========== */
         .results-cards {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 28px;
             margin-bottom: 32px;
+            justify-items: center;
         }
         @media (min-width: 640px) {
             .results-cards { grid-template-columns: repeat(2, 1fr); }
@@ -1106,162 +1238,110 @@
         @media (min-width: 1024px) {
             .results-cards { grid-template-columns: repeat(3, 1fr); }
         }
+
         .result-card {
-            background: #fff;
-            border: 1px solid rgba(0,0,0,0.08);
-            padding: 0;
+            background: var(--dark);
+            color: var(--paper);
+            padding: 2rem 2rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px -4px rgba(230,59,46,0.2);
+            outline: 2px solid var(--dark);
+            outline-offset: 4px;
+            max-width: 300px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+            line-height: 1.3;
             opacity: 0;
-            transform: translateY(16px);
+            transform: translateY(20px);
             animation: cardIn 0.5s ease forwards;
-            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-            overflow: hidden;
+            transition: 0.3s ease;
         }
         .result-card:hover {
-            border-color: rgba(230,59,46,0.2);
-            box-shadow: 0 12px 32px -8px rgba(0,0,0,0.08);
-            transform: translateY(-3px);
+            outline-color: var(--signal);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px -8px rgba(230,59,46,0.3);
         }
         .result-card:nth-child(1) { animation-delay: 0.1s; }
         .result-card:nth-child(2) { animation-delay: 0.2s; }
         .result-card:nth-child(3) { animation-delay: 0.3s; }
         .result-card:nth-child(4) { animation-delay: 0.4s; }
         .result-card:nth-child(5) { animation-delay: 0.5s; }
-        @keyframes cardIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .card-header {
-            padding: 20px 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .card-biz-name {
-            font-size: 17px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--dark);
-            line-height: 1.2;
-        }
-        .card-rating {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-shrink: 0;
-            padding: 4px 10px;
-            background: var(--offwhite);
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #f59e0b;
-        }
-        .card-rating svg { width: 14px; height: 14px; }
-        .card-details {
-            padding: 14px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .card-detail {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: rgba(17,17,17,0.6);
-        }
-        .card-detail svg {
-            width: 15px;
-            height: 15px;
-            flex-shrink: 0;
-            color: rgba(17,17,17,0.3);
-        }
-        .card-detail a {
-            color: rgba(17,17,17,0.6);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .card-detail a:hover { color: var(--signal); }
-        .card-ceo {
-            padding: 16px 20px;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            background: var(--offwhite);
-        }
-        .card-ceo-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: rgba(17,17,17,0.35);
-            margin-bottom: 8px;
-        }
-        .card-ceo-name {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 8px;
-        }
-        .card-ceo-email {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--signal);
-            font-weight: 600;
-        }
-        .card-ceo-email svg { width: 14px; height: 14px; flex-shrink: 0; }
-        .card-ceo-linkedin {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #0077b5;
-            margin-top: 6px;
-        }
-        .card-ceo-linkedin svg { width: 14px; height: 14px; flex-shrink: 0; }
-        .card-ceo-linkedin a {
-            color: #0077b5;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-        .card-ceo-linkedin a:hover { opacity: 0.7; }
-        .card-actions {
-            padding: 14px 20px;
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid rgba(0,0,0,0.06);
-        }
-        .card-action-btn {
-            flex: 1;
-            padding: 10px;
-            font-family: 'Space Mono', monospace;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            text-align: center;
-            border: 1px solid rgba(17,17,17,0.12);
-            background: #fff;
-            color: var(--dark);
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
+        @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* Avatar */
+        .card-avatar {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--signal), #ff6b5a);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-        }
-        .card-action-btn:hover {
-            border-color: var(--signal);
-            color: var(--signal);
-        }
-        .card-action-btn.copied {
-            background: var(--signal);
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #fff;
-            border-color: var(--signal);
+            outline: 2px solid var(--paper);
+            outline-offset: 4px;
+            flex-shrink: 0;
         }
-        .card-action-btn svg { width: 12px; height: 12px; }
 
-        /* Mobile swipe hint */
+        /* Name block */
+        .card-name-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card-ceo-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .card-ceo-title {
+            font-size: 0.85rem;
+            color: rgba(232,228,221,0.5);
+        }
+        .card-biz-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: rgba(232,228,221,0.4);
+            margin-top: 2px;
+        }
+        .card-biz-line svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+        /* Email highlight */
+        .card-email {
+            font-size: 0.85rem;
+            color: var(--signal);
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        /* Social icons row */
+        .card-socials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.25rem;
+        }
+        .card-social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(232,228,221,0.4);
+            transition: color 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+        .card-social-link:hover { color: #fff; transform: scale(1.15); }
+        .card-social-link svg { width: 16px; height: 16px; }
+
+        /* Mobile swipe */
         .swipe-hint {
             display: none;
             text-align: center;
@@ -1276,12 +1356,13 @@
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                gap: 16px;
+                gap: 20px;
                 padding-bottom: 8px;
                 -webkit-overflow-scrolling: touch;
+                justify-items: unset;
             }
             .result-card {
-                min-width: 300px;
+                min-width: 260px;
                 scroll-snap-align: start;
                 flex-shrink: 0;
             }
@@ -1597,102 +1678,52 @@
 
         <!-- SCREEN 2: Loading Pipeline -->
         <div class="screen screen-loading" id="screen-2">
-            <div class="pipeline-wrapper">
-                <div class="pipeline-header">
-                    <h2>AI Pipeline Active</h2>
-                    <p id="pipeline-subtext">Scanning for <span id="loading-industry">businesses</span> in <span id="loading-location">your area</span></p>
+            <div class="loading-wrapper">
+                <div class="loading-header">
+                    <h2>Searching for leads</h2>
+                    <p><span id="loading-industry">Dentists</span> in <span id="loading-location">Miami, FL</span></p>
                 </div>
 
-                <div class="pipeline-steps">
-                    <!-- Step 1: Scanning Google Maps -->
-                    <div class="pipeline-step" id="step-1">
-                        <div class="step-icon">
-                            <div class="spinner-ring"></div>
-                            <div class="radar-sweep"></div>
-                            <svg class="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-                            </svg>
-                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="step-info">
-                            <div class="step-label">Scanning Google Maps...</div>
-                            <div class="step-status">Waiting</div>
-                        </div>
+                <div class="typewriter-container">
+                    <div class="typewriter">
+                        <div class="slide"><i></i></div>
+                        <div class="paper"></div>
+                        <div class="keyboard"></div>
                     </div>
+                    <div class="loading-pct"><span id="orb-pct">0</span><span>%</span></div>
+                </div>
 
-                    <!-- Step 2: Found businesses -->
-                    <div class="pipeline-step" id="step-2">
-                        <div class="step-icon">
-                            <div class="spinner-ring"></div>
-                            <svg class="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
-                            </svg>
-                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="step-info">
-                            <div class="step-label">Found <span class="count-up" id="biz-count">0</span> businesses...</div>
-                            <div class="step-status">Waiting</div>
-                        </div>
+                <div class="loading-status">
+                    <div class="loading-status-text" id="loading-status">Analyzing local businesses...</div>
+                </div>
+
+                <!-- Fun Facts -->
+                <div class="fun-facts">
+                    <div class="fun-fact-label">Did you know?</div>
+                    <div class="fun-fact-text" id="fun-fact">80% of sales require at least 5 follow-ups, but 44% of salespeople give up after one attempt.</div>
+                </div>
+
+                <!-- Step dots at bottom -->
+                <div class="loading-steps">
+                    <div class="loading-step-dot" id="ldot-1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                     </div>
-
-                    <!-- Step 3: Finding CEO emails -->
-                    <div class="pipeline-step" id="step-3">
-                        <div class="step-icon">
-                            <div class="spinner-ring"></div>
-                            <svg class="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-                            </svg>
-                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="step-info">
-                            <div class="step-label">Finding CEO emails...</div>
-                            <div class="step-status">Waiting</div>
-                        </div>
+                    <div class="loading-step-line" id="lline-1"><div class="loading-step-line-fill"></div></div>
+                    <div class="loading-step-dot" id="ldot-2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/></svg>
                     </div>
-
-                    <!-- Step 4: Verifying contacts -->
-                    <div class="pipeline-step" id="step-4">
-                        <div class="step-icon">
-                            <div class="spinner-ring"></div>
-                            <svg class="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            </svg>
-                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="step-info">
-                            <div class="step-label">Verifying contacts...</div>
-                            <div class="step-status">Waiting</div>
-                        </div>
+                    <div class="loading-step-line" id="lline-2"><div class="loading-step-line-fill"></div></div>
+                    <div class="loading-step-dot" id="ldot-3">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     </div>
-
-                    <!-- Step 5: CEOs found -->
-                    <div class="pipeline-step" id="step-5">
-                        <div class="step-icon">
-                            <div class="spinner-ring"></div>
-                            <svg class="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-                            </svg>
-                            <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="20 6 9 17 4 12"/>
-                            </svg>
-                        </div>
-                        <div class="step-info">
-                            <div class="step-label"><span id="ceo-count">0</span> CEOs found!</div>
-                            <div class="step-status">Waiting</div>
-                        </div>
+                    <div class="loading-step-line" id="lline-3"><div class="loading-step-line-fill"></div></div>
+                    <div class="loading-step-dot" id="ldot-4">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                 </div>
 
-                <div class="pipeline-progress">
-                    <div class="pipeline-progress-fill" id="progress-fill"></div>
+                <div class="loading-progress">
+                    <div class="loading-progress-fill" id="progress-fill"></div>
                 </div>
             </div>
         </div>
@@ -1935,50 +1966,95 @@
     });
 
     // ============ SCREEN 3: PIPELINE ANIMATION ============
-    function activateStep(n) {
-        // Mark previous as done
-        for (var i = 1; i < n; i++) {
-            var prev = document.getElementById('step-' + i);
-            prev.classList.remove('active');
-            prev.classList.add('done');
-            prev.querySelector('.step-status').textContent = 'Complete';
-        }
-        var step = document.getElementById('step-' + n);
-        step.classList.add('active');
-        step.querySelector('.step-status').textContent = 'Processing...';
+    // ============ NEW LOADING: ORB + PERCENTAGE + STATUS ============
+    var STATUS_MESSAGES = [
+        'Analyzing local businesses...',
+        'Cross-referencing data sources...',
+        'Identifying decision makers...',
+        'Building contact profiles...',
+        'Almost there...'
+    ];
+
+    var FUN_FACTS = [
+        '80% of sales require at least 5 follow-ups, but 44% of salespeople give up after one attempt.',
+        'Businesses that respond to leads within 5 minutes are 21x more likely to close the deal.',
+        'Companies using AI for lead generation see 50% more qualified leads at 33% lower cost.',
+        'The average business owner spends 15 hours per week on tasks that could be automated.',
+        '78% of customers buy from the company that responds to their inquiry first.',
+        'Personalized outreach emails get 6x higher response rates than generic templates.',
+        'Small businesses lose an average of $75,000 per year to inefficient manual processes.'
+    ];
+
+    function rotateFacts(factEl, facts, interval) {
+        var idx = 0;
+        return setInterval(function() {
+            factEl.classList.add('fading');
+            setTimeout(function() {
+                idx = (idx + 1) % facts.length;
+                factEl.textContent = facts[idx];
+                factEl.classList.remove('fading');
+            }, 500);
+        }, interval);
     }
 
-    function completeStep(n) {
-        var step = document.getElementById('step-' + n);
-        step.classList.remove('active');
-        step.classList.add('done');
-        step.querySelector('.step-status').textContent = 'Complete';
+    function activateLoadingDot(n) {
+        var dot = document.getElementById('ldot-' + n);
+        if (dot) { dot.classList.add('active'); dot.classList.remove('done'); }
+    }
+    function completeLoadingDot(n) {
+        var dot = document.getElementById('ldot-' + n);
+        if (dot) { dot.classList.remove('active'); dot.classList.add('done'); }
+        var line = document.getElementById('lline-' + n);
+        if (line) line.classList.add('done');
     }
 
     function setProgress(pct) {
         document.getElementById('progress-fill').style.width = pct + '%';
     }
 
-    function animateCount(el, target, duration) {
-        var start = 0;
-        var startTime = null;
-        function tick(ts) {
-            if (!startTime) startTime = ts;
-            var elapsed = ts - startTime;
-            var progress = Math.min(elapsed / duration, 1);
-            el.textContent = Math.floor(progress * target);
-            if (progress < 1) requestAnimationFrame(tick);
-            else el.textContent = target;
-        }
-        requestAnimationFrame(tick);
+    function setOrbPercentage(pct) {
+        document.getElementById('orb-pct').textContent = Math.round(pct);
+    }
+
+    function animatePercentage(from, to, duration) {
+        return new Promise(function(resolve) {
+            var startTime = null;
+            function tick(ts) {
+                if (!startTime) startTime = ts;
+                var elapsed = ts - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                var current = from + (to - from) * progress;
+                setOrbPercentage(current);
+                setProgress(current);
+                if (progress < 1) requestAnimationFrame(tick);
+                else resolve();
+            }
+            requestAnimationFrame(tick);
+        });
+    }
+
+    function rotateStatus(statusEl, messages, interval) {
+        var idx = 0;
+        return setInterval(function() {
+            statusEl.classList.add('fading');
+            setTimeout(function() {
+                idx = (idx + 1) % messages.length;
+                statusEl.textContent = messages[idx];
+                statusEl.classList.remove('fading');
+            }, 400);
+        }, interval);
     }
 
     async function runPipeline(industry, location) {
-        var progressEl = document.getElementById('progress-fill');
-        var bizCount = document.getElementById('biz-count');
-        var ceoCount = document.getElementById('ceo-count');
         var apiDone = false;
         var apiData = null;
+        var statusEl = document.getElementById('loading-status');
+
+        var factEl = document.getElementById('fun-fact');
+
+        // Start rotations
+        var statusTimer = rotateStatus(statusEl, STATUS_MESSAGES, 4500);
+        var factTimer = rotateFacts(factEl, FUN_FACTS, 6000);
 
         // Kick off the API request in parallel
         var apiPromise = fetch('/api/demo-leads', {
@@ -1989,59 +2065,50 @@
             apiDone = true;
             apiData = data;
         }).catch(function() {
-            // Fallback demo data
             apiDone = true;
             apiData = generateDemoData(industry, location);
         });
 
-        // Step 1: Scanning Google Maps (0-5s)
-        activateStep(1);
-        setProgress(10);
-        await delay(5000);
-        completeStep(1);
-        setProgress(20);
+        // Phase 1: Searching (0-30%, 5s)
+        activateLoadingDot(1);
+        await animatePercentage(0, 30, 5000);
+        completeLoadingDot(1);
 
-        // Step 2: Found businesses (5-10s)
-        activateStep(2);
-        setProgress(30);
-        var targetBiz = 47;
-        animateCount(bizCount, targetBiz, 4000);
-        await delay(5000);
-        completeStep(2);
-        setProgress(45);
+        // Phase 2: Finding contacts (30-55%, 5s)
+        activateLoadingDot(2);
+        await animatePercentage(30, 55, 5000);
+        completeLoadingDot(2);
 
-        // Step 3: Finding CEO emails (10-20s)
-        activateStep(3);
-        setProgress(55);
-        await delay(10000);
-        completeStep(3);
-        setProgress(70);
+        // Phase 3: Getting emails (55-75%, 8s)
+        activateLoadingDot(3);
+        await animatePercentage(55, 75, 8000);
+        completeLoadingDot(3);
 
-        // Step 4: Verifying contacts (20-30s)
-        activateStep(4);
-        setProgress(80);
-        await delay(5000);
+        // Phase 4: Finishing up (75-90%, 5s)
+        activateLoadingDot(4);
+        await animatePercentage(75, 90, 5000);
 
         // Wait for API if not done
         if (!apiDone) {
             await apiPromise;
         }
 
-        completeStep(4);
-        setProgress(90);
+        // 90 → 100 (fast finish)
+        await animatePercentage(90, 100, 800);
         await delay(500);
 
-        // Step 5: CEOs found!
-        var resultCount = apiData && apiData.leads ? apiData.leads.length : 5;
-        activateStep(5);
-        animateCount(ceoCount, resultCount, 800);
-        setProgress(100);
-        await delay(1500);
-        completeStep(5);
+        // Stop rotations
+        completeLoadingDot(4);
+        clearInterval(statusTimer);
+        clearInterval(factTimer);
+        statusEl.classList.add('fading');
+        await delay(400);
+        statusEl.textContent = 'Done!';
+        statusEl.classList.remove('fading');
 
         // Confetti!
         launchConfetti();
-        await delay(1000);
+        await delay(1200);
 
         // Transition to results
         searchResults = apiData && apiData.leads ? apiData.leads : [];
@@ -2085,30 +2152,24 @@
         bannerText.textContent = leads.length + ' CEOs Found — ' + searchIndustry + ' in ' + searchLocation;
 
         leads.forEach(function(lead, i) {
-            var rating = parseFloat(lead.rating) || 0;
             var linkedinSearch = 'https://www.linkedin.com/search/results/people/?keywords=' + encodeURIComponent((lead.ceo_name || '') + ' ' + (lead.business || ''));
+            var nameParts = (lead.ceo_name || 'N A').split(' ');
+            var initials = ((nameParts[0] || '')[0] + (nameParts[nameParts.length - 1] || '')[0]).toUpperCase();
             var card = document.createElement('div');
             card.className = 'result-card';
             card.innerHTML =
-                '<div class="card-header">' +
-                    '<div class="card-biz-name">' + escapeHtml(lead.business) + '</div>' +
-                    '<div class="card-rating"><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' + rating.toFixed(1) + '</div>' +
-                '</div>' +
-                '<div class="card-details">' +
-                    (lead.address ? '<div class="card-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + escapeHtml(lead.address) + '</div>' : '') +
-                    '<div class="card-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>' + escapeHtml(lead.phone) + '</div>' +
-                    '<div class="card-detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><a href="https://' + escapeHtml(lead.website) + '" target="_blank">' + escapeHtml(lead.website) + '</a></div>' +
-                    '<div class="card-detail"><svg viewBox="0 0 24 24" fill="#f59e0b" stroke="none" style="width:14px;height:14px"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' + escapeHtml(String(lead.reviews || 0)) + ' reviews</div>' +
-                '</div>' +
-                '<div class="card-ceo">' +
-                    '<div class="card-ceo-label">CEO / Owner</div>' +
+                '<div class="card-avatar">' + escapeHtml(initials) + '</div>' +
+                '<div class="card-name-block">' +
                     '<div class="card-ceo-name">' + escapeHtml(lead.ceo_name) + '</div>' +
-                    '<div class="card-ceo-email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' + escapeHtml(lead.ceo_email) + '</div>' +
-                    '<div class="card-ceo-linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><a href="' + linkedinSearch + '" target="_blank">Find on LinkedIn</a></div>' +
+                    '<div class="card-ceo-title">CEO / Owner</div>' +
+                    '<div class="card-biz-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' + escapeHtml(lead.business) + '</div>' +
                 '</div>' +
-                '<div class="card-actions">' +
-                    '<button class="card-action-btn" onclick="copyEmail(this, \'' + escapeHtml(lead.ceo_email).replace(/'/g, "\\'") + '\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy Email</button>' +
-                    '<a class="card-action-btn" href="' + linkedinSearch + '" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" style="color:#0077b5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>' +
+                '<div class="card-email">' + escapeHtml(lead.ceo_email) + '</div>' +
+                '<div class="card-socials">' +
+                    '<a class="card-social-link" href="mailto:' + escapeHtml(lead.ceo_email) + '" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>' +
+                    '<a class="card-social-link" href="' + linkedinSearch + '" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>' +
+                    '<a class="card-social-link" href="https://' + escapeHtml(lead.website) + '" target="_blank" title="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg></a>' +
+                    '<a class="card-social-link" href="tel:' + escapeHtml(lead.phone) + '" title="Call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72"/></svg></a>' +
                 '</div>';
             container.appendChild(card);
         });
@@ -2164,39 +2225,54 @@
 
     // ============ DEMO FALLBACK DATA ============
     function generateDemoData(industry, location) {
-        var names = [
-            { first: 'James', last: 'Mitchell' },
-            { first: 'Sarah', last: 'Chen' },
-            { first: 'Robert', last: 'Garcia' },
-            { first: 'Michelle', last: 'Thompson' },
-            { first: 'David', last: 'Patel' }
+        var loc = location.split(',')[0].trim();
+        var ind = industry.split(',')[0].trim();
+        var demoSets = {
+            'Dentists': [
+                { business: 'Bright Smile Dental', address: '1247 Oak Park Blvd, ' + loc, phone: '(305) 555-0142', website: 'brightsmiledentalcare.com', rating: '4.9', reviews: 312, ceo_name: 'Dr. Sarah Mitchell', ceo_email: 'sarah@brightsmiledentalcare.com' },
+                { business: 'Gentle Care Family Dentistry', address: '890 Maple Ave Suite 200, ' + loc, phone: '(305) 555-0287', website: 'gentlecaredentist.com', rating: '4.7', reviews: 189, ceo_name: 'Dr. James Park', ceo_email: 'jpark@gentlecaredentist.com' },
+                { business: loc + ' Dental Associates', address: '2100 Pine St, ' + loc, phone: '(305) 555-0391', website: loc.toLowerCase().replace(/\s/g,'') + 'dental.com', rating: '4.8', reviews: 267, ceo_name: 'Dr. Maria Rodriguez', ceo_email: 'mrodriguez@' + loc.toLowerCase().replace(/\s/g,'') + 'dental.com' },
+                { business: 'Pearl White Dentistry', address: '567 Washington Dr, ' + loc, phone: '(305) 555-0465', website: 'pearlwhitedds.com', rating: '4.6', reviews: 143, ceo_name: 'Dr. Robert Chen', ceo_email: 'robert@pearlwhitedds.com' },
+                { business: 'Sunshine Oral Health', address: '3400 Harbor Way, ' + loc, phone: '(305) 555-0528', website: 'sunshineoralhealth.com', rating: '4.8', reviews: 421, ceo_name: 'Dr. Lisa Thompson', ceo_email: 'lisa@sunshineoralhealth.com' }
+            ],
+            'Plumbers': [
+                { business: 'AquaFlow Plumbing Co.', address: '782 Industrial Pkwy, ' + loc, phone: '(305) 555-0183', website: 'aquaflowplumbing.com', rating: '4.8', reviews: 203, ceo_name: 'Mike Donovan', ceo_email: 'mike@aquaflowplumbing.com' },
+                { business: loc + ' Master Plumbing', address: '1560 Commerce Dr, ' + loc, phone: '(305) 555-0274', website: loc.toLowerCase().replace(/\s/g,'') + 'plumbing.com', rating: '4.6', reviews: 156, ceo_name: 'Carlos Mendez', ceo_email: 'carlos@' + loc.toLowerCase().replace(/\s/g,'') + 'plumbing.com' },
+                { business: 'Rapid Drain Solutions', address: '945 Market St, ' + loc, phone: '(305) 555-0362', website: 'rapiddrainsolutions.com', rating: '4.7', reviews: 289, ceo_name: 'Tom Briggs', ceo_email: 'tom@rapiddrainsolutions.com' },
+                { business: 'ProPipe Plumbing & Repair', address: '2210 Central Ave, ' + loc, phone: '(305) 555-0441', website: 'propipeplumbing.com', rating: '4.5', reviews: 97, ceo_name: 'Dave Kowalski', ceo_email: 'dave@propipeplumbing.com' },
+                { business: 'BlueWater Plumbing Services', address: '388 Lakeview Rd, ' + loc, phone: '(305) 555-0519', website: 'bluewaterplumb.com', rating: '4.9', reviews: 374, ceo_name: 'Jennifer Walsh', ceo_email: 'jen@bluewaterplumb.com' }
+            ]
+        };
+        // Check if we have a matching preset
+        var key = Object.keys(demoSets).find(function(k) { return ind.toLowerCase().indexOf(k.toLowerCase()) !== -1; });
+        if (key) return { leads: demoSets[key], total_scraped: 23, ceos_found: 5 };
+
+        // Generic fallback
+        var owners = [
+            { first: 'James', last: 'Mitchell', title: 'CEO' },
+            { first: 'Sarah', last: 'Chen', title: 'Owner' },
+            { first: 'Robert', last: 'Garcia', title: 'Founder' },
+            { first: 'Michelle', last: 'Thompson', title: 'Managing Director' },
+            { first: 'David', last: 'Patel', title: 'President' }
         ];
-        var businesses = generateBusinessNames(industry);
-        var leads = businesses.map(function(biz, i) {
-            var name = names[i];
+        var prefixes = ['Premier', 'Elite', 'Apex', 'Summit', 'Pinnacle'];
+        var streets = ['Oak Park Blvd', 'Maple Ave', 'Pine St', 'Harbor Way', 'Commerce Dr'];
+        var leads = prefixes.map(function(p, i) {
+            var biz = p + ' ' + ind;
             var domain = biz.toLowerCase().replace(/[^a-z0-9]/g, '') + '.com';
+            var o = owners[i];
             return {
                 business: biz,
-                phone: '(' + (200 + Math.floor(Math.random() * 800)) + ') ' +
-                       (200 + Math.floor(Math.random() * 800)) + '-' +
-                       (1000 + Math.floor(Math.random() * 9000)),
+                address: (1000 + Math.floor(Math.random() * 3000)) + ' ' + streets[i] + ', ' + loc,
+                phone: '(' + (200 + Math.floor(Math.random() * 800)) + ') ' + (200 + Math.floor(Math.random() * 800)) + '-' + (1000 + Math.floor(Math.random() * 9000)),
                 website: domain,
-                rating: (3.5 + Math.random() * 1.5).toFixed(1),
-                reviews: Math.floor(50 + Math.random() * 450),
-                ceo_name: name.first + ' ' + name.last,
-                ceo_email: name.first.toLowerCase() + '@' + domain
+                rating: (4.2 + Math.random() * 0.8).toFixed(1),
+                reviews: Math.floor(80 + Math.random() * 400),
+                ceo_name: o.first + ' ' + o.last,
+                ceo_email: o.first.toLowerCase() + '@' + domain
             };
         });
-        return { leads: leads };
-    }
-
-    function generateBusinessNames(industry) {
-        var ind = industry.toLowerCase();
-        var prefixes = ['Premier', 'Elite', 'Bright', 'Summit', 'Valley'];
-        var suffixes = ['Group', 'Solutions', 'Pros', 'Associates', 'Partners'];
-        return prefixes.map(function(p, i) {
-            return p + ' ' + industry.split(',')[0].trim() + ' ' + suffixes[i];
-        });
+        return { leads: leads, total_scraped: 21, ceos_found: 5 };
     }
 
     // ============ INIT ============
@@ -2204,7 +2280,7 @@
         // Hide footer initially
         document.getElementById('main-footer').style.display = 'none';
 
-        // Focus industry input (first screen now)
+        // Focus industry input
         setTimeout(function() {
             document.getElementById('industry-input').focus();
         }, 800);
