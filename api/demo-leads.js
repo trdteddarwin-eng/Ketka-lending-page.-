@@ -47,7 +47,32 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: 'Demo limit reached for this email' });
     }
 
-    // 2. APIFY GOOGLE MAPS SCRAPE
+    // 2. CHECK CACHE FIRST
+    const searchKey = `${industry.toLowerCase().trim()}|${location.toLowerCase().trim()}`;
+    const supaHeaders = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+    };
+
+    const cacheRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/demo_cache?search_key=eq.${encodeURIComponent(searchKey)}&select=leads,total_scraped,ceos_found`,
+      { headers: supaHeaders }
+    );
+
+    if (cacheRes.ok) {
+      const cacheRows = await cacheRes.json();
+      if (cacheRows.length > 0) {
+        const cached = cacheRows[0];
+        return res.status(200).json({
+          leads: cached.leads,
+          total_scraped: cached.total_scraped,
+          ceos_found: cached.ceos_found,
+          cached: true,
+        });
+      }
+    }
+
+    // 3. APIFY GOOGLE MAPS SCRAPE (cache miss)
     const searchQuery = `${industry} in ${location}`;
 
     const apifyRunRes = await fetch(
@@ -208,7 +233,31 @@ export default async function handler(req, res) {
       // Non-critical — don't fail the request
     }
 
-    // 5. RETURN RESULTS
+    // 5. SAVE TO CACHE (so the same search is free next time)
+    if (leads.length > 0) {
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/demo_cache`, {
+          method: 'POST',
+          headers: {
+            ...supaHeaders,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({
+            search_key: searchKey,
+            industry,
+            location,
+            leads,
+            total_scraped: places.length,
+            ceos_found: leads.length,
+          }),
+        });
+      } catch (e) {
+        // Cache write failed — non-critical
+      }
+    }
+
+    // 6. RETURN RESULTS
     return res.status(200).json({
       leads,
       total_scraped: places.length,
