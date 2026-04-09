@@ -35,44 +35,23 @@ export default async function handler(req, res) {
       'Authorization': `Bearer ${SUPABASE_KEY}`,
     };
 
-    // Check 1: Has this email already been used? (1 demo per email, ever)
-    const emailRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/demo_users?email=eq.${encodeURIComponent(email)}&select=id`,
+    // Check: Has this IP already used the demo? (1 try per IP, ever)
+    const ipRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/demo_users?ip_address=eq.${encodeURIComponent(ip)}&select=id`,
       { headers }
     );
 
-    if (!emailRes.ok) {
-      return res.status(500).json({ error: 'Failed to check email' });
+    if (!ipRes.ok) {
+      return res.status(500).json({ error: 'Failed to check usage' });
     }
 
-    const emailRows = await emailRes.json();
-    if (emailRows.length > 0) {
+    const ipRows = await ipRes.json();
+    if (ipRows.length > 0) {
       return res.status(200).json({
         allowed: false,
-        reason: 'email_used',
-        message: 'This email has already been used. Buy the full skill or book a call to get unlimited leads.'
+        reason: 'already_used',
+        message: 'You have already used your free demo. Buy the full skill or book a call for unlimited leads.'
       });
-    }
-
-    // Check 2: Has this IP used more than 3 demos today?
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayISO = today.toISOString();
-
-    const ipRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/demo_users?ip_address=eq.${encodeURIComponent(ip)}&created_at=gte.${encodeURIComponent(todayISO)}&select=id`,
-      { headers }
-    );
-
-    if (ipRes.ok) {
-      const ipRows = await ipRes.json();
-      if (ipRows.length >= 3) {
-        return res.status(200).json({
-          allowed: false,
-          reason: 'ip_limit',
-          message: 'Daily limit reached. Come back tomorrow or buy the full skill for unlimited searches.'
-        });
-      }
     }
 
     // All checks passed — insert record
