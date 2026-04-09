@@ -1563,7 +1563,7 @@
                                 <div class="skill-icon"><i class="fa-solid fa-magnifying-glass-location"></i></div>
                                 <div class="skill-title-group">
                                     <div class="skill-name">Lead Generation Pipeline</div>
-                                    <div class="skill-price">$50 one-time</div>
+                                    <div class="skill-price">$350 one-time</div>
                                 </div>
                             </div>
                             <p class="skill-desc">
@@ -1594,9 +1594,12 @@
                                     <div class="meta-block-value"><strong>~$1.50&ndash;$2.00</strong></div>
                                 </div>
                             </div>
-                            <div>
+                            <div style="display:flex;flex-direction:column;gap:10px;">
+                                <a href="/demo" class="btn-star" style="text-decoration:none;">
+                                    <div class="btn-star-inner" style="background:var(--signal);"><div class="btn-star-content"><div class="btn-star-text" style="color:#fff;">Try It Free &mdash; Find 5 CEOs in 60 Seconds</div></div></div>
+                                </a>
                                 <a href="https://buy.stripe.com/14AcMYarugjA9Ypf0q3F60d" target="_blank" class="btn-star">
-                                    <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill &mdash; $50</div></div></div>
+                                    <div class="btn-star-inner"><div class="btn-star-content"><div class="btn-star-text">Buy This Skill &mdash; $350</div></div></div>
                                 </a>
                             </div>
                         </div>
@@ -1793,7 +1796,7 @@
         gtag('event', 'begin_checkout', {
             currency: 'USD',
             value: 50,
-            items: [{ item_name: isVideo ? 'Motion Graphic Video' : 'Lead Generation Pipeline', price: 50 }]
+            items: [{ item_name: isVideo ? 'Motion Graphic Video' : 'Lead Generation Pipeline', price: isVideo ? 50 : 350 }]
         });
     });
     </script>
