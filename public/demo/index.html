@@ -21,7 +21,7 @@
 
     <!-- Open Graph -->
     <meta property="og:title" content="Find the CEO of Any Local Business in 60 Seconds">
-    <meta property="og:description" content="Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try 3 free searches.">
+    <meta property="og:description" content="Our AI scans Google Maps, finds the business owner, and delivers their verified email. Try 1 free search.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tedca.org/demo">
     <meta property="og:image" content="https://tedca.org/og-image.svg">
@@ -30,7 +30,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Find the CEO of Any Local Business in 60 Seconds">
-    <meta name="twitter:description" content="AI-powered CEO finder. Scan Google Maps, get verified emails. 3 free searches.">
+    <meta name="twitter:description" content="AI-powered CEO finder. Scan Google Maps, get verified emails. 1 free search.">
     <meta name="twitter:image" content="https://tedca.org/og-image.svg">
 
     <!-- Schema: WebApplication -->
@@ -47,7 +47,7 @@
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD",
-            "description": "3 free searches included"
+            "description": "1 free search included"
         },
         "author": {
             "@type": "Organization",
@@ -1654,7 +1654,7 @@
                     </div>
                 </div>
                 <button class="btn-dark btn-shine stagger-4" onclick="submitAndSearch()">Find Leads</button>
-                <p class="fine-print stagger-5">No credit card required. 3 free searches.</p>
+                <p class="fine-print stagger-5">No credit card required. 1 free search.</p>
             </div>
 
             <!-- Radar at bottom, form sits on top -->
@@ -1932,7 +1932,7 @@
 
             if (!storeData.allowed) {
                 wrap.classList.add('error');
-                errorEl.textContent = 'You have used all 3 free searches. Buy the full skill or book a call to continue.';
+                errorEl.textContent = storeData.message || 'This email has already been used. Buy the full skill or book a call.';
                 btn.classList.remove('loading');
                 btn.style.pointerEvents = '';
                 btn.style.opacity = '';
