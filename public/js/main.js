@@ -460,7 +460,7 @@ const hiwStepData = { 1: { icon: '<svg width="20" height="20" fill="none" stroke
                 ],
                 videoHeading: 'See How It Works',
                 videoSubheading: 'A quick look at how this skill finds real CEOs and delivers verified leads — ready for outreach.',
-                buyLink: 'https://buy.stripe.com/14AcMYarugjA9Ypf0q3F60d'
+                buyLink: 'https://buy.stripe.com/dRm5kw6be5EWc6xg4u3F60e'
             }
         };
 
