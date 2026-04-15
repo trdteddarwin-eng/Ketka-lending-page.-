@@ -55,6 +55,24 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://tedca.org/blog/plumber-ai-chatbot-case-study</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tedca.org/blog/insurance-ai-lead-generation-case-study</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://tedca.org/blog/auto-repair-voice-ai-case-study</loc>
+        <lastmod>2026-04-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://tedca.org/delivered</loc>
         <lastmod>2026-03-31</lastmod>
         <changefreq>monthly</changefreq>

@@ -69,6 +69,24 @@ Tedca publishes case studies and guides on AI automation for small businesses.
 - Summary: An HVAC company noticed 60% of customer inquiries came through WhatsApp but averaged 3-hour response times. After deploying a WhatsApp AI agent from Tedca, the company books 3x more jobs, responds in 45 seconds, and collected $18,000 in Stripe payments through WhatsApp in its first month. The agent answers questions, books appointments, sends payment links, and escalates complex issues to humans with full context.
 - Key stats: 3x more jobs booked, 45-second response time, $18K payments collected in month one
 
+### How a Plumbing Company Booked 40% More Jobs with an AI Chatbot
+- URL: https://tedca.org/blog/plumber-ai-chatbot-case-study
+- Published: 2026-04-14
+- Summary: A 3-truck plumbing company was losing after-hours leads because their website couldn't capture them. We put an AI chatbot on their site that answers FAQs, books appointments directly into the calendar, and captures lead info 24/7. Jobs booked went up 40%.
+- Key stats: 40% more jobs booked, 24/7 coverage, 3.8x more leads captured
+
+### How an Insurance Agency Found 300 Qualified Prospects Per Month with AI
+- URL: https://tedca.org/blog/insurance-ai-lead-generation-case-study
+- Published: 2026-04-14
+- Summary: An independent insurance agency was stuck at 25 new prospects per month from referrals. We set up AI lead generation that scans Google Maps for their ideal commercial clients, finds the owner's verified email, and delivers 300+ contacts per month. They closed $41K in new premiums in 90 days.
+- Key stats: 300+ leads/month, 92% email deliverability, $41K new premiums in 90 days
+
+### How an Auto Repair Shop Stopped Missing After-Hours Calls with Voice AI
+- URL: https://tedca.org/blog/auto-repair-voice-ai-case-study
+- Published: 2026-04-14
+- Summary: A family-owned auto repair shop was missing 40% of calls. We deployed a Voice AI receptionist that answers every call in under 2 rings, books oil changes and brake jobs into the shop calendar, and sends text confirmations. Missed calls dropped 73% and they recovered $8,200/month.
+- Key stats: 73% fewer missed calls, 2.5x more appointments, $8,200/month recovered
+
 ## Contact
 
 - Website: https://tedca.org

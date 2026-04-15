@@ -29,6 +29,12 @@ export default defineConfig(({ mode }) => {
               req.url = '/blog/ai-email-reply-case-study.html';
             } else if (req.url === '/blog/whatsapp-ai-agent-case-study') {
               req.url = '/blog/whatsapp-ai-agent-case-study.html';
+            } else if (req.url === '/blog/plumber-ai-chatbot-case-study') {
+              req.url = '/blog/plumber-ai-chatbot-case-study.html';
+            } else if (req.url === '/blog/insurance-ai-lead-generation-case-study') {
+              req.url = '/blog/insurance-ai-lead-generation-case-study.html';
+            } else if (req.url === '/blog/auto-repair-voice-ai-case-study') {
+              req.url = '/blog/auto-repair-voice-ai-case-study.html';
             } else if (req.url === '/demo' || req.url === '/demo/') {
               req.url = '/demo/index.html';
             }

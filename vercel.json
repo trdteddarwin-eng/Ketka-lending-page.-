@@ -11,6 +11,9 @@
     { "source": "/blog/ai-lead-generation-case-study", "destination": "/blog/ai-lead-generation-case-study.html" },
     { "source": "/blog/ai-email-reply-case-study", "destination": "/blog/ai-email-reply-case-study.html" },
     { "source": "/blog/whatsapp-ai-agent-case-study", "destination": "/blog/whatsapp-ai-agent-case-study.html" },
+    { "source": "/blog/plumber-ai-chatbot-case-study", "destination": "/blog/plumber-ai-chatbot-case-study.html" },
+    { "source": "/blog/insurance-ai-lead-generation-case-study", "destination": "/blog/insurance-ai-lead-generation-case-study.html" },
+    { "source": "/blog/auto-repair-voice-ai-case-study", "destination": "/blog/auto-repair-voice-ai-case-study.html" },
     { "source": "/demo", "destination": "/demo/index.html" }
   ]
 }

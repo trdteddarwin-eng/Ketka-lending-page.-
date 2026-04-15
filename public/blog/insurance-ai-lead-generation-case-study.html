@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>How an Insurance Agency Found 300 Qualified Prospects Per Month with AI | Tedca Corp</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K527ZSZMNC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-K527ZSZMNC');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="description" content="Case study: An independent insurance agency was stuck at 25 prospects per month. After we built an AI lead generation pipeline scraping Google Maps and finding owner emails, they went to 300+ qualified contacts monthly and closed $41K in new premiums in 90 days.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tedca.org/blog/insurance-ai-lead-generation-case-study">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="How an Insurance Agency Found 300 Qualified Prospects Per Month with AI">
+    <meta property="og:description" content="An independent insurance agency was stuck at 25 prospects per month. AI lead generation changed that fast.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tedca.org/blog/insurance-ai-lead-generation-case-study">
+    <meta property="og:image" content="https://tedca.org/og-image.svg">
+    <meta property="og:site_name" content="Tedca Corp">
+    <meta property="article:published_time" content="2026-04-09">
+    <meta property="article:author" content="Tedca Corp">
+    <meta property="article:section" content="Case Study">
+    <meta property="article:tag" content="AI lead generation">
+    <meta property="article:tag" content="insurance agency">
+    <meta property="article:tag" content="Google Maps scraping">
+    <meta property="article:tag" content="automation">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How an Insurance Agency Found 300 Qualified Prospects Per Month with AI">
+    <meta name="twitter:description" content="Case study: AI lead gen pipeline takes an insurance agency from 25 to 300+ prospects per month.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- AEO: Article + FAQ + Speakable Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How an Insurance Agency Found 300 Qualified Prospects Per Month with AI",
+        "description": "Case study: An independent insurance agency was stuck at 25 prospects per month. After an AI lead generation pipeline scraping Google Maps and finding owner emails, they reached 300+ qualified contacts monthly and closed $41K in new premiums in 90 days.",
+        "image": "https://tedca.org/og-image.svg",
+        "datePublished": "2026-04-09",
+        "dateModified": "2026-04-09",
+        "author": {
+            "@type": "Organization",
+            "name": "Tedca Corp",
+            "url": "https://tedca.org"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Tedca Corp",
+            "url": "https://tedca.org",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://tedca.org/favicon.svg"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://tedca.org/blog/insurance-ai-lead-generation-case-study"
+        },
+        "articleSection": "Case Study",
+        "keywords": ["AI lead generation", "insurance agency automation", "Google Maps scraping", "email finding", "commercial insurance leads", "prospect pipeline"],
+        "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": [".tldr-box", ".key-result"]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does AI lead generation work for insurance agencies?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "An AI lead generation pipeline scans Google Maps for businesses matching your ideal client profile (restaurants, contractors, auto shops, etc.), identifies the owner or decision-maker, finds their verified email address, and delivers a clean spreadsheet of contacts. The agency then runs targeted email campaigns to those contacts. The whole process runs automatically on a set schedule."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What types of businesses can an insurance agency target with AI lead gen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Any business that appears on Google Maps is a valid target. Common targets for commercial insurance agencies include restaurants, auto repair shops, contractors, landscapers, retail stores, salons, and medical offices. The pipeline filters by business type, location radius, and minimum review count to ensure lead quality."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How accurate are the email addresses found by AI?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Using email verification tools layered on top of the discovery process, deliverability rates typically land at 90-94%. Addresses are verified against SMTP records and known bounce lists before being added to the output spreadsheet. Low-confidence addresses are flagged separately rather than mixed into the main list."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does it take to set up an AI lead generation pipeline?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Setup takes 7-14 business days. That covers defining the ideal client profile, configuring the Google Maps scraper, connecting the email finder and verifier, setting up the delivery format (spreadsheet or CRM import), and a test run to validate output quality before handing over to the agency."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Google Maps scraping legal for business lead generation?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Scraping publicly available business information (name, address, phone, category) from Google Maps for B2B prospecting is generally legal in most jurisdictions, as this is publicly listed data. Email outreach must comply with CAN-SPAM (US) or CASL (Canada) requirements, which includes a clear unsubscribe mechanism and honest sender identification. We configure all pipelines with compliance in mind."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --paper: #E8E4DD;
+            --signal: #E63B2E;
+            --offwhite: #F5F3EE;
+            --dark: #111111;
+        }
+
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            background-color: #ffffff;
+            color: var(--dark);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        .blog-nav {
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .blog-nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--signal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-mark span {
+            width: 6px;
+            height: 6px;
+            background: var(--paper);
+            border-radius: 50%;
+        }
+        .logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.05em;
+            color: var(--dark);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--dark);
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-cta {
+            padding: 10px 20px;
+            background: var(--dark) !important;
+            color: var(--paper) !important;
+            opacity: 1 !important;
+            font-family: 'Space Mono', monospace !important;
+            font-size: 11px !important;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            text-decoration: none !important;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--signal) !important; }
+
+        /* Article Layout */
+        .article-header {
+            padding: 140px 2rem 60px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        .breadcrumb a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(17,17,17,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--signal); }
+        .breadcrumb svg { opacity: 0.3; }
+
+        .article-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border: 1px solid rgba(230,59,46,0.2);
+            background: rgba(230,59,46,0.05);
+            margin-bottom: 24px;
+        }
+        .article-tag span {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+        }
+
+        .article-header h1 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .article-header .subtitle {
+            font-size: 18px;
+            color: rgba(17,17,17,0.55);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .article-meta span {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(17,17,17,0.4);
+            letter-spacing: 0.05em;
+        }
+        .meta-dot {
+            width: 3px;
+            height: 3px;
+            background: rgba(17,17,17,0.2);
+            border-radius: 50%;
+        }
+
+        /* Hero Visual */
+        .article-hero-visual {
+            max-width: 960px;
+            margin: 0 auto 60px;
+            padding: 0 2rem;
+        }
+        .hero-svg-wrapper {
+            background: var(--offwhite);
+            border: 1px solid rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        /* Article Body */
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 2rem 80px;
+        }
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 56px 0 20px;
+            line-height: 1.15;
+        }
+        .article-body h3 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 40px 0 16px;
+        }
+        .article-body p {
+            font-size: 17px;
+            line-height: 1.75;
+            color: rgba(17,17,17,0.75);
+            margin-bottom: 20px;
+        }
+        .article-body strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+        .article-body ul, .article-body ol {
+            padding-left: 24px;
+            margin-bottom: 20px;
+        }
+        .article-body li {
+            font-size: 17px;
+            line-height: 1.75;
+            color: rgba(17,17,17,0.75);
+            margin-bottom: 8px;
+        }
+
+        /* TL;DR Box - AEO Speakable */
+        .tldr-box {
+            background: var(--offwhite);
+            border-left: 4px solid var(--signal);
+            padding: 28px 32px;
+            margin: 0 0 48px;
+        }
+        .tldr-box .tldr-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+            margin-bottom: 12px;
+        }
+        .tldr-box p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--dark);
+            margin-bottom: 0;
+        }
+
+        /* Key Result Cards */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 40px 0;
+        }
+        @media (max-width: 640px) {
+            .results-grid { grid-template-columns: 1fr; }
+        }
+        .key-result {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .key-result:hover {
+            border-color: rgba(230,59,46,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px -8px rgba(0,0,0,0.06);
+        }
+        .key-result .stat {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--signal);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .key-result .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(17,17,17,0.45);
+        }
+
+        /* Inline SVG Diagrams */
+        .diagram-wrapper {
+            margin: 40px 0;
+            background: var(--offwhite);
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 8px;
+        }
+        .diagram-wrapper svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .diagram-caption {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(17,17,17,0.4);
+            text-align: center;
+            padding: 12px 0 4px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Pull Quote */
+        .pull-quote {
+            border-top: 2px solid var(--dark);
+            border-bottom: 2px solid var(--dark);
+            padding: 32px 0;
+            margin: 48px 0;
+        }
+        .pull-quote blockquote {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.35;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        .pull-quote cite {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-style: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(17,17,17,0.4);
+        }
+
+        /* Takeaway Box */
+        .takeaway-box {
+            background: var(--dark);
+            color: var(--paper);
+            padding: 32px;
+            margin: 48px 0;
+        }
+        .takeaway-box .takeaway-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--signal);
+            margin-bottom: 16px;
+        }
+        .takeaway-box p {
+            color: rgba(232,228,221,0.8);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+        .takeaway-box strong {
+            color: var(--paper);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 64px 0 0;
+            padding-top: 48px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .faq-section h2 {
+            margin-top: 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            padding: 24px 0;
+        }
+        .faq-item h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+            cursor: default;
+        }
+        .faq-item p {
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: var(--offwhite);
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 48px 40px;
+            margin: 64px 0 0;
+            text-align: center;
+        }
+        .cta-banner h3 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 0 0 12px;
+        }
+        .cta-banner p {
+            font-size: 15px;
+            color: rgba(17,17,17,0.55);
+            margin-bottom: 24px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--signal);
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .cta-btn:hover {
+            background: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        /* Before/After comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 40px 0;
+        }
+        @media (max-width: 640px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+        .comparison-card {
+            padding: 28px 24px;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .comparison-card.before {
+            background: #fff;
+        }
+        .comparison-card.after {
+            background: var(--offwhite);
+            border-color: rgba(230,59,46,0.15);
+        }
+        .comparison-card .comp-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+        .comparison-card.before .comp-label { color: rgba(17,17,17,0.35); }
+        .comparison-card.after .comp-label { color: var(--signal); }
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .comparison-card li {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(17,17,17,0.65);
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .comparison-card li:last-child { border-bottom: none; }
+
+        /* Footer */
+        .blog-footer {
+            background: var(--dark);
+            padding: 64px 2rem;
+            border-top: 1px solid var(--dark);
+        }
+        .blog-footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .footer-col h4 {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(232,228,221,0.6);
+            margin-bottom: 16px;
+        }
+        .footer-col p {
+            font-size: 12px;
+            color: rgba(232,228,221,0.4);
+            line-height: 1.6;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 8px; }
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(232,228,221,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--signal); }
+        .footer-bottom {
+            border-top: 1px solid rgba(232,228,221,0.1);
+            padding-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .footer-bottom { flex-direction: row; justify-content: space-between; }
+        }
+        .footer-bottom span, .footer-bottom a {
+            font-size: 12px;
+            color: rgba(232,228,221,0.3);
+        }
+        .footer-bottom a { text-decoration: none; transition: color 0.2s; }
+        .footer-bottom a:hover { color: var(--signal); }
+        .footer-legal { display: flex; gap: 24px; }
+
+        @media (max-width: 768px) {
+            .nav-links a:not(.nav-cta) { display: none; }
+            .article-header { padding: 120px 1.5rem 40px; }
+            .article-hero-visual { padding: 0 1.5rem; }
+            .article-body { padding: 0 1.5rem 60px; }
+            .pull-quote blockquote { font-size: 20px; }
+            .results-grid { grid-template-columns: 1fr; }
+            .comparison { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="blog-nav">
+        <div class="blog-nav-inner">
+            <a href="/" class="logo-group">
+                <div class="logo-mark"><span></span></div>
+                <div class="logo-text">TEDCA.</div>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/blog" class="active">Blog</a>
+                <a href="/skills.html">Skills</a>
+                <a href="https://cal.com/tedca-skill-nv7wuk/secret" target="_blank" class="nav-cta">Book a Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <a href="/blog">Blog</a>
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 1l4 4-4 4" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <a href="/blog/insurance-ai-lead-generation-case-study" style="color: var(--signal);">Case Study</a>
+        </nav>
+
+        <div class="article-tag">
+            <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#E63B2E"/></svg>
+            <span>Case Study</span>
+        </div>
+
+        <h1>How an Insurance Agency Found 300 Qualified Prospects Per Month with AI</h1>
+        <p class="subtitle">An independent insurance agency was capped at 25 prospects per month from referrals and networking. We built an AI pipeline that scans Google Maps, finds owner emails, and delivers 300+ verified contacts monthly. First 90 days: $41K in new premiums.</p>
+
+        <div class="article-meta">
+            <span>Tedca Corp</span>
+            <div class="meta-dot"></div>
+            <span>April 9, 2026</span>
+            <div class="meta-dot"></div>
+            <span>7 min read</span>
+        </div>
+    </header>
+
+    <!-- Hero Illustration -->
+    <div class="article-hero-visual">
+        <div class="hero-svg-wrapper">
+            <svg viewBox="0 0 960 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style>
+                        @keyframes dashFlow2 { to { stroke-dashoffset: -24; } }
+                        @keyframes pinDrop { 0% { opacity:0; transform: translateY(-16px); } 60% { opacity:1; transform: translateY(2px); } 100% { opacity:1; transform: translateY(0); } }
+                        @keyframes pinDrop2 { 0% { opacity:0; transform: translateY(-16px); } 60% { opacity:1; transform: translateY(2px); } 100% { opacity:1; transform: translateY(0); } }
+                        @keyframes pinDrop3 { 0% { opacity:0; transform: translateY(-16px); } 60% { opacity:1; transform: translateY(2px); } 100% { opacity:1; transform: translateY(0); } }
+                        @keyframes envelopeSlide { 0%,100% { transform: translateX(0); opacity:0.7; } 50% { transform: translateX(8px); opacity:1; } }
+                        @keyframes countUp { 0% { opacity:0.3; } 100% { opacity:1; } }
+                        @keyframes badgePulse2 { 0%,100% { opacity:0.85; } 50% { opacity:1; transform: scale(1.03); } }
+                        @keyframes rowFadeIn { 0% { opacity:0; transform: translateX(-8px); } 100% { opacity:1; transform: translateX(0); } }
+                        .hero-dash2 { animation: dashFlow2 1s linear infinite; }
+                        .pin1 { animation: pinDrop 0.6s ease-out 0.2s both; }
+                        .pin2 { animation: pinDrop2 0.6s ease-out 0.7s both; }
+                        .pin3 { animation: pinDrop3 0.6s ease-out 1.2s both; }
+                        .env1 { animation: envelopeSlide 2s ease-in-out infinite; }
+                        .hero-badge2 { animation: badgePulse2 3s ease-in-out infinite; transform-origin: 720px 356px; }
+                        .row1 { animation: rowFadeIn 0.5s ease-out 0.4s both; }
+                        .row2 { animation: rowFadeIn 0.5s ease-out 0.9s both; }
+                        .row3 { animation: rowFadeIn 0.5s ease-out 1.4s both; }
+                        .row4 { animation: rowFadeIn 0.5s ease-out 1.9s both; }
+                    </style>
+                </defs>
+                <rect width="960" height="400" fill="#F5F3EE"/>
+
+                <!-- Left side: Before (manual) -->
+                <text x="240" y="50" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="rgba(17,17,17,0.35)" letter-spacing="0.1em">BEFORE</text>
+
+                <!-- Networking events / referral icons -->
+                <rect x="170" y="80" width="140" height="52" rx="6" fill="rgba(17,17,17,0.06)" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                <text x="240" y="112" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="rgba(17,17,17,0.4)">Referrals &amp; Networking</text>
+
+                <!-- Trickle of contacts (only 3 slow dots) -->
+                <circle cx="200" cy="180" r="8" fill="rgba(17,17,17,0.12)"/>
+                <text x="200" y="184" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" fill="rgba(17,17,17,0.4)">1</text>
+                <circle cx="240" cy="200" r="8" fill="rgba(17,17,17,0.12)"/>
+                <text x="240" y="204" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" fill="rgba(17,17,17,0.4)">2</text>
+                <circle cx="280" cy="185" r="8" fill="rgba(17,17,17,0.12)"/>
+                <text x="280" y="189" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="9" fill="rgba(17,17,17,0.4)">3</text>
+
+                <text x="240" y="248" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="rgba(17,17,17,0.3)" letter-spacing="0.05em">~25 LEADS / MONTH</text>
+
+                <!-- Stalled pipeline bar -->
+                <rect x="180" y="264" width="120" height="8" rx="4" fill="rgba(17,17,17,0.06)"/>
+                <rect x="180" y="264" width="20" height="8" rx="4" fill="rgba(17,17,17,0.2)"/>
+                <text x="240" y="292" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.25)" letter-spacing="0.04em">PIPELINE STALLED</text>
+
+                <!-- Center: AI transform arrow -->
+                <line x1="400" y1="200" x2="560" y2="200" stroke="#E63B2E" stroke-width="2" stroke-dasharray="8 4" class="hero-dash2"/>
+                <polygon points="560,192 576,200 560,208" fill="#E63B2E"/>
+                <rect x="448" y="178" width="64" height="44" rx="8" fill="#E63B2E"/>
+                <text x="480" y="204" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="white" font-weight="700">AI</text>
+
+                <!-- Right side: After (AI pipeline) -->
+                <text x="720" y="50" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#E63B2E" letter-spacing="0.1em">AFTER</text>
+
+                <!-- Map with pins dropping in -->
+                <rect x="630" y="70" width="180" height="120" rx="6" fill="rgba(17,17,17,0.06)" stroke="rgba(17,17,17,0.08)" stroke-width="1"/>
+                <!-- Grid lines suggesting a map -->
+                <line x1="660" y1="70" x2="660" y2="190" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="690" y1="70" x2="690" y2="190" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="720" y1="70" x2="720" y2="190" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="750" y1="70" x2="750" y2="190" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="780" y1="70" x2="780" y2="190" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="630" y1="100" x2="810" y2="100" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="630" y1="130" x2="810" y2="130" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+                <line x1="630" y1="160" x2="810" y2="160" stroke="rgba(17,17,17,0.05)" stroke-width="1"/>
+
+                <!-- Animated map pins -->
+                <g class="pin1">
+                    <circle cx="665" cy="108" r="7" fill="#E63B2E"/>
+                    <circle cx="665" cy="108" r="3" fill="white"/>
+                </g>
+                <g class="pin2">
+                    <circle cx="700" cy="142" r="7" fill="#E63B2E"/>
+                    <circle cx="700" cy="142" r="3" fill="white"/>
+                </g>
+                <g class="pin3">
+                    <circle cx="740" cy="118" r="7" fill="#E63B2E"/>
+                    <circle cx="740" cy="118" r="3" fill="white"/>
+                </g>
+                <g class="pin1" style="animation-delay:0.4s">
+                    <circle cx="775" cy="155" r="7" fill="#E63B2E"/>
+                    <circle cx="775" cy="155" r="3" fill="white"/>
+                </g>
+                <g class="pin2" style="animation-delay:0.9s">
+                    <circle cx="648" cy="175" r="7" fill="#E63B2E"/>
+                    <circle cx="648" cy="175" r="3" fill="white"/>
+                </g>
+
+                <!-- Envelope sliding out (email delivery) -->
+                <g class="env1" transform="translate(630, 210)">
+                    <rect width="180" height="36" rx="4" fill="#111111"/>
+                    <text x="90" y="22" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="12" fill="#E8E4DD" font-weight="600">300 verified emails</text>
+                </g>
+
+                <!-- Spreadsheet rows (staggered) -->
+                <g class="row1">
+                    <rect x="630" y="260" width="180" height="18" rx="2" fill="rgba(17,17,17,0.04)" stroke="rgba(17,17,17,0.06)" stroke-width="1"/>
+                    <circle cx="645" cy="269" r="4" fill="#E63B2E" opacity="0.6"/>
+                    <text x="658" y="273" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.5)">restaurant owner &bull; verified</text>
+                </g>
+                <g class="row2">
+                    <rect x="630" y="282" width="180" height="18" rx="2" fill="rgba(17,17,17,0.04)" stroke="rgba(17,17,17,0.06)" stroke-width="1"/>
+                    <circle cx="645" cy="291" r="4" fill="#E63B2E" opacity="0.6"/>
+                    <text x="658" y="295" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.5)">auto shop owner &bull; verified</text>
+                </g>
+                <g class="row3">
+                    <rect x="630" y="304" width="180" height="18" rx="2" fill="rgba(17,17,17,0.04)" stroke="rgba(17,17,17,0.06)" stroke-width="1"/>
+                    <circle cx="645" cy="313" r="4" fill="#E63B2E" opacity="0.6"/>
+                    <text x="658" y="317" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.5)">contractor owner &bull; verified</text>
+                </g>
+                <g class="row4">
+                    <rect x="630" y="326" width="180" height="18" rx="2" fill="rgba(17,17,17,0.04)" stroke="rgba(17,17,17,0.06)" stroke-width="1"/>
+                    <circle cx="645" cy="335" r="4" fill="#E63B2E" opacity="0.6"/>
+                    <text x="658" y="339" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.5)">retail owner &bull; verified</text>
+                </g>
+
+                <!-- Bottom stat badge -->
+                <g class="hero-badge2">
+                    <rect x="652" y="356" width="136" height="32" rx="4" fill="#111111"/>
+                    <text x="720" y="376" text-anchor="middle" font-family="Space Mono, monospace" font-size="10" fill="#E8E4DD" letter-spacing="0.08em">300+ LEADS / MONTH</text>
+                </g>
+            </svg>
+        </div>
+        <div class="diagram-caption">Before &amp; after: Referral trickle vs. AI lead generation pipeline</div>
+    </div>
+
+    <!-- Article Body -->
+    <article class="article-body">
+
+        <!-- TL;DR (AEO Speakable) -->
+        <div class="tldr-box">
+            <div class="tldr-label">TL;DR</div>
+            <p>An independent insurance agency was stuck at 25 prospects per month. Every lead came from referrals or networking events. We built an AI pipeline that scans Google Maps for restaurants, auto shops, and contractors, finds the owner's email, and delivers 300+ verified contacts monthly in a clean spreadsheet. In the first 90 days, the agency closed $41K in new commercial premiums from those contacts.</p>
+        </div>
+
+        <!-- Key Results -->
+        <div class="results-grid">
+            <div class="key-result">
+                <div class="stat">300+</div>
+                <div class="stat-label">Leads Per Month</div>
+            </div>
+            <div class="key-result">
+                <div class="stat">92%</div>
+                <div class="stat-label">Email Deliverability</div>
+            </div>
+            <div class="key-result">
+                <div class="stat">$41K</div>
+                <div class="stat-label">New Premiums, 90 Days</div>
+            </div>
+        </div>
+
+        <h2>The Problem: 25 Leads a Month from Handshakes</h2>
+
+        <p>This agency had two producers and a book of mostly personal lines business. They wanted to grow the commercial side: restaurants, contractors, auto repair shops. The problem was finding them.</p>
+
+        <p>Every prospect they had came from either a referral or a chamber of commerce event. Good leads, but slow. <strong>25 new contacts in a good month</strong> wasn't going to move the needle on commercial premiums.</p>
+
+        <p>They knew their ideal client profile cold. Small-to-midsize businesses with 5-50 employees, within 40 miles, in industries with high insurance needs. The problem wasn't knowing who to call. It was finding contact information for the actual decision-maker, not a general office number.</p>
+
+        <h2>Why Manual Research Didn't Scale</h2>
+
+        <p>They'd tried having a producer spend a few hours a week searching Google Maps and LinkedIn. The math doesn't work:</p>
+
+        <ul>
+            <li>Finding a business listing: 2 minutes</li>
+            <li>Tracking down the owner's name: 5-10 minutes</li>
+            <li>Finding a verified email: another 10-15 minutes, often nothing</li>
+            <li>Result: maybe 8-10 usable contacts per hour of work</li>
+        </ul>
+
+        <p>A producer's time is worth more than that. And even working at it, they couldn't get past 30 contacts per week without burning out on research that had nothing to do with selling insurance.</p>
+
+        <h2>What We Built</h2>
+
+        <p>We set up an automated lead generation pipeline. It runs on a schedule and does three things in sequence:</p>
+
+        <ol>
+            <li><strong>Scrapes Google Maps</strong> for businesses matching their target profile, filtered by category, location, and a minimum review threshold to ensure they're established businesses</li>
+            <li><strong>Finds the owner or decision-maker email</strong> using a combination of business domain lookups, email pattern matching, and verification against SMTP records</li>
+            <li><strong>Delivers a clean spreadsheet</strong> with business name, owner name, verified email, phone, address, business category, and review count</li>
+        </ol>
+
+        <p>Every email in the output is verified before it lands in the spreadsheet. Addresses that bounce the verification check get flagged separately. The agency only emails contacts with a high confidence score.</p>
+
+        <!-- Workflow Diagram -->
+        <div class="diagram-wrapper">
+            <svg viewBox="0 0 660 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style>
+                        @keyframes flowDash2 { to { stroke-dashoffset: -14; } }
+                        @keyframes cardSlideIn2 { 0% { opacity:0; transform: translateY(12px); } 100% { opacity:1; transform: translateY(0); } }
+                        @keyframes glowPulse2 { 0%,100% { filter: drop-shadow(0 0 0px transparent); } 50% { filter: drop-shadow(0 0 8px rgba(230,59,46,0.3)); } }
+                        @keyframes dotBlink2 { 0%,100% { opacity:0.1; } 50% { opacity:0.5; } }
+                        .flow-arrow2 { animation: flowDash2 0.8s linear infinite; }
+                        .flow-c1 { animation: cardSlideIn2 0.5s ease-out 0.1s both; }
+                        .flow-c2 { animation: cardSlideIn2 0.5s ease-out 0.4s both; }
+                        .flow-c3 { animation: cardSlideIn2 0.5s ease-out 0.7s both; }
+                        .flow-c4 { animation: cardSlideIn2 0.5s ease-out 1.0s both; }
+                        .flow-c5 { animation: cardSlideIn2 0.5s ease-out 1.3s both; }
+                        .flow-glow2 { animation: glowPulse2 3s ease-in-out infinite; }
+                        .flow-dot2 { animation: dotBlink2 1.5s ease-in-out infinite; }
+                    </style>
+                </defs>
+
+                <!-- Step 1: Google Maps scan -->
+                <g class="flow-c1">
+                    <rect x="20" y="20" width="120" height="72" rx="8" fill="#ffffff" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                    <circle cx="46" cy="42" r="12" fill="#E63B2E" opacity="0.1"/>
+                    <circle cx="46" cy="42" r="4" fill="#E63B2E" class="flow-dot2"/>
+                    <text x="80" y="43" font-family="Space Grotesk, sans-serif" font-size="11" fill="#111111" font-weight="600">Maps scan</text>
+                    <text x="80" y="59" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">By category</text>
+                    <text x="80" y="72" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">&amp; radius</text>
+                </g>
+
+                <!-- Arrow 1 -->
+                <line x1="140" y1="56" x2="178" y2="56" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow2"/>
+                <polygon points="178,52 186,56 178,60" fill="#E63B2E"/>
+
+                <!-- Step 2: Business filter -->
+                <g class="flow-c2">
+                    <rect x="186" y="20" width="120" height="72" rx="8" fill="#ffffff" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                    <text x="246" y="46" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#111111" font-weight="600">Filter &amp; score</text>
+                    <text x="246" y="64" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">Min. reviews</text>
+                    <text x="246" y="77" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">&amp; ICP match</text>
+                </g>
+
+                <!-- Arrow 2 -->
+                <line x1="306" y1="56" x2="344" y2="56" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow2"/>
+                <polygon points="344,52 352,56 344,60" fill="#E63B2E"/>
+
+                <!-- Step 3: Email finder (highlighted) -->
+                <g class="flow-c3 flow-glow2">
+                    <rect x="352" y="20" width="120" height="72" rx="8" fill="#111111"/>
+                    <text x="412" y="46" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#E8E4DD" font-weight="600">Find owner</text>
+                    <text x="412" y="64" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(232,228,221,0.5)">email address</text>
+                </g>
+
+                <!-- Arrow 3 -->
+                <line x1="472" y1="56" x2="510" y2="56" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow2"/>
+                <polygon points="510,52 518,56 510,60" fill="#E63B2E"/>
+
+                <!-- Step 4: Verify -->
+                <g class="flow-c4 flow-glow2">
+                    <rect x="518" y="20" width="120" height="72" rx="8" fill="#E63B2E"/>
+                    <text x="578" y="46" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="white" font-weight="600">Verify email</text>
+                    <text x="578" y="64" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(255,255,255,0.7)">SMTP check</text>
+                </g>
+
+                <!-- Arrow down from Verify -->
+                <line x1="578" y1="92" x2="578" y2="130" stroke="#E63B2E" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow2"/>
+                <polygon points="574,130 578,138 582,130" fill="#E63B2E"/>
+
+                <!-- Step 5: Spreadsheet delivery -->
+                <g class="flow-c5">
+                    <rect x="518" y="140" width="120" height="72" rx="8" fill="#ffffff" stroke="rgba(17,17,17,0.1)" stroke-width="1"/>
+                    <text x="578" y="166" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="#111111" font-weight="600">Deliver sheet</text>
+                    <text x="578" y="184" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.4)">300+ contacts</text>
+                </g>
+
+                <!-- Branch from email finder: failed verify -->
+                <line x1="412" y1="92" x2="412" y2="190" stroke="rgba(17,17,17,0.15)" stroke-width="1.5" stroke-dasharray="4 3" class="flow-arrow2"/>
+                <polygon points="408,190 412,198 416,190" fill="rgba(17,17,17,0.2)"/>
+
+                <!-- Step: Flag low-confidence -->
+                <g class="flow-c5">
+                    <rect x="352" y="200" width="120" height="60" rx="8" fill="#F5F3EE" stroke="rgba(17,17,17,0.08)" stroke-width="1"/>
+                    <text x="412" y="224" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="11" fill="rgba(17,17,17,0.5)" font-weight="600">Flag &amp; skip</text>
+                    <text x="412" y="242" text-anchor="middle" font-family="Space Mono, monospace" font-size="9" fill="rgba(17,17,17,0.3)">Low confidence</text>
+                </g>
+
+                <text x="320" y="166" font-family="Space Mono, monospace" font-size="8" fill="rgba(17,17,17,0.25)" letter-spacing="0.1em">UNVERIFIED</text>
+            </svg>
+            <div class="diagram-caption">Pipeline: scan Maps, filter for ICP, find owner email, verify, deliver spreadsheet</div>
+        </div>
+
+        <p>The agency feeds those contacts into their email tool every month and runs outreach campaigns. The pipeline doesn't write the emails or manage replies. Its job is simple: <strong>find the right people and confirm they're reachable.</strong> That part it does well.</p>
+
+        <div class="pull-quote">
+            <blockquote>"We went from begging people at events to swap cards to having a list of 300 business owners sitting in our inbox every month. I wish we'd done this two years ago."</blockquote>
+            <cite>Agency Principal</cite>
+        </div>
+
+        <h2>The Results: 90 Days In</h2>
+
+        <p>We handed the first batch of contacts over in week two. By the end of the first 90 days:</p>
+
+        <!-- Before/After Comparison -->
+        <div class="comparison">
+            <div class="comparison-card before">
+                <div class="comp-label">Before AI</div>
+                <ul>
+                    <li>~25 new prospects per month</li>
+                    <li>Source: referrals and networking</li>
+                    <li>No consistent outreach channel</li>
+                    <li>Producer time spent on research</li>
+                    <li>No data on business type or size</li>
+                    <li>Random contact quality</li>
+                    <li>Commercial pipeline stalled</li>
+                </ul>
+            </div>
+            <div class="comparison-card after">
+                <div class="comp-label">After AI</div>
+                <ul>
+                    <li>300+ verified contacts per month</li>
+                    <li>Source: automated Google Maps scan</li>
+                    <li>Monthly email campaigns to owners</li>
+                    <li>Producers focused on selling</li>
+                    <li>Business type, size, location on file</li>
+                    <li>92% email deliverability</li>
+                    <li>$41K new premiums in 90 days</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>The $41K wasn't from some massive account. It was 11 new commercial policies, mostly restaurants and contractors in the $2,500-$6,000 annual premium range. Normal-sized wins that just weren't happening before because there was no pipeline.</p>
+
+        <h2>What Happens to the 92% That Don't Reply</h2>
+
+        <p>Most of the contacts don't respond to the first email. That's normal for cold outreach. The agency runs a 3-touch sequence over 3 weeks. Some respond to the second or third message. Most don't respond at all.</p>
+
+        <p>The point is the math. At 300 verified contacts per month and even a 3% response rate, that's 9 conversations started. Close 2 of those and you're adding commercial policies every month. The pipeline doesn't need a high conversion rate. It just needs to keep running.</p>
+
+        <h2>What We Actually Built, Under the Hood</h2>
+
+        <p>The core is a Python pipeline with three stages:</p>
+
+        <ul>
+            <li><strong>Google Maps scraper</strong> pulls business listings by category and location, filters on review count and rating</li>
+            <li><strong>Email finder</strong> checks the business domain, runs common email pattern combinations, and queries against known public databases</li>
+            <li><strong>Email verifier</strong> runs an SMTP handshake to confirm the mailbox exists without actually sending a message</li>
+        </ul>
+
+        <p>Output is a CSV with 8 fields per contact. No fancy dashboard. The agency imports it to their email tool each month and starts the campaign. Clean and simple.</p>
+
+        <!-- Takeaway -->
+        <div class="takeaway-box">
+            <div class="takeaway-label">Key Takeaway</div>
+            <p>Insurance agencies don't have a prospecting problem. They have a <strong>data problem</strong>. Their ideal clients are listed on Google Maps right now. The owners have publicly associated email addresses. The only thing missing was a way to collect that data at scale without burning a producer's entire week. An AI pipeline solves that. <strong>Once it's running, it runs every month without anyone touching it.</strong></p>
+        </div>
+
+        <h2>What This Costs</h2>
+
+        <p>The pipeline setup is a one-time build. Monthly, the main costs are API credits for the email finder and verifier. For 300 contacts per month, that runs under $80 in API costs. The build itself takes us 7-14 business days depending on how specific the targeting needs to be.</p>
+
+        <p>Compare that to a lead list subscription service ($300-$600/month for often-stale data with no email verification) or hiring a VA to do manual research ($1,500+/month and still capped on output). The pipeline pays for itself fast.</p>
+
+        <!-- FAQ Section (AEO) -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>How does AI lead generation work for insurance agencies?</h3>
+                <p>The pipeline scans Google Maps for businesses matching your target profile, finds the owner's verified email address, and delivers a spreadsheet of contacts monthly. You run your own email campaigns to those contacts. The whole process is automated and runs on a schedule without manual work each cycle.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What types of businesses can an insurance agency target with AI lead gen?</h3>
+                <p>Any business on Google Maps is a valid target. Restaurants, auto shops, contractors, landscapers, retail stores, and medical offices are common for commercial insurance agencies. The pipeline filters by business category, distance from your office, and minimum review count so you're only seeing established businesses.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How accurate are the email addresses found by AI?</h3>
+                <p>With email verification built into the pipeline, deliverability lands around 90-94%. Every address runs through an SMTP check before it goes into the output spreadsheet. Low-confidence addresses get flagged in a separate column rather than mixed into the main list.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How long does it take to set up an AI lead generation pipeline?</h3>
+                <p>Usually 7-14 business days. That covers defining the ICP (industry, location, size), configuring the Maps scraper, connecting the email finder and verifier, setting the output format, and a test run to check quality before the first real batch goes out.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Is Google Maps scraping legal for business lead generation?</h3>
+                <p>Scraping publicly listed business information from Google Maps for B2B prospecting is generally legal in the US and Canada. The outreach still needs to follow CAN-SPAM rules: honest sender identity, a physical address, and a working unsubscribe link. We configure all pipelines with that in mind from the start.</p>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-banner">
+            <h3>Want a lead pipeline like this for your agency?</h3>
+            <p>Book a free 30-minute call. We'll map out your ideal client profile and show you what a pipeline targeting your specific market would look like.</p>
+            <a href="https://cal.com/tedca-skill-nv7wuk/secret" target="_blank" class="cta-btn">Book a Free Call &rarr;</a>
+        </div>
+
+    </article>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="blog-footer-inner">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo-group" style="margin-bottom: 16px;">
+                        <div class="logo-mark" style="width:24px;height:24px;border:1px solid var(--dark);">
+                            <span style="width:4px;height:4px;"></span>
+                        </div>
+                        <div class="logo-text" style="color:var(--paper);font-size:20px;">TEDCA.</div>
+                    </div>
+                    <p>AI systems that run your business while you sleep. Voice AI, automation, and Claude Code skills.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/#svc-voice">Voice AI</a></li>
+                        <li><a href="/#svc-automation">Automation</a></li>
+                        <li><a href="/skills.html">Claude Code Skills</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/blog/dental-ai-receptionist-case-study">Dental AI Case Study</a></li>
+                        <li><a href="/blog/insurance-ai-lead-generation-case-study">Insurance Lead Gen Case Study</a></li>
+                        <li><a href="/delivered">Download Your Skill</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="mailto:tedca.skill@gmail.com">tedca.skill@gmail.com</a></li>
+                        <li><a href="https://cal.com/tedca-skill-nv7wuk/secret" target="_blank">Schedule a Demo</a></li>
+                        <li><a href="https://linkedin.com/company/tedca" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Tedca Corp. All rights reserved.</span>
+                <div class="footer-legal">
+                    <a href="/privacy-policy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/refund-policy.html">Refund Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
