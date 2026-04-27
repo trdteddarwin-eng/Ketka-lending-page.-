@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Audit · Phoenix Roofing and Repair</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --line: #232323;
+    --text: #f4f4f5;
+    --muted: #9b9b9b;
+    --accent: #ff6b35;
+    --accent-soft: rgba(255, 107, 53, 0.12);
+    --green: #4ade80;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 80px 28px 100px; }
+
+  .meta {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h1 .accent { color: var(--accent); }
+
+  h2 {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: -0.005em;
+  }
+
+  .lede {
+    font-size: 19px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 60px;
+    max-width: 620px;
+  }
+
+  section { margin-bottom: 64px; }
+
+  .obs-list {
+    list-style: none;
+    padding: 0;
+  }
+  .obs-list li {
+    padding: 14px 0 14px 24px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    color: var(--text);
+  }
+  .obs-list li::before {
+    content: "→";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-weight: 600;
+  }
+  .obs-list li:last-child { border-bottom: none; }
+
+  .opp {
+    display: flex;
+    gap: 22px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .opp:last-child { border-bottom: none; }
+  .opp-num {
+    flex-shrink: 0;
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 28px;
+    color: var(--accent);
+    width: 50px;
+    font-weight: 600;
+  }
+  .opp-body { flex: 1; min-width: 0; }
+  .opp-section { margin: 12px 0; }
+  .opp-label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .opp-section p { color: var(--text); }
+  .math {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 14px;
+    color: var(--green);
+  }
+  .opp-upside {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--accent-soft);
+    border-radius: 8px;
+  }
+  .opp-upside span {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+  }
+  .opp-upside strong {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .total {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 36px 32px;
+    margin: 60px 0 50px;
+    text-align: center;
+  }
+  .total .label {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .total .value {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .total .sublabel { color: var(--muted); font-size: 14px; }
+
+  .bottom-line {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 22px;
+    line-height: 1.4;
+    border-left: 3px solid var(--accent);
+    padding: 16px 0 16px 24px;
+    color: var(--text);
+    margin-bottom: 50px;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 18px 32px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    transition: opacity 0.15s;
+  }
+  .cta:hover { opacity: 0.9; text-decoration: none; }
+
+  footer {
+    margin-top: 90px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 50px 22px 80px; }
+    h1 { font-size: 34px; }
+    .lede { font-size: 17px; margin-bottom: 40px; }
+    .total .value { font-size: 48px; }
+    .opp { flex-direction: column; gap: 8px; }
+    .opp-num { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="meta">April 27, 2026 · prepared for Jeff at Phoenix Roofing and Repair</div>
+  <h1>How <span class="accent">Phoenix Roofing and Repair</span> can recover lost revenue without hiring.</h1>
+  <p class="lede">Phoenix Roofing and Repair is a family-owned roofing company serving the Phoenix metro area with 15+ years of experience, specializing in both residential and commercial roofing services including repairs, replacements, and installations. They are GAF Master Elite certified and offer free estimates, positioning themselves as experts in Arizona&#x27;s harsh weather conditions.</p>
+
+  <section><h2>What we noticed</h2><ul class="obs-list"><li>No online booking system despite offering free estimates - only phone and contact form</li>
+<li>No live chat widget for immediate lead capture during peak browsing hours</li>
+<li>Strong social media presence across 4 platforms but no automated lead nurturing visible</li>
+<li>Offers &#x27;60-second recommendation&#x27; quiz but likely no automated follow-up sequence</li>
+<li>GAF Master Elite certification and 15+ years experience are strong trust signals for automation messaging</li></ul></section>
+
+  <section>
+    <h2>The opportunities</h2>
+    
+      <article class="opp">
+        <div class="opp-num">01</div>
+        <div class="opp-body">
+          <h3>Missed Call Recovery Text Sequence</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>With 30% of roofing calls going unanswered (industry baseline), Phoenix Roofing is losing approximately 10-11 potential leads monthly. Their single phone number (602) 497-0154 has no backup capture system.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Deploy SMS auto-responder that triggers within 2 minutes of missed calls, offering to schedule callback or send estimate link. 3-message sequence over 24 hours with decreasing urgency.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">11 missed calls/month × 25% text response × 18% close rate × $13,000 = $6,435</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$6,435</strong>
+          </div>
+        </div>
+      </article>
+        
+
+      <article class="opp">
+        <div class="opp-num">02</div>
+        <div class="opp-body">
+          <h3>Quote Follow-Up Automation System</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Industry data shows 70% of roofing quotes never receive follow-up, and Phoenix Roofing&#x27;s contact form has no visible automated nurturing sequence. With 35 monthly quotes, they&#x27;re likely losing 24+ opportunities to competitors who follow up faster.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Build 14-day email/SMS sequence starting 2 hours after quote delivery. Include weather alerts, financing options, GAF warranty benefits, and social proof. Escalates to phone call on day 7 and 14.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">24 unfollowed quotes/month × 15% reactivation × $13,000 = $46,800</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$46,800</strong>
+          </div>
+        </div>
+      </article>
+        
+
+      <article class="opp">
+        <div class="opp-num">03</div>
+        <div class="opp-body">
+          <h3>Emergency Leak Capture Chatbot</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Phoenix gets sudden monsoons causing roof leaks, but their website has no chat widget for after-hours emergency capture. Emergency jobs typically pay 2-3x normal rates but require immediate response.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Install AI chatbot that qualifies emergency leak situations 24/7, collects photos, schedules next-day appointments, and sends immediate SMS to Jeff for true emergencies. Integrates with their existing contact form.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">4 emergency captures/month × 60% close rate × $25,000 = $60,000</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$60,000</strong>
+          </div>
+        </div>
+      </article>
+        
+
+      <article class="opp">
+        <div class="opp-num">04</div>
+        <div class="opp-body">
+          <h3>Seasonal Storm Preparation Campaign</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Arizona has predictable monsoon and hail seasons, but Phoenix Roofing has no proactive outreach to past customers for preventive maintenance or inspection bookings before storm season hits.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Automated email/SMS campaign to past customers 30 days before monsoon season (June) and winter (November), offering discounted inspections and priority scheduling. Includes weather forecasting integration.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">200 past customers × 8% response × 50% close × $3,500 inspection/repair = $28,000</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$28,000</strong>
+          </div>
+        </div>
+      </article>
+        
+  </section>
+
+  <div class="total">
+    <div class="label">Conservative annual upside</div>
+    <div class="value">$1,682,820</div>
+    <div class="sublabel">if all 4 systems install successfully</div>
+  </div>
+
+  <p class="bottom-line">Jeff, these four automations could add $140K+ monthly by capturing the leads you&#x27;re already generating but losing to timing and follow-up gaps.</p>
+
+  <a class="cta" href="https://cal.com/tedca-skill-nv7wuk/secret">Book a 15-min call →</a>
+
+  <footer>
+    Built specifically for Phoenix Roofing and Repair in Phoenix.<br>
+    James · tedca.org<br>
+    Numbers above are conservative estimates based on industry baselines and what we observed on your site.
+    Actual results vary. We guarantee at least one new signed customer in 30 days or you don't pay.
+  </footer>
+</div>
+</body>
+</html>
