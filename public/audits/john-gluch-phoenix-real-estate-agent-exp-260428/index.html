@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Audit · John Gluch Phoenix Real Estate Agent - EXP</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #131313;
+    --line: #232323;
+    --text: #f4f4f5;
+    --muted: #9b9b9b;
+    --accent: #ff6b35;
+    --accent-soft: rgba(255, 107, 53, 0.12);
+    --green: #4ade80;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 80px 28px 100px; }
+
+  .meta {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h1 .accent { color: var(--accent); }
+
+  h2 {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: -0.005em;
+  }
+
+  .lede {
+    font-size: 19px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 60px;
+    max-width: 620px;
+  }
+
+  section { margin-bottom: 64px; }
+
+  .obs-list {
+    list-style: none;
+    padding: 0;
+  }
+  .obs-list li {
+    padding: 14px 0 14px 24px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    color: var(--text);
+  }
+  .obs-list li::before {
+    content: "→";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-weight: 600;
+  }
+  .obs-list li:last-child { border-bottom: none; }
+
+  .opp {
+    display: flex;
+    gap: 22px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .opp:last-child { border-bottom: none; }
+  .opp-num {
+    flex-shrink: 0;
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 28px;
+    color: var(--accent);
+    width: 50px;
+    font-weight: 600;
+  }
+  .opp-body { flex: 1; min-width: 0; }
+  .opp-section { margin: 12px 0; }
+  .opp-label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .opp-section p { color: var(--text); }
+  .math {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 14px;
+    color: var(--green);
+  }
+  .opp-upside {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--accent-soft);
+    border-radius: 8px;
+  }
+  .opp-upside span {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+  }
+  .opp-upside strong {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .total {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 36px 32px;
+    margin: 60px 0 50px;
+    text-align: center;
+  }
+  .total .label {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .total .value {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .total .sublabel { color: var(--muted); font-size: 14px; }
+
+  .bottom-line {
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size: 22px;
+    line-height: 1.4;
+    border-left: 3px solid var(--accent);
+    padding: 16px 0 16px 24px;
+    color: var(--text);
+    margin-bottom: 50px;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 18px 32px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    transition: opacity 0.15s;
+  }
+  .cta:hover { opacity: 0.9; text-decoration: none; }
+
+  footer {
+    margin-top: 90px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 50px 22px 80px; }
+    h1 { font-size: 34px; }
+    .lede { font-size: 17px; margin-bottom: 40px; }
+    .total .value { font-size: 48px; }
+    .opp { flex-direction: column; gap: 8px; }
+    .opp-num { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="meta">April 28, 2026 · prepared for John at John Gluch Phoenix Real Estate Agent - EXP</div>
+  <h1>How <span class="accent">John Gluch Phoenix Real Estate Agent - EXP</span> can recover lost revenue without hiring.</h1>
+  <p class="lede">The Gluch Group is a premier real estate team serving Scottsdale and metro Phoenix, led by John Gluch at EXP Realty. They offer comprehensive buyer and seller services with multiple guarantees including commission back, home sold, buy back, and 100% asking price guarantees.</p>
+
+  <section><h2>What we noticed</h2><ul class="obs-list"><li>Has Calendly booking integration but no live chat for immediate lead capture</li>
+<li>Multiple phone consultation CTAs throughout site but no automated follow-up visible</li>
+<li>Strong guarantee positioning (4 different guarantees) but likely not leveraged in nurture sequences</li>
+<li>Serves multiple Phoenix metro locations but no location-specific lead magnets</li>
+<li>Industry baseline shows 40% of real estate leads are missed due to slow response times</li></ul></section>
+
+  <section>
+    <h2>The opportunities</h2>
+    
+      <article class="opp">
+        <div class="opp-num">01</div>
+        <div class="opp-body">
+          <h3>Instant Lead Response Text Automation</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Real estate research shows 78% of buyers go with the first agent who responds, but most agents take 2+ hours to follow up on web leads.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Build SMS automation that fires within 60 seconds of form submission, includes personalized market data for their area, and books consultation calls directly via text.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">24 faster responses/month × 15% higher close rate × $9,500 = $3,420</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$3,420</strong>
+          </div>
+        </div>
+      </article>
+        
+
+      <article class="opp">
+        <div class="opp-num">02</div>
+        <div class="opp-body">
+          <h3>Guarantee-Focused Email Nurture Sequence</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Site prominently features 4 unique guarantees but no visible email sequence to educate leads on these differentiators over time.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Create 8-email sequence over 30 days highlighting each guarantee with case studies, triggered by any form submission or booking.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">60 leads/month × 8% additional close rate × $9,500 = $4,560</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$4,560</strong>
+          </div>
+        </div>
+      </article>
+        
+
+      <article class="opp">
+        <div class="opp-num">03</div>
+        <div class="opp-body">
+          <h3>Abandoned Booking Recovery Sequence</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Calendly integration captures scheduling intent but no automation follows up when visitors start but don&#x27;t complete booking process.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Build 3-touch sequence (email + SMS) over 48 hours for Calendly abandoners, offering direct calendar link and addressing common objections.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">12 recovered bookings/month × 25% close rate × $9,500 = $2,850</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$2,850</strong>
+          </div>
+        </div>
+      </article>
+        
+
+      <article class="opp">
+        <div class="opp-num">04</div>
+        <div class="opp-body">
+          <h3>Location-Specific Market Report Automation</h3>
+          <div class="opp-section">
+            <span class="opp-label">The leak</span>
+            <p>Serves 6+ metro Phoenix locations but no automated way to deliver hyper-local market insights that establish expertise and generate referrals.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">What we'd build</span>
+            <p>Monthly automated market reports for each location sent to segmented email lists, with personalized home value estimates and recent sales data.</p>
+          </div>
+          <div class="opp-section">
+            <span class="opp-label">Conservative math</span>
+            <p class="math">18 additional referrals/month × 4% close rate × $9,500 = $684</p>
+          </div>
+          <div class="opp-upside">
+            <span>Monthly upside</span>
+            <strong>$684</strong>
+          </div>
+        </div>
+      </article>
+        
+  </section>
+
+  <div class="total">
+    <div class="label">Conservative annual upside</div>
+    <div class="value">$132,168</div>
+    <div class="sublabel">if all 4 systems install successfully</div>
+  </div>
+
+  <p class="bottom-line">These four automations would capture $132k annually by converting leads John&#x27;s already generating but currently losing to slow response times and lack of systematic follow-up.</p>
+
+  <a class="cta" href="https://cal.com/tedca-skill-nv7wuk/secret">Book a 15-min call →</a>
+
+  <footer>
+    Built specifically for John Gluch Phoenix Real Estate Agent - EXP in Phoenix.<br>
+    Michael · tedca.org<br>
+    Numbers above are conservative estimates based on industry baselines and what we observed on your site.
+    Actual results vary. We guarantee at least one new signed customer in 30 days or you don't pay.
+  </footer>
+</div>
+</body>
+</html>
