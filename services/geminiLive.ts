@@ -1,12 +1,14 @@
 import { GoogleGenAI, LiveServerMessage, Modality } from '@google/genai';
 import { createPcmBlob, decodeAudioData, base64ToUint8Array } from '../utils/audio-utils';
 import { BusinessConfig, TranscriptItem } from '../types';
-import { SYSTEM_INSTRUCTION_TEMPLATE } from '../constants';
+import { SYSTEM_INSTRUCTION_TEMPLATE, DEMO_TOOLS } from '../constants';
+import type { AgentActivityEvent, BookedAppointment, DemoToolName } from '../lib/demoTypes';
+import { getAvailableSlots, bookSlot } from '../lib/demoCalendar';
 
 export type ConnectionQuality = 'good' | 'fair' | 'poor';
 
 export class GeminiLiveService {
-  private ai: GoogleGenAI;
+  private ai: GoogleGenAI | null = null;
   private inputAudioContext: AudioContext | null = null;
   private outputAudioContext: AudioContext | null = null;
   private inputSource: MediaStreamAudioSourceNode | null = null;
@@ -18,6 +20,10 @@ export class GeminiLiveService {
   private isConnected: boolean = false;
   private sessionPromise: Promise<any> | null = null;
   private processingId: number = 0;
+
+  // Monotonic counter for generating unique activity-event ids (avoids relying
+  // on Math.random/Date.now for uniqueness within a session).
+  private activityCounter: number = 0;
 
   // Transcription State
   private currentInputText: string = '';
@@ -50,13 +56,18 @@ export class GeminiLiveService {
   public onReconnecting: ((attempt: number) => void) | null = null;
   public onReconnectFailed: (() => void) | null = null;
   public onConnectionQuality: ((quality: ConnectionQuality) => void) | null = null;
+  // Fires for every step in the live "Agent Activity" feed (running -> done).
+  public onActivity: ((event: AgentActivityEvent) => void) | null = null;
+  // Fires once when an appointment is successfully booked, to fill the calendar.
+  public onAppointmentBooked: ((appt: BookedAppointment) => void) | null = null;
+  // Fires when the model decides the call is over (end_call tool). The consumer
+  // should let any final audio play, then disconnect and show the post-call CTA.
+  public onEndCallRequested: (() => void) | null = null;
 
   constructor() {
-    const apiKey = process.env.API_KEY;
-    if (!apiKey) {
-      console.error('API Key not found');
-    }
-    this.ai = new GoogleGenAI({ apiKey: apiKey || '', apiVersion: 'v1alpha' });
+    // No key here. The Gemini client is created per-connection in
+    // establishConnection() from a short-lived ephemeral token fetched from the
+    // server — the browser never holds the real API key.
   }
 
   async connect(config: BusinessConfig) {
@@ -68,6 +79,7 @@ export class GeminiLiveService {
     this.currentOutputText = '';
     this.processingId = 0;
     this.reconnectAttempts = 0;
+    this.activityCounter = 0;
     this.audioGapCounts = [];
     this.currentQuality = 'good';
     this.lastAudioChunkTime = 0;
@@ -100,15 +112,31 @@ export class GeminiLiveService {
       // Start Analysis Loop
       this.startAnalysisLoop();
 
-      // Connect to Gemini Live
-      this.sessionPromise = this.ai.live.connect({
-        model: 'gemini-2.5-flash-native-audio-preview-12-2025',
+      // Fetch a short-lived, single-use EPHEMERAL token from our server. The
+      // browser never holds the real key — only this disposable token (valid a
+      // few minutes, one session). Ephemeral tokens require the v1alpha endpoint.
+      const tokenRes = await fetch('/api/gemini-token', { method: 'POST' });
+      if (!tokenRes.ok) throw new Error('Failed to obtain Live session token');
+      const tokenData = await tokenRes.json();
+      if (!tokenData || !tokenData.token) throw new Error('No Live session token returned');
+      const ai = new GoogleGenAI({
+        apiKey: tokenData.token,
+        httpOptions: { apiVersion: 'v1alpha' },
+      });
+      this.ai = ai;
+
+      // Connect to Gemini Live with the ephemeral token.
+      // gemini-3.1-flash-live-preview (Mar 2026) — Google's lowest-latency Live
+      // model, built for real-time voice + tool calling.
+      this.sessionPromise = ai.live.connect({
+        model: 'gemini-3.1-flash-live-preview',
         config: {
           responseModalities: [Modality.AUDIO],
           speechConfig: {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } },
           },
           systemInstruction: SYSTEM_INSTRUCTION_TEMPLATE(config),
+          tools: [{ functionDeclarations: DEMO_TOOLS }],
           inputAudioTranscription: {},
           outputAudioTranscription: {},
         },
@@ -119,12 +147,25 @@ export class GeminiLiveService {
             this.startSessionTimers();
           },
           onmessage: this.handleMessage.bind(this),
-          onclose: () => {
-            console.log('Gemini Live Connection Closed');
+          onclose: (e: any) => {
+            // Surface WHY the socket closed — the close code + reason tell us if
+            // it's a rate limit, a bad frame, a server error, model issue, etc.
+            console.warn(
+              '[GeminiLive] Connection CLOSED →',
+              'code:', e?.code,
+              'reason:', e?.reason || '(none)',
+              'wasClean:', e?.wasClean,
+              e
+            );
             this.handleConnectionLoss();
           },
-          onerror: (e) => {
-            console.error('Gemini Live Error', e);
+          onerror: (e: any) => {
+            console.error(
+              '[GeminiLive] Connection ERROR →',
+              'message:', e?.message,
+              'code:', e?.code,
+              e
+            );
             this.handleConnectionLoss();
           }
         }
@@ -238,13 +279,21 @@ export class GeminiLiveService {
   async sendText(text: string) {
     if (!this.sessionPromise) return;
 
-    this.transcript.push({ role: 'user', text, timestamp: new Date() });
-    if (this.onTranscript) {
-      this.onTranscript([...this.transcript]);
+    // sendText is used only for hidden SYSTEM nudges (the greeting trigger and
+    // the wrap-up message), so we deliberately do NOT push it to the visible
+    // transcript — otherwise the caller would see "[SYSTEM] ..." as their own line.
+    try {
+      const session = await this.sessionPromise;
+      // Current @google/genai Live API: text turns go through sendClientContent.
+      // The old session.send(content, turnComplete) was REMOVED — calling it threw
+      // "session.send is not a function" and destabilized the live session.
+      session.sendClientContent({
+        turns: [{ role: 'user', parts: [{ text }] }],
+        turnComplete: true,
+      });
+    } catch (e) {
+      console.error('[GeminiLive] sendText failed (non-fatal):', e);
     }
-
-    const session = await this.sessionPromise;
-    await session.send({ parts: [{ text }] }, true);
   }
 
   private setupInputProcessing(stream: MediaStream) {
@@ -273,6 +322,16 @@ export class GeminiLiveService {
   }
 
   private async handleMessage(message: LiveServerMessage) {
+    // Handle structured tool calls from the model. Wrapped so a tool error can
+    // never bubble up and kill the audio session.
+    if (message.toolCall?.functionCalls?.length) {
+      try {
+        this.handleToolCall(message.toolCall.functionCalls);
+      } catch (e) {
+        console.error('Error handling tool call', e);
+      }
+    }
+
     const serverContent = message.serverContent;
 
     // Handle Transcription
@@ -352,6 +411,153 @@ export class GeminiLiveService {
       } catch (e) {
         console.error('Error decoding audio chunk', e);
       }
+    }
+  }
+
+  /**
+   * Process one or more function calls emitted by the model during the live
+   * call. For each call we: (1) emit a 'running' activity event, (2) run the
+   * simulated handler, (3) emit a 'done' event, and (4) send the tool result
+   * back to the model so it keeps talking. Every step is defensive — a single
+   * bad tool call must never break the audio session.
+   */
+  private handleToolCall(functionCalls: any[]) {
+    const functionResponses: any[] = [];
+
+    for (const call of functionCalls) {
+      const name = (call?.name || '') as DemoToolName | '';
+      const args = (call?.args || {}) as Record<string, any>;
+      const id = call?.id;
+
+      let response: Record<string, unknown> = { status: 'ok' };
+
+      try {
+        switch (name) {
+          case 'check_availability': {
+            this.emitActivity(name, 'running', 'Checking calendar availability…');
+            const slots = getAvailableSlots(
+              typeof args.preferred_day === 'string' ? args.preferred_day : undefined
+            );
+            response = { status: 'ok', slots };
+            this.emitActivity(name, 'done', `Found ${slots.length} open slots`, slots.join(', '));
+            break;
+          }
+          case 'book_appointment': {
+            const day = typeof args.day === 'string' ? args.day : '';
+            const time = typeof args.time === 'string' ? args.time : '';
+            const service = typeof args.service === 'string' ? args.service : undefined;
+            this.emitActivity(
+              name,
+              'running',
+              `Booking ${day || 'appointment'}${time ? ` at ${time}` : ''}`
+            );
+            const appt = bookSlot({ day, time, service });
+            response = {
+              status: 'booked',
+              day: appt.day,
+              time: appt.time,
+              service: appt.service,
+            };
+            if (this.onAppointmentBooked) {
+              try {
+                this.onAppointmentBooked(appt);
+              } catch (e) {
+                console.error('onAppointmentBooked callback error', e);
+              }
+            }
+            this.emitActivity(
+              name,
+              'done',
+              `Confirmed for ${appt.day} ${appt.time}`,
+              appt.service
+            );
+            break;
+          }
+          case 'capture_lead': {
+            this.emitActivity(name, 'running', 'Saving caller details…');
+            const captured = {
+              name: typeof args.name === 'string' ? args.name : undefined,
+              phone: typeof args.phone === 'string' ? args.phone : undefined,
+              reason: typeof args.reason === 'string' ? args.reason : undefined,
+            };
+            response = { status: 'saved', ...captured };
+            const summary = [captured.name, captured.phone].filter(Boolean).join(' · ');
+            this.emitActivity(name, 'done', 'Saved', summary || undefined);
+            break;
+          }
+          case 'take_message': {
+            this.emitActivity(name, 'running', 'Taking a message for Dr. Martinez…');
+            const msg = typeof args.message === 'string' ? args.message : '';
+            response = { status: 'noted', message: msg };
+            this.emitActivity(name, 'done', 'Message noted', msg || undefined);
+            break;
+          }
+          case 'end_call': {
+            this.emitActivity(name, 'done', 'Call complete', 'Wrapping up…');
+            response = { status: 'ending' };
+            // Defer to the consumer (App) to let the closing audio finish before
+            // we actually tear down the session and show the post-call CTA.
+            if (this.onEndCallRequested) {
+              try {
+                this.onEndCallRequested();
+              } catch (e) {
+                console.error('onEndCallRequested callback error', e);
+              }
+            }
+            break;
+          }
+          default: {
+            // Unknown tool — return a generic success so the model isn't stuck.
+            response = { status: 'ok' };
+            break;
+          }
+        }
+      } catch (e) {
+        console.error(`Error running tool "${name}"`, e);
+        // Even on failure the simulated calendar "succeeds" so the demo never
+        // stalls; the model gets a generic ok and keeps the conversation going.
+        response = { status: 'ok' };
+      }
+
+      functionResponses.push({ id, name: call?.name, response });
+    }
+
+    // Send the tool results back so the model continues the turn (and speaks
+    // the confirmation). Fire-and-forget; never throw out of here.
+    if (functionResponses.length && this.sessionPromise) {
+      this.sessionPromise
+        .then((session) => {
+          try {
+            session.sendToolResponse({ functionResponses });
+          } catch (e) {
+            console.error('Error sending tool response', e);
+          }
+        })
+        .catch((e) => console.error('Session unavailable for tool response', e));
+    }
+  }
+
+  /** Emit a single Agent Activity feed event via the onActivity callback. */
+  private emitActivity(
+    tool: DemoToolName | '',
+    status: 'running' | 'done',
+    label: string,
+    detail?: string
+  ) {
+    if (!this.onActivity || !tool) return;
+    this.activityCounter++;
+    const event: AgentActivityEvent = {
+      id: `act-${this.activityCounter}`,
+      tool: tool as DemoToolName,
+      status,
+      label,
+      detail,
+      timestamp: Date.now(),
+    };
+    try {
+      this.onActivity(event);
+    } catch (e) {
+      console.error('onActivity callback error', e);
     }
   }
 

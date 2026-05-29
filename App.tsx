@@ -2,14 +2,16 @@ import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { AppState, BusinessConfig, TranscriptItem } from './types';
 import { GeminiLiveService } from './services/geminiLive';
 import { AnimatePresence, motion } from 'framer-motion';
-import { canStartDemo, recordDemoStart, getRemainingCooldown } from './utils/rateLimit';
+import { recordDemoStart, getRemainingCooldown, hasUsedDemoEmail, recordDemoEmail } from './utils/rateLimit';
+import { AgentActivityEvent, BookedAppointment } from './lib/demoTypes';
+import { submitLeadAndCheck } from './services/webhookService';
 
 // Lazy-load heavy components that aren't needed on initial render
 const SetupForm = lazy(() => import('./components/SetupForm').then(m => ({ default: m.SetupForm })));
 const ActiveCall = lazy(() => import('./components/ActiveCall').then(m => ({ default: m.ActiveCall })));
 const TranscriptSummary = lazy(() => import('./components/TranscriptSummary').then(m => ({ default: m.TranscriptSummary })));
+const BookCallModal = lazy(() => import('./components/BookCallModal').then(m => ({ default: m.BookCallModal })));
 const ChatWidget = lazy(() => import('./components/ChatWidget').then(m => ({ default: m.ChatWidget })));
-const Cal = lazy(() => import("@calcom/embed-react"));
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
@@ -20,6 +22,10 @@ const App: React.FC = () => {
   const [isReconnecting, setIsReconnecting] = useState(false);
   const [reconnectAttempt, setReconnectAttempt] = useState(0);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const [activity, setActivity] = useState<AgentActivityEvent[]>([]);
+  const [booked, setBooked] = useState<BookedAppointment | null>(null);
+  const [showBookModal, setShowBookModal] = useState(false);
+  const [bookVariant, setBookVariant] = useState<'completed' | 'already-used'>('completed');
 
   const liveServiceRef = useRef<GeminiLiveService | null>(null);
   const callStartRef = useRef<number>(0);
@@ -54,13 +60,26 @@ const App: React.FC = () => {
   };
 
   const handleSetupComplete = async (newConfig: BusinessConfig) => {
-    // Rate limit check
-    if (!canStartDemo()) {
-      const remaining = getRemainingCooldown();
-      setCooldownRemaining(remaining);
-      setErrorMsg(`Demo cooldown active. Please wait ${formatCooldown(remaining)} before trying again.`);
+    // Re-use lock: one voice demo per email. The Google Sheet (via the Apps
+    // Script webhook) is the source of truth AND logs the lead in the same call;
+    // localStorage is the instant first layer. If they've already used it, skip
+    // the demo and push them to book a call.
+    const emailKey = (newConfig.email || '').trim().toLowerCase();
+    let blocked = emailKey ? hasUsedDemoEmail(emailKey) : false;
+    if (!blocked && emailKey) {
+      const result = await submitLeadAndCheck(newConfig);
+      // result === null means we couldn't read the response (CORS/network) —
+      // fall back to the localStorage layer rather than block a real lead.
+      if (result && result.alreadyUsed) blocked = true;
+    }
+    if (blocked) {
+      if (emailKey) recordDemoEmail(emailKey);
+      setConfig(newConfig);
+      setBookVariant('already-used');
+      setShowBookModal(true);
       return;
     }
+    if (emailKey) recordDemoEmail(emailKey);
 
     setConfig(newConfig);
     setAppState(AppState.CONNECTING);
@@ -68,6 +87,8 @@ const App: React.FC = () => {
     setTranscript([]);
     setIsReconnecting(false);
     setReconnectAttempt(0);
+    setActivity([]);
+    setBooked(null);
 
     try {
       if (liveServiceRef.current) {
@@ -101,6 +122,38 @@ const App: React.FC = () => {
           console.log('Connection quality:', quality);
         };
 
+        // Stream the AI's structured actions into the live activity feed.
+        // Events fire 'running' then 'done' with the same id — merge in place.
+        liveServiceRef.current.onActivity = (event) => {
+          setActivity((prev) => {
+            const idx = prev.findIndex((e) => e.id === event.id);
+            if (idx >= 0) {
+              const copy = [...prev];
+              copy[idx] = event;
+              return copy;
+            }
+            return [...prev, event];
+          });
+        };
+
+        liveServiceRef.current.onAppointmentBooked = (appt) => {
+          setBooked(appt);
+        };
+
+        // The AI hung up on its own (end_call tool). Let the closing line finish,
+        // then tear down and surface the Book-a-Call CTA.
+        liveServiceRef.current.onEndCallRequested = () => {
+          window.setTimeout(() => {
+            if (liveServiceRef.current) {
+              setCallDuration(Math.floor((Date.now() - callStartRef.current) / 1000));
+              liveServiceRef.current.disconnect();
+            }
+            setBookVariant('completed');
+            setShowBookModal(true);
+            setAppState(AppState.SUMMARY);
+          }, 2800);
+        };
+
         await liveServiceRef.current.connect(newConfig);
         setAppState(AppState.ACTIVE);
         recordDemoStart();
@@ -123,12 +176,24 @@ const App: React.FC = () => {
       setCallDuration(Math.floor((Date.now() - callStartRef.current) / 1000));
       liveServiceRef.current.disconnect();
     }
+    setBookVariant('completed');
+    setShowBookModal(true);
     setAppState(AppState.SUMMARY);
   };
 
   const handleCloseSummary = () => {
     setAppState(AppState.IDLE);
     setConfig(null);
+  };
+
+  // Closing the Book-a-Call modal exits the demo overlay entirely. The used
+  // email is already recorded, so re-submitting will hit the 'already-used' path.
+  const closeBookModal = () => {
+    setShowBookModal(false);
+    setAppState(AppState.IDLE);
+    setConfig(null);
+    setBooked(null);
+    setActivity([]);
   };
 
   useEffect(() => {
@@ -155,7 +220,11 @@ const App: React.FC = () => {
     };
   }, []);
 
-  const isOverlayVisible = appState !== AppState.IDLE;
+  // The Book-a-Call modal can appear while appState is still IDLE (e.g. the
+  // re-use 'already-used' block fired straight from the landing-page form).
+  // Count it as "overlay visible" so the root container stays interactive —
+  // otherwise the modal renders but pointer-events-none freezes it.
+  const isOverlayVisible = appState !== AppState.IDLE || showBookModal;
 
   return (
     <div className={`fixed inset-0 z-[9999] overflow-y-auto font-sans transition-colors duration-300 ${isOverlayVisible ? 'bg-paper pointer-events-auto' : 'bg-transparent pointer-events-none'}`}>
@@ -179,7 +248,7 @@ const App: React.FC = () => {
         </div>
         <div className="flex items-center gap-4">
           <div className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 bg-dark/5 text-dark/70 border border-dark/10 hidden sm:block">
-            Powered by Gemini 2.5
+            Powered by Gemini 3.1
           </div>
           <button
             onClick={() => {
@@ -265,6 +334,8 @@ const App: React.FC = () => {
                 service={liveServiceRef.current}
                 onEndCall={handleEndCall}
                 transcript={transcript}
+                activity={activity}
+                booked={booked}
                 isReconnecting={isReconnecting}
                 reconnectAttempt={reconnectAttempt}
               />
@@ -286,38 +357,28 @@ const App: React.FC = () => {
                 onClose={handleCloseSummary}
                 callDuration={callDuration}
               />
-
-              {/* Calendar — only shown after call ends */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="w-full max-w-4xl mx-auto mt-8"
-              >
-                <div className="text-center mb-4">
-                  <h3 className="font-heading text-xl font-bold text-dark uppercase tracking-tighter">
-                    Want this for your business?
-                  </h3>
-                  <p className="font-mono text-[10px] text-dark/50 uppercase tracking-widest mt-1">
-                    Book a call to get started
-                  </p>
-                </div>
-                <div className="h-[400px] md:h-[600px] bg-paper overflow-hidden border border-dark shadow-[4px_4px_0px_#111111] p-2">
-                  <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-dark/50 font-mono text-xs">Loading calendar...</div>}>
-                    <Cal
-                      namespace="30min"
-                      calLink="tedca-skill-nv7wuk/secret"
-                      style={{ width: "100%", height: "100%", overflow: "scroll" }}
-                      config={{ layout: "month_view" }}
-                    />
-                  </Suspense>
-                </div>
-              </motion.div>
+              {/* Booking now happens through the qualify-gated Book-a-Call modal
+                  (rendered below), so the calendar is no longer exposed un-gated. */}
             </motion.div>
           )}
         </AnimatePresence>
         </Suspense>
       </main>
+
+      {/* Qualify-gated Book-a-Call popup — post-demo and re-use ('already-used') */}
+      <Suspense fallback={null}>
+        {showBookModal && (
+          <BookCallModal
+            open={showBookModal}
+            variant={bookVariant}
+            config={config}
+            booked={booked}
+            calLink="tedca-skill-nv7wuk/secret"
+            calNamespace="30min"
+            onClose={closeBookModal}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };

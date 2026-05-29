@@ -4,12 +4,17 @@ import { Visualizer } from './Visualizer';
 import { GeminiLiveService } from '../services/geminiLive';
 import { APPOINTMENT_TRIGGER_PHRASES } from '../constants';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AgentActivity } from './AgentActivity';
+import { LiveCalendar } from './LiveCalendar';
+import { AgentActivityEvent, BookedAppointment } from '../lib/demoTypes';
 
 interface ActiveCallProps {
   config: BusinessConfig;
   onEndCall: () => void;
   service: GeminiLiveService;
   transcript?: TranscriptItem[];
+  activity?: AgentActivityEvent[];
+  booked?: BookedAppointment | null;
   isReconnecting?: boolean;
   reconnectAttempt?: number;
 }
@@ -19,6 +24,8 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
   onEndCall,
   service,
   transcript = [],
+  activity = [],
+  booked = null,
   isReconnecting = false,
   reconnectAttempt = 0,
 }) => {
@@ -27,8 +34,35 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
   const [showEndConfirm, setShowEndConfirm] = useState(false);
   const [transcriptExpanded, setTranscriptExpanded] = useState(false);
   const [showAppointmentBooked, setShowAppointmentBooked] = useState(false);
+  const [chipIndex, setChipIndex] = useState(0);
   const transcriptEndRef = useRef<HTMLDivElement>(null);
   const bookedTriggeredRef = useRef(false);
+
+  // 5-minute demo session — surface time REMAINING, not elapsed.
+  const SESSION_SECONDS = 300;
+  const remaining = Math.max(0, SESSION_SECONDS - duration);
+  const lowTime = remaining <= 60;
+  const progressPct = (remaining / SESSION_SECONDS) * 100;
+
+  // Suggestion prompts that nudge the caller on what to say. These guide them
+  // straight into the impressive actions (booking, FAQs, emergency handling) so
+  // they don't freeze on the mic.
+  const SUGGESTIONS = [
+    'Try: "I’d like to book a cleaning for next week"',
+    'Ask: "What are your hours?"',
+    'Ask: "Do you take my insurance?"',
+    'Say: "I have a toothache — can I get in today?"',
+    'Ask: "How much is teeth whitening?"',
+    'Try: "Can I reschedule my appointment?"',
+  ];
+
+  // Rotate the suggestion every few seconds.
+  useEffect(() => {
+    const i = setInterval(() => {
+      setChipIndex((prev) => (prev + 1) % SUGGESTIONS.length);
+    }, 3800);
+    return () => clearInterval(i);
+  }, []);
 
   useEffect(() => {
     service.onVolumeChange = (vol) => {
@@ -52,12 +86,8 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
     }
   }, [transcript]);
 
-  // Auto-expand transcript on desktop when first message arrives
-  useEffect(() => {
-    if (transcript.length === 1 && window.innerWidth >= 768) {
-      setTranscriptExpanded(true);
-    }
-  }, [transcript.length]);
+  // Transcript stays collapsed by default so the live calendar + activity feed
+  // remain the focus (and the layout fits the viewport without scrolling).
 
   // Detect appointment booking from AI responses
   useEffect(() => {
@@ -100,7 +130,7 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col items-center justify-center w-full h-full px-4 py-6 relative"
+      className="flex flex-col w-full h-[calc(100svh-6rem)] px-3 py-3 md:px-6 md:py-4 relative overflow-hidden"
     >
       {/* Reconnecting Overlay */}
       <AnimatePresence>
@@ -195,40 +225,96 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Minimal Header */}
-      <div className="text-center mb-8 relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 border border-signal bg-signal/10 text-signal font-mono text-[10px] font-bold uppercase tracking-widest mb-3">
-          <span className="w-2 h-2 bg-signal animate-pulse"></span>
-          LIVE DEMO
+      {/* ===== Compact control strip (always visible at top) ===== */}
+      <div className="shrink-0 w-full max-w-5xl mx-auto relative z-10">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="inline-flex items-center gap-1.5 px-2 py-1 border border-signal bg-signal/10 text-signal font-mono text-[9px] font-bold uppercase tracking-widest shrink-0">
+              <span className="w-1.5 h-1.5 bg-signal animate-pulse"></span>
+              LIVE
+            </div>
+            <div className="w-8 h-8 md:w-9 md:h-9 shrink-0">
+              <Visualizer isActive={true} volume={volume} />
+            </div>
+            <span className="font-mono text-[10px] text-dark/60 uppercase tracking-widest truncate">
+              Speaking with {config.firstName}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="flex flex-col items-end leading-none">
+              <motion.span
+                key={lowTime ? 'low' : 'normal'}
+                className={`font-mono text-lg md:text-2xl font-bold tabular-nums tracking-tighter ${lowTime ? 'text-signal' : 'text-dark'}`}
+                animate={lowTime ? { scale: [1, 1.05, 1] } : { scale: 1 }}
+                transition={lowTime ? { duration: 1, repeat: Infinity } : {}}
+              >
+                {formatTime(remaining)}
+              </motion.span>
+              <span className="font-mono text-[8px] text-dark/40 uppercase tracking-widest mt-0.5">
+                {lowTime ? 'Wrapping up' : 'Demo left'}
+              </span>
+            </div>
+            <button
+              onClick={handleEndClick}
+              className="flex items-center gap-1.5 px-3 py-2 bg-signal hover:bg-signal/90 border border-dark text-paper font-mono text-[10px] font-bold uppercase tracking-widest transition-colors active:translate-y-[1px]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+              </svg>
+              End
+            </button>
+          </div>
         </div>
-        <p className="font-mono text-[10px] text-dark/50 uppercase tracking-widest">Bright Smile Dental</p>
+
+        {/* Progress bar */}
+        <div className="w-full h-1 bg-dark/10 mt-2 overflow-hidden">
+          <div
+            className={`h-full transition-all duration-1000 ease-linear ${lowTime ? 'bg-signal' : 'bg-dark/60'}`}
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+
+        {/* Disclaimer */}
+        <p className="font-mono text-[9px] text-dark/35 tracking-tight text-center mt-1.5 leading-snug">
+          Sample demo business — the real agent we build is customized to your business, services &amp; calendar.
+        </p>
       </div>
 
-      {/* Compact Visualizer */}
-      <div className="relative w-[140px] h-[140px] md:w-[200px] md:h-[200px] flex items-center justify-center mb-4">
-        <Visualizer isActive={true} volume={volume} />
+      {/* ===== Hero: live calendar + agent activity. Fills the space and stays
+              visible while talking — no scrolling needed to watch it work. ===== */}
+      <div className="flex-1 min-h-0 w-full max-w-5xl mx-auto mt-2 md:mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 relative z-10 overflow-hidden">
+        <div className="min-h-0 overflow-y-auto">
+          <LiveCalendar booked={booked} />
+        </div>
+        <div className="min-h-0 overflow-hidden flex flex-col">
+          <AgentActivity events={activity} />
+        </div>
       </div>
 
-      {/* Timer */}
-      <p className="text-dark font-mono text-4xl md:text-5xl font-bold tracking-tighter mb-8 relative z-10">{formatTime(duration)}</p>
+      {/* Rotating suggestion chips — compact, just above the transcript */}
+      <div className="shrink-0 w-full max-w-md mx-auto mt-2 relative z-10">
+        <div className="relative h-[40px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={chipIndex}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="absolute inset-0 px-3 py-2 bg-paper border border-dark border-l-4 border-l-signal text-center shadow-[2px_2px_0px_#111111] flex items-center justify-center gap-2"
+            >
+              <span className="text-[11px] leading-none">💡</span>
+              <p className="font-mono text-[10px] text-dark/80 tracking-tight leading-snug">
+                {SUGGESTIONS[chipIndex]}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
 
-      {/* Speaking indicator */}
-      <p className="font-mono text-[10px] text-dark/70 uppercase tracking-widest mb-8 relative z-10">Speaking with {config.firstName}</p>
-
-      {/* End Call Button */}
-      <button
-        onClick={handleEndClick}
-        className="w-16 h-16 md:w-20 md:h-20 bg-signal hover:bg-signal/90 border border-dark border-b-4 border-r-4 flex items-center justify-center transition-all active:border-b active:border-r active:translate-y-[3px] active:translate-x-[3px] group relative z-10"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 md:h-8 md:w-8 text-paper group-hover:scale-90 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-        </svg>
-      </button>
-
-      <p className="font-mono text-[10px] text-dark/40 uppercase tracking-widest mt-4 relative z-10">Tap to end call</p>
-
-      {/* Live Transcript Panel */}
-      <div className="mt-8 w-full max-w-lg relative z-10">
+      {/* Live Transcript Panel (collapsed by default, compact) */}
+      <div className="shrink-0 w-full max-w-2xl mx-auto mt-2 relative z-10">
         {/* Toggle button (always visible, especially useful on mobile) */}
         <button
           onClick={() => setTranscriptExpanded(!transcriptExpanded)}
@@ -255,7 +341,7 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <div className="max-h-[200px] md:max-h-[300px] overflow-y-auto bg-offwhite border border-t-0 border-dark/20 p-4 space-y-3">
+              <div className="max-h-[26vh] overflow-y-auto bg-offwhite border border-t-0 border-dark/20 p-4 space-y-3">
                 {transcript.length === 0 ? (
                   <p className="text-center font-mono text-[10px] text-dark/30 uppercase tracking-widest py-4">
                     Waiting for conversation...
@@ -283,12 +369,6 @@ export const ActiveCall: React.FC<ActiveCallProps> = ({
         </AnimatePresence>
       </div>
 
-      {/* Tip */}
-      <div className="mt-6 px-4 py-3 bg-paper border border-dark border-l-4 border-l-signal max-w-xs text-center relative z-10 shadow-[2px_2px_0px_#111111]">
-        <p className="font-mono text-[10px] text-dark/70 tracking-tight">
-          Try: "I'd like to book a cleaning" or "What are your hours?"
-        </p>
-      </div>
     </motion.div>
   );
 };

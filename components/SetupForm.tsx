@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BusinessConfig } from '../types';
 import { API_BASE_URL } from '../constants';
-import { submitLead, testWebhook } from '../services/webhookService';
+import { testWebhook } from '../services/webhookService';
 import { motion } from 'framer-motion';
 
 interface SetupFormProps {
@@ -24,13 +24,8 @@ export const SetupForm: React.FC<SetupFormProps> = ({ onComplete, isLoading }) =
         email,
       };
 
-      if (API_BASE_URL) {
-        try {
-          await submitLead(config);
-        } catch (error) {
-          console.error('Failed to send lead webhook:', error);
-        }
-      }
+      // Lead capture + re-use check happen together in App.handleSetupComplete
+      // (one call to the Apps Script logs the lead AND returns alreadyUsed).
       onComplete(config);
     }
   };
