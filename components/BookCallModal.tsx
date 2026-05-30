@@ -123,7 +123,7 @@ export const BookCallModal: React.FC<BookCallModalProps> = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-dark/80 px-4 py-8 overflow-y-auto"
+        className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center bg-dark/80 px-4 pt-[calc(env(safe-area-inset-top,0px)+2.75rem)] pb-[calc(env(safe-area-inset-bottom,0px)+2.5rem)] sm:py-10 overflow-y-auto"
         // Close only when the backdrop ITSELF is clicked. We deliberately do NOT
         // stopPropagation on the card — Cal.com detects the "Book your call" click
         // via a document-level listener, which stopPropagation would silently block.
@@ -137,7 +137,7 @@ export const BookCallModal: React.FC<BookCallModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 12 }}
           transition={{ type: 'spring', damping: 20, stiffness: 220 }}
-          className="relative w-full max-w-md bg-paper border border-dark shadow-[8px_8px_0px_#111111] my-auto"
+          className="relative w-full max-w-md bg-paper border border-dark shadow-[8px_8px_0px_#111111]"
         >
           {/* Subtle close — booking is the primary path */}
           {onClose && (

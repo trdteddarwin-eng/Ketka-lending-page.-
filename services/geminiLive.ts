@@ -70,6 +70,40 @@ export class GeminiLiveService {
     // server — the browser never holds the real API key.
   }
 
+  /**
+   * Unlock + warm the audio pipeline. MUST be called synchronously from inside a
+   * real user gesture (the tap that starts the demo) — BEFORE any `await`.
+   *
+   * iOS Safari is the reason this exists. On iOS, AudioContexts are created in
+   * the 'suspended' state and can only be resumed from a user-gesture call stack.
+   * Our connect flow does `await submitLeadAndCheck(...)` first, which consumes
+   * the gesture; by the time establishConnection() creates the contexts, iOS
+   * refuses to start them. The symptom is a call that looks "connected" but is
+   * dead BOTH ways: the mic ScriptProcessor never fires (AI hears silence) and
+   * TTS playback never starts (you hear nothing). Creating + resuming the
+   * contexts here, in the gesture, flips iOS's audio switch on for the session.
+   */
+  unlockAudio() {
+    try {
+      const Ctx = (window.AudioContext || (window as any).webkitAudioContext);
+      if (!Ctx) return;
+      if (!this.inputAudioContext) this.inputAudioContext = new Ctx({ sampleRate: 16000 });
+      if (!this.outputAudioContext) this.outputAudioContext = new Ctx({ sampleRate: 24000 });
+      // Resume must happen in the gesture stack on iOS.
+      if (this.inputAudioContext.state === 'suspended') void this.inputAudioContext.resume();
+      if (this.outputAudioContext.state === 'suspended') void this.outputAudioContext.resume();
+      // Play a 1-frame silent buffer through the output to fully unlock iOS
+      // playback (the canonical Web Audio "unlock" trick).
+      const buf = this.outputAudioContext.createBuffer(1, 1, 22050);
+      const src = this.outputAudioContext.createBufferSource();
+      src.buffer = buf;
+      src.connect(this.outputAudioContext.destination);
+      src.start(0);
+    } catch (e) {
+      console.warn('[GeminiLive] unlockAudio failed (non-fatal):', e);
+    }
+  }
+
   async connect(config: BusinessConfig) {
     if (this.isConnected) return;
 
@@ -89,9 +123,17 @@ export class GeminiLiveService {
 
   private async establishConnection(config: BusinessConfig) {
     try {
-      // Initialize Audio Contexts
-      this.inputAudioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
-      this.outputAudioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
+      // Initialize Audio Contexts — REUSE the ones unlockAudio() already created
+      // inside the user gesture. Creating fresh ones here (post-`await`) would be
+      // born suspended on iOS and never start. Only create if missing (e.g. a
+      // reconnect after cleanup).
+      const Ctx = (window.AudioContext || (window as any).webkitAudioContext);
+      if (!this.inputAudioContext) this.inputAudioContext = new Ctx({ sampleRate: 16000 });
+      if (!this.outputAudioContext) this.outputAudioContext = new Ctx({ sampleRate: 24000 });
+      // Belt-and-suspenders: make sure both are running. On iOS these succeed
+      // because unlockAudio() already activated the audio session in the gesture.
+      if (this.inputAudioContext.state === 'suspended') await this.inputAudioContext.resume();
+      if (this.outputAudioContext.state === 'suspended') await this.outputAudioContext.resume();
 
       // Output setup
       this.outputGainNode = this.outputAudioContext.createGain();
@@ -143,6 +185,10 @@ export class GeminiLiveService {
         callbacks: {
           onopen: () => {
             console.log('Gemini Live Connection Opened');
+            // iOS can re-suspend the context once getUserMedia grabs the mic —
+            // nudge both back to running so playback + capture actually flow.
+            void this.inputAudioContext?.resume();
+            void this.outputAudioContext?.resume();
             this.setupInputProcessing(stream);
             this.startSessionTimers();
           },
@@ -298,6 +344,10 @@ export class GeminiLiveService {
 
   private setupInputProcessing(stream: MediaStream) {
     if (!this.inputAudioContext) return;
+
+    // iOS: ensure the input context is running, or onaudioprocess never fires
+    // and the model receives pure silence (it never responds).
+    if (this.inputAudioContext.state === 'suspended') void this.inputAudioContext.resume();
 
     this.inputSource = this.inputAudioContext.createMediaStreamSource(stream);
     this.scriptProcessor = this.inputAudioContext.createScriptProcessor(2048, 1, 1);

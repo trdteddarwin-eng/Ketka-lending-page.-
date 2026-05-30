@@ -11,7 +11,6 @@ const SetupForm = lazy(() => import('./components/SetupForm').then(m => ({ defau
 const ActiveCall = lazy(() => import('./components/ActiveCall').then(m => ({ default: m.ActiveCall })));
 const TranscriptSummary = lazy(() => import('./components/TranscriptSummary').then(m => ({ default: m.TranscriptSummary })));
 const BookCallModal = lazy(() => import('./components/BookCallModal').then(m => ({ default: m.BookCallModal })));
-const ChatWidget = lazy(() => import('./components/ChatWidget').then(m => ({ default: m.ChatWidget })));
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
@@ -60,6 +59,13 @@ const App: React.FC = () => {
   };
 
   const handleSetupComplete = async (newConfig: BusinessConfig) => {
+    // iOS CRITICAL: unlock/warm the audio pipeline RIGHT NOW, synchronously,
+    // while we're still inside the user-gesture call stack (form submit →
+    // start-demo → here). The first `await` below revokes iOS's audio
+    // permission, so the AudioContexts must be created + resumed before it or
+    // the call is silent both ways on iPhone.
+    liveServiceRef.current?.unlockAudio();
+
     // Re-use lock: one voice demo per email. The Google Sheet (via the Apps
     // Script webhook) is the source of truth AND logs the lead in the same call;
     // localStorage is the instant first layer. If they've already used it, skip
@@ -229,15 +235,8 @@ const App: React.FC = () => {
   return (
     <div className={`fixed inset-0 z-[9999] overflow-y-auto font-sans transition-colors duration-300 ${isOverlayVisible ? 'bg-paper pointer-events-auto' : 'bg-transparent pointer-events-none'}`}>
 
-      {/* Chat Widget */}
-      <div className="fixed bottom-6 right-6 z-[10000] pointer-events-auto">
-        <Suspense fallback={null}>
-          <ChatWidget />
-        </Suspense>
-      </div>
-
       {/* Header */}
-      <header className={`p-4 md:p-6 flex items-center justify-between border-b border-dark/20 bg-offwhite/90 backdrop-blur-sm fixed top-0 w-full z-50 transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      <header className={`px-4 md:px-6 py-4 md:py-6 pt-[max(1rem,env(safe-area-inset-top))] flex items-center justify-between border-b border-dark/20 bg-offwhite/90 backdrop-blur-sm fixed top-0 w-full z-50 transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-dark rounded-none flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-paper" viewBox="0 0 20 20" fill="currentColor">
@@ -270,7 +269,7 @@ const App: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className={`pt-20 pb-8 px-4 flex flex-col items-center min-h-screen relative transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+      <main className={`pt-24 pb-8 px-4 flex flex-col items-center min-h-screen relative transition-opacity duration-300 ${isOverlayVisible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
 
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-[-1]">
