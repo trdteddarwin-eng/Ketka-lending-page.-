@@ -1,8 +1,20 @@
 // Vercel Serverless Function: Verify Stripe payment → Fetch skill from GitHub
 
+import { applyCors, rateLimit, isValidEmail } from './_lib/guard.js';
+
+// Stripe checkout session ids look like cs_live_... / cs_test_...
+const SESSION_ID_RE = /^cs_[A-Za-z0-9_]{8,200}$/;
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  if (applyCors(req, res, 'GET, OPTIONS')) return;
   res.setHeader('Content-Type', 'application/json');
+  // Paid content — never let a shared cache hold the response.
+  res.setHeader('Cache-Control', 'no-store');
+
+  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+  // Tight limit: legit buyers need 1-2 calls. This is what makes email
+  // enumeration (guessing which emails purchased) impractical.
+  if (rateLimit(req, res, { name: 'deliver', max: 5, windowMs: 600_000 })) return;
 
   const email = req.query?.email;
   const sessionId = req.query?.session_id;
@@ -10,12 +22,19 @@ export default async function handler(req, res) {
   if (!email && !sessionId) {
     return res.status(400).json({ error: 'Provide email or session_id' });
   }
+  if (email && !isValidEmail(email)) {
+    return res.status(400).json({ error: 'Invalid email' });
+  }
+  if (sessionId && !SESSION_ID_RE.test(sessionId)) {
+    return res.status(400).json({ error: 'Invalid session id' });
+  }
 
   const STRIPE_KEY = process.env.STRIPE_SECRET_KEY;
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   if (!STRIPE_KEY || !GITHUB_TOKEN) {
-    return res.status(500).json({ error: 'Missing env vars', hasStripe: !!STRIPE_KEY, hasGithub: !!GITHUB_TOKEN });
+    console.error('deliver-skill misconfigured: missing env vars');
+    return res.status(500).json({ error: 'Server misconfigured' });
   }
 
   const SKILL_MAP = {
@@ -38,7 +57,8 @@ export default async function handler(req, res) {
     const stripeData = await stripeRes.json();
 
     if (!stripeRes.ok) {
-      return res.status(403).json({ error: 'Could not verify payment', detail: stripeData.error?.message });
+      console.error('deliver-skill stripe error:', stripeData.error?.message);
+      return res.status(403).json({ error: 'Could not verify payment' });
     }
 
     // Find ALL matching products
@@ -93,6 +113,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ skills });
 
   } catch (err) {
-    return res.status(500).json({ error: err.message || 'Unknown error' });
+    console.error('deliver-skill failed:', err);
+    return res.status(500).json({ error: 'Delivery failed. Please try again.' });
   }
 }

@@ -1,14 +1,14 @@
 // Vercel Serverless Function: Store demo email with strict rate limiting
 // 1 demo per email EVER + max 3 per IP per day
 
+import { applyCors, rateLimit, isValidEmail } from './_lib/guard.js';
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (applyCors(req, res)) return;
   res.setHeader('Content-Type', 'application/json');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (rateLimit(req, res, { name: 'store', max: 5, windowMs: 60_000 })) return;
 
   const SUPABASE_URL = process.env.SUPABASE_URL;
   const SUPABASE_KEY = process.env.SUPABASE_KEY;
@@ -22,6 +22,10 @@ export default async function handler(req, res) {
 
     if (!email || typeof email !== 'string') {
       return res.status(400).json({ allowed: false, reason: 'Missing email' });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ allowed: false, reason: 'Invalid email format' });
     }
 
     // Get client IP

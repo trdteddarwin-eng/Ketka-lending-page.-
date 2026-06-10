@@ -1,15 +1,22 @@
 // Vercel Serverless Function: Demo lead gen pipeline (Apify + AnyMailFinder)
 
+import { applyCors, rateLimit, isValidEmail } from './_lib/guard.js';
+
 export const config = { maxDuration: 60 };
 
+// Letters (any language), digits, spaces, and basic punctuation people type
+// into "industry" / "location" — blocks URLs, injection junk, and oversized blobs.
+const SEARCH_TERM_RE = /^[\p{L}\p{N}\s&.,'’()/\-]{2,80}$/u;
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (applyCors(req, res)) return;
   res.setHeader('Content-Type', 'application/json');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  // This endpoint spends real money (Apify run + AnyMailFinder credits) on a
+  // cache miss, so it gets the strictest per-IP limits of the whole API.
+  if (rateLimit(req, res, { name: 'leads', max: 3, windowMs: 60_000 })) return;
+  if (rateLimit(req, res, { name: 'leads-hour', max: 10, windowMs: 3_600_000 })) return;
 
   const SUPABASE_URL = process.env.SUPABASE_URL;
   const SUPABASE_KEY = process.env.SUPABASE_KEY;
@@ -21,13 +28,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { email, industry, location } = req.body || {};
+    const body = req.body || {};
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const industry = typeof body.industry === 'string' ? body.industry.trim() : '';
+    const location = typeof body.location === 'string' ? body.location.trim() : '';
 
     if (!email || !industry || !location) {
       return res.status(400).json({ error: 'Missing required fields: email, industry, location' });
     }
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email' });
+    }
+    if (!SEARCH_TERM_RE.test(industry) || !SEARCH_TERM_RE.test(location)) {
+      return res.status(400).json({ error: 'Invalid industry or location' });
+    }
 
-    // 1. RATE LIMIT CHECK
+    // 1. DEMO ACCESS CHECK — the email must have been registered through
+    // /api/store-demo-email first. Without this gate, any unregistered email
+    // (0 rows) would pass straight through to a paid Apify run.
     const countRes = await fetch(
       `${SUPABASE_URL}/rest/v1/demo_users?email=eq.${encodeURIComponent(email)}&select=id`,
       {
@@ -43,6 +61,9 @@ export default async function handler(req, res) {
     }
 
     const rows = await countRes.json();
+    if (rows.length === 0) {
+      return res.status(403).json({ error: 'Please start the demo from the demo page first.' });
+    }
     if (rows.length > 3) {
       return res.status(403).json({ error: 'Demo limit reached for this email' });
     }
@@ -94,7 +115,8 @@ export default async function handler(req, res) {
 
     if (!apifyRunRes.ok) {
       const errText = await apifyRunRes.text();
-      return res.status(500).json({ error: 'Failed to start search', detail: errText });
+      console.error('Apify run failed:', errText.slice(0, 500));
+      return res.status(500).json({ error: 'Failed to start search. Please try again.' });
     }
 
     const apifyRun = await apifyRunRes.json();

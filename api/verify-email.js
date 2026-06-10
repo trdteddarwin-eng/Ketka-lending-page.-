@@ -1,16 +1,16 @@
 // Vercel Serverless Function: Verify email via MX record lookup
 
 import dns from 'dns';
+import { applyCors, rateLimit, isValidEmail } from './_lib/guard.js';
+
 const dnsPromises = dns.promises;
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (applyCors(req, res)) return;
   res.setHeader('Content-Type', 'application/json');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (rateLimit(req, res, { name: 'verify', max: 10, windowMs: 60_000 })) return;
 
   try {
     const { email } = req.body || {};
@@ -19,14 +19,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ valid: false, reason: 'Missing email' });
     }
 
-    // Basic format check
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       return res.status(200).json({ valid: false, reason: 'Invalid email format' });
     }
 
     // Extract domain
     const domain = email.split('@')[1];
+    if (domain.length > 253 || domain.includes('..')) {
+      return res.status(200).json({ valid: false, reason: 'Invalid email format' });
+    }
 
     // DNS MX lookup
     try {
@@ -42,6 +43,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ valid: false, reason: 'DNS lookup failed' });
     }
   } catch (err) {
-    return res.status(500).json({ valid: false, reason: err.message || 'Unknown error' });
+    console.error('verify-email failed:', err);
+    return res.status(500).json({ valid: false, reason: 'Verification failed' });
   }
 }
